@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 11:13:04 by fclaus-g          #+#    #+#              #
-#    Updated: 2024/05/30 12:59:37 by fclaus-g         ###   ########.fr        #
+#    Updated: 2024/06/03 12:24:46 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= so_long
+NAME	= cub3d
 
 DEF_COLOR	= \033[0;39m
 VERDE		= \033[1;92m
@@ -63,30 +63,11 @@ libpf :
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<\n)"
 
 
-#COMPILACION EN CASA
+#COMPILACION
 $(NAME): $(OBJS)
-	@echo "\n$(AMARILLO) **** Compilando SO_LONG **** $(DEF_COLOR)\n"
+	@echo "\n$(AMARILLO) **** Compilando CUB3D **** $(DEF_COLOR)\n"
 	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
-	@echo "\n$(VERDE) **** SO_LONG compilado **** $(DEF_COLOR)\n"
-
-#COMPILACION EN 42
-#$(NAME) : $(OBJS)
-#	@echo "\n$(AMARILLO) **** Compilando SO_LONG **** $(DEF_COLOR)\n"
-#	${CC} $(CFLAGS) $(OBJS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(LIBS42) -o $(NAME)
-#	@echo "\n$(VERDE) **** SO_LONG compilado **** $(DEF_COLOR)\n"
-
-#$(OBJ) : $(SRC)
-#	$(CC) $(CFLAGS) $(SRC)
-
-#COMPILACION BONUS EN CASA
-bonus : libmlx libft libgnl libpf $(BONUSOBJ)
-	@echo "\n$(AMARILLO) **** Compilando SO_LONG_BONUS **** $(DEF_COLOR)\n"
-	@$(CC) $(CFLAGS) $(BONUSOBJ) $(LIBS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(HEADERS) -o so_long_bonus
-	@echo "\n$(VERDE) **** SO_LONG_BONUS compilado **** $(DEF_COLOR)\n"
-
-#COMPILACION BONUS EN 42
-#bonus : $(BONUSOBJ)
-#	${CC} $(CFLAGS) $(BONUSOBJ) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(LIBS42) -o so_long_bonus
+	@echo "\n$(VERDE) **** CUB3D compilado **** $(DEF_COLOR)\n"
 
 %.o: bonus/%.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<\n)"
