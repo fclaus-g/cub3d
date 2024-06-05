@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:11:34 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/04 13:30:22 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:01:11 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,28 @@
 //ESTRUCTURAS
 typedef struct s_pdv
 {
-	float x;
-	float y;
+	float x;//horizontal
+	float y;//vertical
 	float angle;
 } t_pdv;
 
+typedef struct s_map
+{
+	int weigth;//ancho
+	int width;//alto
+	char **map;
+} t_map;
+
 typedef struct s_game
 {
+	mlx_t *mlx;
+	t_map map;
 	t_pdv player;
 	
 } t_game;
+
+//FUNCIONES
+void ft_hook(void *mlx);
+void ft_init_struct(t_game *cub);
+void ft_init_minimap(t_game *cub);
 #endif
