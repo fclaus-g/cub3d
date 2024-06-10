@@ -1,0 +1,7 @@
+# Ejecutables
+*.exe
+*.out
+cube3d
+
+# Objetos
+*.o
