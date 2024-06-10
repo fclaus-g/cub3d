@@ -1,7 +1,13 @@
-# Ejecutables
+# OS and editor stuff
+.DS_Store
+Thumbs.db
+.vscode
+
+# Executables
 *.exe
 *.out
-cube3d
+cub3d
+so_long
 
 # Objetos
 *.o
