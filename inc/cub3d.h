@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:11:34 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/05 20:01:11 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:49:09 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,59 @@
 #include "../lib/get_next_line/get_next_line.h"
 #include "../lib/ft_printf/ft_printf.h"
 
-# define PIX 64//tamaño de cada cuadro de la cuadricula
-# define MOV 4//velocidad de movimiento del player
-
-
-//ESTRUCTURAS
-typedef struct s_pdv
-{
-	float x;//horizontal
-	float y;//vertical
-	float angle;
-} t_pdv;
+# define PIX 64
+# define MOV 4
 
 typedef struct s_map
 {
-	int weigth;//ancho
-	int width;//alto
-	char **map;
-} t_map;
+	char		**map;
+	int		rows;
+	int		cols;
+	int		w_px;
+	int		h_px;
+}				t_map;
+
+
 
 typedef struct s_game
 {
-	mlx_t *mlx;
 	t_map map;
-	t_pdv player;
-	
-} t_game;
+	void *mlx;
 
-//FUNCIONES
-void ft_hook(void *mlx);
-void ft_init_struct(t_game *cub);
+	int x_p;
+	int y_p;
+	int ins_floor;
+	int ins_wall;
+
+	mlx_image_t *mini;
+	mlx_image_t *wall;
+	mlx_image_t *floor;
+	mlx_image_t *player;
+}				t_game;
+
+void ft_init_data(t_game *cub);
+/*----------[paint_minimap]----------------*/
 void ft_init_minimap(t_game *cub);
+void ft_draw_map(t_game *cub);
+void ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
+void ft_draw_player(mlx_image_t *mini, int y, int x, int color);
+
+/*-----------[paint_map_2d]----------------*/
+void ft_init_map2d(t_game *cub);
+void ft_load_images(t_game *cub);
+void ft_render_wall_and_floor(t_game *cub);
+void ft_render_player(t_game *cub);
+
+/*-----------[moves]-----------------------*/
+void ft_keys_moves(t_game *cub);
+void ft_move_up(t_game *cub);
+void ft_move_down(t_game *cub);
+void ft_move_left(t_game *cub);
+void ft_move_right(t_game *cub);
+void ft_move_P_y(t_game *cub, int dir);
+void ft_move_P_x(t_game *cub, int dir);
+
+
+void ft_hook(void *param);
 #endif
+
