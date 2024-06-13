@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3moves.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:32:13 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/12 17:50:01 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:47:01 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,9 @@ void	ft_move_up(t_game *cub)
 	y =cub->player->instances[0].y;
 	if (cub->map.map[(y - MOV) / PIX][(x + 10)/ PIX] != '1' 
 		&& cub->map.map[(y - MOV) / PIX][(x + 50) / PIX] != '1')
-	{
-		if (cub->map.map[(y + 15 - MOV) / PIX][(x + 20)/ PIX] != 'E' 
-			&& cub->map.map[(y + 15 - MOV) / PIX][(x + 40) / PIX] != 'E')
-			ft_move_P_y(cub, -1);
-	}
-
-}
-
-void	ft_move_P_y(t_game *cub, int direccion)
-{
-	if (direccion > 0)
-		cub->player->instances[0].y += MOV;
-	if (direccion < 0)
 		cub->player->instances[0].y -= MOV;	
 }
 
-void	ft_move_P_x(t_game *cub, int direccion)
-{
-	if (direccion > 0)
-		cub->player->instances[0].x += MOV;
-
-	if (direccion < 0)
-		cub->player->instances[0].x -= MOV;
-}
 void	ft_move_down(t_game *cub)
 {
 	int y;
@@ -76,11 +55,7 @@ void	ft_move_down(t_game *cub)
 	y = cub->player->instances[0].y;
 	if (cub->map.map[((y + 60) + MOV) / PIX][(x + 10) / PIX] != '1'
 		&& cub->map.map[((y + 60) + MOV) / PIX][(x + 50) / PIX] != '1')
-	{
-		if(cub->map.map[((y + 55) + MOV) / PIX][(x + 25) / PIX] != 'E'
-			&& cub->map.map[((y + 55) + MOV) / PIX][(x + 35) / PIX] != 'E')
-			ft_move_P_y(cub, 1);
-	}
+		cub->player->instances[0].y += MOV;
 }
 
 void	ft_move_left(t_game *cub)
@@ -93,11 +68,7 @@ void	ft_move_left(t_game *cub)
 	//ft_player_direction(cub, 'L');
 	if (cub->map.map[(y) / PIX][((x + 10) - MOV) / PIX] != '1'
 		&& cub->map.map[((y + 60)) / PIX][((x + 10) - MOV) / PIX] != '1')
-	{
-		if (cub->map.map[(y + 10) / PIX][((x + 15) - MOV) / PIX] != 'E'
-		&& cub->map.map[((y + 50)) / PIX][((x + 15) - MOV) / PIX] != 'E')
-		ft_move_P_x(cub, -1);
-	}
+		cub->player->instances[0].x -= MOV;
 }
 
 void	ft_move_right(t_game *cub)
@@ -110,9 +81,5 @@ void	ft_move_right(t_game *cub)
 	//ft_player_direction(cub, 'R');
 	if (cub->map.map[(y) / PIX][((x + 50) + MOV)/ PIX] != '1'
 		&& cub->map.map[((y + 60)) / PIX][((x + 50) + MOV) / PIX] != '1')
-	{
-		if (cub->map.map[(y + 10) / PIX][((x + 40) + MOV)/ PIX] != 'E'
-		&& cub->map.map[((y + 50)) / PIX][((x + 40) + MOV) / PIX] != 'E')
-		ft_move_P_x(cub, 1);
-	}
+		cub->player->instances[0].x += MOV;
 }
