@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   2paint_minimap.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 19:51:30 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/14 12:23:52 by fclaus-g         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/cub3d.h"
 
 void ft_init_minimap(t_game *cub)
@@ -17,13 +5,14 @@ void ft_init_minimap(t_game *cub)
 	ft_printf("Inicializando mapa\n");
 
 	// Crear una nueva imagen para el suelo
-	cub->mini = mlx_new_image(cub->mlx, cub->map.w_px, cub->map.h_px);
+	cub->mini_w = cub->map.w_px / 4;
+    cub->mini_h = cub->map.h_px / 4;
+	cub->mini = mlx_new_image(cub->mlx, cub->mini_w, cub->mini_h);
 	if (!cub->mini)
 	{
 		ft_printf("Falló la creación de la imagen\n");
 		exit(1);
 	}
-
 	ft_draw_map(cub);
 	mlx_image_to_window(cub->mlx, cub->mini, 0, 0);
 }
@@ -34,20 +23,15 @@ void ft_draw_map(t_game *cub)
 	int x;
 
 	y = -1;
-	while (++y < cub->map.rows)
+	while (++y < cub->mini_h)
 	{
-		x = -1;
-		while (++x < cub->map.cols)
+		x = 0;
+		while (++x < cub->mini_w)
 		{
-			if (cub->map.map[y][x] == '1')
-				ft_draw_square(cub->mini, y * PIX, x * PIX, 0xff0000ff);
-			else if (cub->map.map[y][x] == 'P')
-			{
-				ft_draw_square(cub->mini, y * PIX, x * PIX, 0xff00ffff);
-				ft_draw_player(cub->mini, (cub->pl.y * PIX) + 24, (cub->pl.x * PIX) + 24, 0xffffffff);
-			}
+			if (cub->map.map[y / (PIX/4)][x / (PIX/4)] == '1')
+				mlx_put_pixel(cub->mini, x, y, 0xff0000ff);
 			else
-				ft_draw_square(cub->mini, y * PIX, x * PIX, 0xff00ffff);
+				mlx_put_pixel(cub->mini, x, y, 0xff00ffff);	
 		}
 	}
 }

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   3paint_map2d.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/11 13:04:03 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/14 13:01:24 by fclaus-g         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/cub3d.h"
 
 void ft_init_map2d(t_game *cub)
@@ -33,7 +21,7 @@ void ft_load_images(t_game *cub)
 	cub->floor = mlx_texture_to_image(cub->mlx, aux);
 	mlx_delete_texture(aux);
 	aux = mlx_load_png("texture/0.png");
-	cub->player = mlx_texture_to_image(cub->mlx, aux);
+	cub->plyr = mlx_texture_to_image(cub->mlx, aux);
 	mlx_delete_texture(aux);
 }
 
@@ -90,9 +78,9 @@ void ft_find_player(t_game *cub)
 		{
 			if (ft_strchr("NSEW", cub->map.map[y][x]))
 			{
-				cub->pl.x = x;
-				cub->pl.y = y;
-				cub->pl.angle = ft_player_lookat_angle(cub->map.map[y][x]);
+				cub->player.x = x;
+				cub->player.y = y;
+				cub->player.angle = ft_player_lookat_angle(cub->map.map[y][x]);
 				return ;
 			}
 		}
@@ -101,7 +89,6 @@ void ft_find_player(t_game *cub)
 
 void  ft_render_player(t_game *cub)
 {
-	ft_find_player(cub);
-	mlx_image_to_window(cub->mlx, cub->player, cub->x_p * PIX, cub->y_p * PIX);
-	mlx_set_instance_depth(&cub->player->instances[0], 10);
+	mlx_image_to_window(cub->mlx, cub->plyr, cub->player.x * PIX, cub->player.y * PIX);
+	mlx_set_instance_depth(&cub->plyr->instances[0], 10);
 }

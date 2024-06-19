@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 11:11:34 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/14 13:00:36 by fclaus-g         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -42,20 +30,21 @@ typedef struct splayer
 
 typedef struct s_game
 {
-	t_map map;
 	void *mlx;
-
-	t_player pl;
+	t_map map;
+	t_player player;
 
 	int x_p;
 	int y_p;
 	int ins_floor;
 	int ins_wall;
+	int mini_w;
+	int mini_h;
 
 	mlx_image_t *mini;
 	mlx_image_t *wall;
 	mlx_image_t *floor;
-	mlx_image_t *player;
+	mlx_image_t *plyr;
 }				t_game;
 
 void ft_init_data(t_game *cub);
