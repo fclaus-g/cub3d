@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/14 11:13:04 by fclaus-g          #+#    #+#              #
-#    Updated: 2024/06/08 19:05:20 by fclaus-g         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME	= cub3d
 
 DEF_COLOR	= \033[0;39m
@@ -25,7 +13,7 @@ LIBPF	= ./lib/ft_printf
 LIBGNL	= ./lib/get_next_line
 
 #COMPILADOR
-CFLAGS	= -Wextra -Wall -Werror -Wunreachable-code -Ofast -fPIE
+CFLAGS	= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast -fPIE
 HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) -I $(LIBPF)#esto es para que busque los .h en la carpeta include
 LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
@@ -64,7 +52,7 @@ libpf :
 
 
 #COMPILACION
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) inc/cub3d.h
 	@echo "\n$(AMARILLO) **** Compilando CUB3D **** $(DEF_COLOR)\n"
 	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
 	@echo "\n$(VERDE) **** CUB3D compilado **** $(DEF_COLOR)\n"
