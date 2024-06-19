@@ -41,7 +41,7 @@ void ft_hook(void *param)
     cub = (t_game *)param;
     ft_keys_moves(cub);
     ft_draw_map(cub);
-    //ft_draw_player(cub->mini, ((cub->player.y * PIX)/4) + 24, ((cub->player.x * PIX)/4) + 24, 0xffffff00);
+    ft_draw_player(cub->mini, ((cub->player.y)/4), ((cub->player.x)/4), 0xffffff00);
 }
 
 int main(void)

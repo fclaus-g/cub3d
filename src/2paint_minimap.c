@@ -42,11 +42,12 @@ void ft_draw_player(mlx_image_t *mini, int y, int x, int color)
 	int j;
 
 	i = -1;
-	while (++i < 16)
+	while (++i < PLAYER_MINIMAP_SIZE)
 	{
 		j = -1;
-		while (++j < 16)
+		while (++j < PLAYER_MINIMAP_SIZE)
 		{
+			// printf("y: %d, x: %d\n", y + i, x + j);
 			mlx_put_pixel(mini, x + j, y + i, color);
 		}
 	}
