@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3moves.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:32:13 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/13 13:47:01 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:58:17 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,15 @@ void	ft_move_up(t_game *cub)
 	int y;
 	int x;
 
-	x =cub->player->instances[0].x;
-	y =cub->player->instances[0].y;
+	x =cub->plyr->instances[0].x;
+	y =cub->plyr->instances[0].y;
 	if (cub->map.map[(y - MOV) / PIX][(x + 10)/ PIX] != '1' 
 		&& cub->map.map[(y - MOV) / PIX][(x + 50) / PIX] != '1')
-		cub->player->instances[0].y -= MOV;	
+	{
+		cub->plyr->instances[0].y -= MOV;
+		cub->player.y -= 1;
+	}
+		
 }
 
 void	ft_move_down(t_game *cub)
@@ -51,11 +55,14 @@ void	ft_move_down(t_game *cub)
 	int y;
 	int x;
 
-	x = cub->player->instances[0].x;
-	y = cub->player->instances[0].y;
+	x = cub->plyr->instances[0].x;
+	y = cub->plyr->instances[0].y;
 	if (cub->map.map[((y + 60) + MOV) / PIX][(x + 10) / PIX] != '1'
 		&& cub->map.map[((y + 60) + MOV) / PIX][(x + 50) / PIX] != '1')
-		cub->player->instances[0].y += MOV;
+	{
+		cub->plyr->instances[0].y += MOV;
+		cub->player.y += 1;
+	}
 }
 
 void	ft_move_left(t_game *cub)
@@ -63,12 +70,15 @@ void	ft_move_left(t_game *cub)
 	int y;
 	int x;
 
-	x = cub->player->instances[0].x;
-	y = cub->player->instances[0].y;
+	x = cub->plyr->instances[0].x;
+	y = cub->plyr->instances[0].y;
 	//ft_player_direction(cub, 'L');
 	if (cub->map.map[(y) / PIX][((x + 10) - MOV) / PIX] != '1'
 		&& cub->map.map[((y + 60)) / PIX][((x + 10) - MOV) / PIX] != '1')
-		cub->player->instances[0].x -= MOV;
+	{
+		cub->plyr->instances[0].x -= MOV;
+		cub->player.x -= 1;
+	}
 }
 
 void	ft_move_right(t_game *cub)
@@ -76,10 +86,13 @@ void	ft_move_right(t_game *cub)
 	int y;
 	int x;
 
-	x = cub->player->instances[0].x;
-	y = cub->player->instances[0].y;
+	x = cub->plyr->instances[0].x;
+	y = cub->plyr->instances[0].y;
 	//ft_player_direction(cub, 'R');
 	if (cub->map.map[(y) / PIX][((x + 50) + MOV)/ PIX] != '1'
 		&& cub->map.map[((y + 60)) / PIX][((x + 50) + MOV) / PIX] != '1')
-		cub->player->instances[0].x += MOV;
+	{
+		cub->plyr->instances[0].x += MOV;
+		cub->player.x += 1;
+	}
 }

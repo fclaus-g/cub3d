@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:04:03 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/12 17:32:59 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:12:26 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void ft_load_images(t_game *cub)
 	cub->floor = mlx_texture_to_image(cub->mlx, aux);
 	mlx_delete_texture(aux);
 	aux = mlx_load_png("texture/0.png");
-	cub->player = mlx_texture_to_image(cub->mlx, aux);
+	cub->plyr = mlx_texture_to_image(cub->mlx, aux);
 	mlx_delete_texture(aux);
 }
 
@@ -66,6 +66,6 @@ void ft_render_wall_and_floor(t_game *cub)
 
 void  ft_render_player(t_game *cub)
 {
-	mlx_image_to_window(cub->mlx, cub->player, cub->x_p * PIX, cub->y_p * PIX);
-	mlx_set_instance_depth(&cub->player->instances[0], 10);
+	mlx_image_to_window(cub->mlx, cub->plyr, cub->player.x * PIX, cub->player.y * PIX);
+	mlx_set_instance_depth(&cub->plyr->instances[0], 10);
 }

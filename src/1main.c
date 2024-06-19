@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:19:56 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/13 13:44:53 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:52:45 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ void ft_init_data(t_game *cub)
     cub->map.map[3] = "100P0000001";
     cub->map.map[4] = "11111111111";
     
-    cub->x_p = 3;
-    cub->y_p = 3;
+    cub->player.x = 3;
+    cub->player.y = 3;
+
     cub->map.rows = 5;
     cub->map.cols = 11; // Cambié 12 a 11 ya que los strings del mapa tienen longitud 11
     cub->map.w_px = cub->map.cols * PIX;
@@ -50,6 +51,8 @@ void ft_hook(void *param)
 
     cub = (t_game *)param;
     ft_keys_moves(cub);
+    ft_draw_map(cub);
+    ft_draw_player(cub->mini, ((cub->player.y * PIX)/4) + 24, ((cub->player.x * PIX)/4) + 24, 0xffffff00);
 }
 
 int main(void)
@@ -65,8 +68,8 @@ int main(void)
         exit(1);
     }
 
+    ft_init_map2d(&cub);
     ft_init_minimap(&cub);
-    //ft_init_map2d(&cub);
     mlx_loop_hook(cub.mlx, &ft_hook, &cub);
     mlx_loop(cub.mlx);
 

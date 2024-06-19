@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:11:34 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/12 17:49:09 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:00:18 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,27 @@ typedef struct s_map
 	int		h_px;
 }				t_map;
 
+typedef struct s_player
+{
+	int x;
+	int y;
+}				t_player;
 
 
 typedef struct s_game
 {
-	t_map map;
 	void *mlx;
-
-	int x_p;
-	int y_p;
+	t_map map;
+	t_player player;
+	int mini_w;
+	int mini_h;
 	int ins_floor;
 	int ins_wall;
 
 	mlx_image_t *mini;
 	mlx_image_t *wall;
 	mlx_image_t *floor;
-	mlx_image_t *player;
+	mlx_image_t *plyr;
 }				t_game;
 
 void ft_init_data(t_game *cub);
