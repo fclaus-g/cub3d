@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2paint_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:51:30 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/11 13:00:23 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:23:52 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void ft_draw_map(t_game *cub)
 			else if (cub->map.map[y][x] == 'P')
 			{
 				ft_draw_square(cub->mini, y * PIX, x * PIX, 0xff00ffff);
-				ft_draw_player(cub->mini, (cub->y_p * PIX) + 24, (cub->x_p * PIX) + 24, 0xffffffff);
+				ft_draw_player(cub->mini, (cub->pl.y * PIX) + 24, (cub->pl.x * PIX) + 24, 0xffffffff);
 			}
 			else
 				ft_draw_square(cub->mini, y * PIX, x * PIX, 0xff00ffff);

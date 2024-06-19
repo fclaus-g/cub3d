@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:19:56 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/13 13:44:53 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:27:49 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int main(void)
         exit(1);
     }
 
-    ft_init_minimap(&cub);
-    //ft_init_map2d(&cub);
+    //ft_init_minimap(&cub);
+    ft_init_map2d(&cub);
     mlx_loop_hook(cub.mlx, &ft_hook, &cub);
     mlx_loop(cub.mlx);
 

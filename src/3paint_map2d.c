@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3paint_map2d.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:04:03 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/12 17:32:59 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:01:24 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,44 @@ void ft_render_wall_and_floor(t_game *cub)
 	}
 }
 
+double	ft_player_lookat_angle(char c)
+{
+	if (c == 'N')
+		return (PI / 2);
+	else if (c == 'S')
+		return (PI * 3 / 2);
+	else if (c == 'E')
+		return (0);
+	else if (c == 'W')
+		return (PI);
+	return (PI / 2);
+}
+
+void ft_find_player(t_game *cub)
+{
+	int y;
+	int x;
+
+	y = -1;
+	while(++y < cub->map.rows)
+	{
+		x = -1;
+		while (++x < cub->map.cols)
+		{
+			if (ft_strchr("NSEW", cub->map.map[y][x]))
+			{
+				cub->pl.x = x;
+				cub->pl.y = y;
+				cub->pl.angle = ft_player_lookat_angle(cub->map.map[y][x]);
+				return ;
+			}
+		}
+	}
+}
+
 void  ft_render_player(t_game *cub)
 {
+	ft_find_player(cub);
 	mlx_image_to_window(cub->mlx, cub->player, cub->x_p * PIX, cub->y_p * PIX);
 	mlx_set_instance_depth(&cub->player->instances[0], 10);
 }

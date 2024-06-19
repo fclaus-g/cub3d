@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:11:34 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/06/12 17:49:09 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:00:36 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#include <math.h>
 #include "../MLX42/include/MLX42/MLX42.h"
 #include "../lib/libft/libft.h"
 #include "../lib/get_next_line/get_next_line.h"
 #include "../lib/ft_printf/ft_printf.h"
 
+# define PI M_PI
 # define PIX 64
 # define MOV 4
+# define VISION_ANGLE PI / 3
 
 typedef struct s_map
 {
@@ -30,12 +33,19 @@ typedef struct s_map
 	int		h_px;
 }				t_map;
 
-
+typedef struct splayer
+{
+	int		x;
+	int		y;
+	double	angle;
+}				t_player;
 
 typedef struct s_game
 {
 	t_map map;
 	void *mlx;
+
+	t_player pl;
 
 	int x_p;
 	int y_p;
@@ -67,8 +77,6 @@ void ft_move_up(t_game *cub);
 void ft_move_down(t_game *cub);
 void ft_move_left(t_game *cub);
 void ft_move_right(t_game *cub);
-void ft_move_P_y(t_game *cub, int dir);
-void ft_move_P_x(t_game *cub, int dir);
 
 
 void ft_hook(void *param);
