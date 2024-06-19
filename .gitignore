@@ -7,7 +7,6 @@ Thumbs.db
 *.exe
 *.out
 cub3d
-so_long
 
 # Objetos
 *.o
