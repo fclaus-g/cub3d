@@ -42,10 +42,10 @@ void ft_draw_player(mlx_image_t *mini, int y, int x, int color)
 	int j;
 
 	i = -1;
-	while (++i < PLAYER_MINIMAP_SIZE)
+	while (++i < PLAYER_MINIMAP_SIZE / 4)
 	{
 		j = -1;
-		while (++j < PLAYER_MINIMAP_SIZE)
+		while (++j < PLAYER_MINIMAP_SIZE / 4)
 		{
 			// printf("y: %d, x: %d\n", y + i, x + j);
 			mlx_put_pixel(mini, x + j, y + i, color);
@@ -77,8 +77,8 @@ void ft_draw_ray(t_game *cub)
 	int x;
 	int y;
 
-	x = cub->player.x + 32;
-	y = cub->player.y;
+	x = cub->player.x + PLAYER_MINIMAP_SIZE / 2;
+	y = cub->player.y + PLAYER_MINIMAP_SIZE / 2;
 	while (cub->map.map[y / PIX][x / PIX] != '1')
 	{
 		mlx_put_pixel(cub->mini, x / 4, y / 4, 0x00ff00ff);

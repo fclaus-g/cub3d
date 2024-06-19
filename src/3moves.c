@@ -12,18 +12,18 @@ void ft_keys_moves(t_game *cub)
 		mlx_close_window(cub->mlx);
 		exit (0);
 	}
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) ||
-		mlx_is_key_down(cub->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_W))
 		ft_move_up(cub);
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_S)
-		|| mlx_is_key_down(cub->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_S))
 		ft_move_down(cub);
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_A)
-		|| mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
 		ft_move_left(cub);
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_D)
-		|| mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_D))
 		ft_move_right(cub);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+		cub->player.angle -= 0.1;
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+		cub->player.angle += 0.1;
 }
 
 void	ft_move_up(t_game *cub)

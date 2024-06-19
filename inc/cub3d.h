@@ -10,7 +10,7 @@
 # define PIX 64
 # define MOV 4
 # define VISION_ANGLE PI / 3
-# define PLAYER_MINIMAP_SIZE 16
+# define PLAYER_MINIMAP_SIZE 64
 
 typedef struct s_map
 {
