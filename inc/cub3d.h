@@ -5,7 +5,6 @@
 #include "../MLX42/include/MLX42/MLX42.h"
 #include "../lib/libft/libft.h"
 #include "../lib/get_next_line/get_next_line.h"
-#include "../lib/ft_printf/ft_printf.h"
 
 # define PI M_PI
 # define PIX 64

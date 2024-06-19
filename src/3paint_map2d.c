@@ -3,7 +3,7 @@
 void ft_init_map2d(t_game *cub)
 {
 	ft_load_images(cub);
-	ft_printf("Inicializando mapa\n");
+	printf("Inicializando mapa\n");
 	ft_render_wall_and_floor(cub);
 	ft_render_player(cub);
 

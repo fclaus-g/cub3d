@@ -9,12 +9,11 @@ AZUL		= \033[0;34m
 #DIRECTORIOS
 LIBMLX	= ./MLX42/build
 LIBFT	= ./lib/libft
-LIBPF	= ./lib/ft_printf
 LIBGNL	= ./lib/get_next_line
 
 #COMPILADOR
 CFLAGS	= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast -fPIE
-HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) -I $(LIBPF)#esto es para que busque los .h en la carpeta include
+HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) #esto es para que busque los .h en la carpeta include
 LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC		= gcc
@@ -23,17 +22,7 @@ OBJS	= ${SRCS:.c=.o}
 BONUSSRC = ${shell find ./bonus -iname "*.c"}
 BONUSOBJ = ${BONUSSRC:.c=.o}
 
-all: libmlx libft libgnl libpf $(NAME)
-
-#COMPILACION EN MAC
-# libmlx:
-# 	@echo "\n$(AMARILLO) **** Compilando MLX42 **** $(DEF_COLOR)\n"
-# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 
-# 	@echo "\n$(VERDE) **** MLX42 compilada **** $(DEF_COLOR)\n"
-
-#COMPILACION EN LINUX
-# libmlx :
-# 	@make -C ${LIBMLX}
+all: libmlx libft libgnl $(NAME)
 
 libft  :
 	@echo "\n$(AMARILLO) **** Compilando LIBFT **** $(DEF_COLOR)\n"
@@ -43,18 +32,14 @@ libgnl :
 	@echo "\n$(AMARILLO) **** Compilando GNL **** $(DEF_COLOR)\n"
 	@make -C ${LIBGNL}
 	@echo "\n$(VERDE) **** GNL compilada **** $(DEF_COLOR)\n"
-libpf :
-	@echo "\n$(AMARILLO) **** Compilando LIBPF **** $(DEF_COLOR)\n"
-	@make -C ${LIBPF}
-	@echo "\n$(VERDE) **** LIBPF compilada **** $(DEF_COLOR)\n"
+
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<\n)"
-
 
 #COMPILACION
 $(NAME): $(OBJS) inc/cub3d.h
 	@echo "\n$(AMARILLO) **** Compilando CUB3D **** $(DEF_COLOR)\n"
-	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
 	@echo "\n$(VERDE) **** CUB3D compilado **** $(DEF_COLOR)\n"
 
 %.o: bonus/%.c
@@ -64,7 +49,7 @@ $(NAME): $(OBJS) inc/cub3d.h
 #	$(CC) $(CFLAGS) $(BONUSSRC)
 
 debug:
-		@gcc -Wall -Wextra -Werror -g ./bonus/*.c $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a \
+		@gcc -Wall -Wextra -Werror -g ./bonus/*.c $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a \
 		$(LIBS42)
 		@echo "\033[0;32mArchivo debug generado"
 clean:
@@ -72,7 +57,6 @@ clean:
 	@rm -f $(OBJS)
 	@rm -f $(BONUSOBJ)
 	@make clean -C ${LIBFT}
-	@make clean -C ${LIBPF}
 	@make clean -C ${LIBGNL}
 #	@make clean -C ${LIBMLX}
 	@echo "\n$(VERDE) **** Archivos objeto borrados **** $(DEF_COLOR)\n"
@@ -81,7 +65,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f so_long_bonus
 	@make fclean -C ${LIBFT}
-	@make fclean -C ${LIBPF}
 	@make fclean -C ${LIBGNL}
 	@make clean -C ${LIBMLX}
 	@echo "\n$(VERDE) **** Ejecutable borrado **** $(DEF_COLOR)\n"

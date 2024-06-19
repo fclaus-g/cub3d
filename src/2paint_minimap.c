@@ -2,7 +2,7 @@
 
 void ft_init_minimap(t_game *cub)
 {
-	ft_printf("Inicializando mapa\n");
+	printf("Inicializando mapa\n");
 
 	// Crear una nueva imagen para el suelo
 	cub->mini_w = cub->map.w_px / 4;
@@ -10,7 +10,7 @@ void ft_init_minimap(t_game *cub)
 	cub->mini = mlx_new_image(cub->mlx, cub->mini_w, cub->mini_h);
 	if (!cub->mini)
 	{
-		ft_printf("Falló la creación de la imagen\n");
+		printf("Falló la creación de la imagen\n");
 		exit(1);
 	}
 	ft_draw_map(cub);

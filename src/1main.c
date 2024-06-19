@@ -2,13 +2,13 @@
 
 void ft_init_data(t_game *cub)
 {
-    ft_printf("Inicializando datos\n");
+    printf("Inicializando datos\n");
 
     // Asignar memoria para el array del mapa
     cub->map.map = malloc(5 * sizeof(char *));
     if (!cub->map.map)
     {
-        ft_printf("Falló la asignación de memoria\n");
+        printf("Falló la asignación de memoria\n");
         exit(1);
     }
     
@@ -53,7 +53,7 @@ int main(void)
     cub.mlx = mlx_init(cub.map.w_px, cub.map.h_px, "cub3d", 0);
     if (!cub.mlx)
     {
-        ft_printf("Falló la inicialización de MLX\n");
+        printf("Falló la inicialización de MLX\n");
         exit(1);
     }
 
