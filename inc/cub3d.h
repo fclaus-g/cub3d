@@ -23,8 +23,8 @@ typedef struct s_map
 
 typedef struct splayer
 {
-	int		x;
-	int		y;
+	double		x;
+	double		y;
 	double	angle;
 }				t_player;
 
@@ -69,5 +69,8 @@ void ft_move_right(t_game *cub);
 
 
 void ft_hook(void *param);
+
+/*-----------[utils]-----------------------*/
+void	print_player_position(t_game *cub);
 #endif
 

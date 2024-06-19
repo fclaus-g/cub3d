@@ -42,7 +42,7 @@ void ft_render_wall_and_floor(t_game *cub)
 				mlx_set_instance_depth(&cub->wall->instances[cub->ins_wall], 5);
 				cub->ins_wall++;
 			}
-			else if (cub->map.map[y][x] == '0' || cub->map.map[y][x] == 'P')
+			else if (cub->map.map[y][x] == '0' || ft_strchr("NSEW", cub->map.map[y][x]))
 			{
 				mlx_image_to_window(cub->mlx, cub->floor, x * PIX, y * PIX);
 				mlx_set_instance_depth(&cub->floor->instances[cub->ins_floor], 1);
@@ -89,6 +89,6 @@ void ft_find_player(t_game *cub)
 
 void  ft_render_player(t_game *cub)
 {
-	mlx_image_to_window(cub->mlx, cub->plyr, cub->player.x * PIX, cub->player.y * PIX);
+	mlx_image_to_window(cub->mlx, cub->plyr, cub->player.x, cub->player.y);
 	mlx_set_instance_depth(&cub->plyr->instances[0], 10);
 }

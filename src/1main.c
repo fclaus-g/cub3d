@@ -16,11 +16,12 @@ void ft_init_data(t_game *cub)
     cub->map.map[0] = "11111111111";
     cub->map.map[1] = "10000000001";
     cub->map.map[2] = "10000111001";
-    cub->map.map[3] = "100P0000001";
+    cub->map.map[3] = "100N0000001";
     cub->map.map[4] = "11111111111";
+    // cub->player = malloc(sizeof(t_player));
     
-    cub->player.x = 3;
-    cub->player.y = 3;
+    cub->player.y = 3.0 * PIX;
+    cub->player.x = 3.0 * PIX;
 
     cub->map.rows = 5;
     cub->map.cols = 11; // Cambié 12 a 11 ya que los strings del mapa tienen longitud 11
@@ -28,7 +29,7 @@ void ft_init_data(t_game *cub)
     cub->map.h_px = cub->map.rows * PIX;
     cub->ins_floor = 0;
     cub->ins_wall = 0;
-
+    print_player_position(cub);
 }
 
 
@@ -40,7 +41,7 @@ void ft_hook(void *param)
     cub = (t_game *)param;
     ft_keys_moves(cub);
     ft_draw_map(cub);
-    ft_draw_player(cub->mini, ((cub->player.y * PIX)/4) + 24, ((cub->player.x * PIX)/4) + 24, 0xffffff00);
+    //ft_draw_player(cub->mini, ((cub->player.y * PIX)/4) + 24, ((cub->player.x * PIX)/4) + 24, 0xffffff00);
 }
 
 int main(void)
