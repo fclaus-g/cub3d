@@ -71,3 +71,18 @@ void ft_draw_square(mlx_image_t *canvas, int y, int x, int color)
 		}
 	}
 }
+
+void ft_draw_ray(t_game *cub)
+{
+	int x;
+	int y;
+
+	x = cub->player.x + 32;
+	y = cub->player.y;
+	while (cub->map.map[y / PIX][x / PIX] != '1')
+	{
+		mlx_put_pixel(cub->mini, x / 4, y / 4, 0x00ff00ff);
+		x += sin(cub->player.angle) * 4;
+		y -= cos(cub->player.angle) * 4;
+	}
+}

@@ -53,6 +53,7 @@ void ft_init_minimap(t_game *cub);
 void ft_draw_map(t_game *cub);
 void ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
 void ft_draw_player(mlx_image_t *mini, int y, int x, int color);
+void ft_draw_ray(t_game *cub);
 
 /*-----------[paint_map_2d]----------------*/
 void ft_init_map2d(t_game *cub);
