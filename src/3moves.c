@@ -31,12 +31,11 @@ void	ft_move_up(t_game *cub)
 	int y;
 	int x;
 
-	x =cub->plyr->instances[0].x;
-	y =cub->plyr->instances[0].y;
+	x =cub->player.x;
+	y =cub->player.y;
 	if (cub->map.map[(y - MOV) / PIX][(x + 10)/ PIX] != '1' 
 		&& cub->map.map[(y - MOV) / PIX][(x + 50) / PIX] != '1')
 	{
-		cub->plyr->instances[0].y -= MOV;
 		cub->player.y = cub->player.y - MOV;
 		print_player_position(cub);
 	}
@@ -47,13 +46,12 @@ void	ft_move_down(t_game *cub)
 	int y;
 	int x;
 
-	x = cub->plyr->instances[0].x;
-	y = cub->plyr->instances[0].y;
+	x = cub->player.x;
+	y = cub->player.y;
 	if (cub->map.map[((y + 60) + MOV) / PIX][(x + 10) / PIX] != '1'
 		&& cub->map.map[((y + 60) + MOV) / PIX][(x + 50) / PIX] != '1')
 	{
-		cub->plyr->instances[0].y += MOV;
-		cub->player.y += MOV;
+	 	cub->player.y += MOV;
 		print_player_position(cub);
 	}
 }
@@ -63,12 +61,11 @@ void	ft_move_left(t_game *cub)
 	int y;
 	int x;
 
-	x = cub->plyr->instances[0].x;
-	y = cub->plyr->instances[0].y;
+	x = cub->player.x;
+	y = cub->player.y;
 	if (cub->map.map[(y) / PIX][((x + 10) - MOV) / PIX] != '1'
 		&& cub->map.map[((y + 60)) / PIX][((x + 10) - MOV) / PIX] != '1')
 	{
-		cub->plyr->instances[0].x -= MOV;
 		cub->player.x -= MOV;
 		print_player_position(cub);
 	}
@@ -79,13 +76,12 @@ void	ft_move_right(t_game *cub)
 	int y;
 	int x;
 
-	x = cub->plyr->instances[0].x;
-	y = cub->plyr->instances[0].y;
+	x = cub->player.x;
+	y = cub->player.y;
 	//ft_player_direction(cub, 'R');
 	if (cub->map.map[(y) / PIX][((x + 50) + MOV)/ PIX] != '1'
 		&& cub->map.map[((y + 60)) / PIX][((x + 50) + MOV) / PIX] != '1')
 	{
-		cub->plyr->instances[0].x += MOV;
 		cub->player.x += MOV;
 		print_player_position(cub);
 	}
