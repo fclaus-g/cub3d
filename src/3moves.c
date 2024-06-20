@@ -33,8 +33,8 @@ void	ft_move_up(t_game *cub)
 
 	x =cub->plyr->instances[0].x;
 	y =cub->plyr->instances[0].y;
-	if (cub->map.map[(y - MOV) / PIX][(x)/ PIX] != '1' 
-		&& cub->map.map[(y - MOV) / PIX][(x) / PIX] != '1')
+	if (cub->map.map[(y - MOV) / PIX][(x + 10)/ PIX] != '1' 
+		&& cub->map.map[(y - MOV) / PIX][(x + 50) / PIX] != '1')
 	{
 		cub->plyr->instances[0].y -= MOV;
 		cub->player.y = cub->player.y - MOV;
