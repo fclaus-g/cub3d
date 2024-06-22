@@ -262,8 +262,8 @@ void	print_scene(t_cub3d *cub)
 	printf("SO: %s\n", cub->scene.textures.so);
 	printf("WE: %s\n", cub->scene.textures.we);
 	printf("EA: %s\n", cub->scene.textures.ea);
-	printf("F: %d, %d, %d\n", cub->scene.textures.floor.r, cub->scene.textures.floor.g, cub->scene.textures.floor.b);
-	printf("C: %d, %d, %d\n", cub->scene.textures.ceil.r, cub->scene.textures.ceil.g, cub->scene.textures.ceil.b);
+	printf("F: %d,%d,%d\n", cub->scene.textures.floor.r, cub->scene.textures.floor.g, cub->scene.textures.floor.b);
+	printf("C: %d,%d,%d\n", cub->scene.textures.ceil.r, cub->scene.textures.ceil.g, cub->scene.textures.ceil.b);
 	printf("Lines:\n");
 	ft_lstiter(cub->map.lines, &ft_print_map_line);
 	printf("Map (%dx%d), padding_left_remove(%d):\n", cub->map.rows, cub->map.cols, cub->map.left_padding);
@@ -435,6 +435,41 @@ void	fill_map_matrix(t_cub3d *cub)
 	cub->map.map[i] = NULL;
 }
 
+
+int	check_if_map_is_closed(t_cub3d *cub)
+{
+	int		i;
+	int		j;
+	char	c;
+
+	i = 0;
+	while (i < cub->map.rows)
+	{
+		j = 0;
+		while (j < cub->map.cols)
+		{
+			c = cub->map.map[i][j];
+			if (c == '0' || is_map_player(c))
+			{
+				if (i == 0 || i == cub->map.rows - 1 || j == 0 || j == cub->map.cols - 1)
+					return (0);
+				if (i > 0 && cub->map.map[i - 1][j] == MAP_FILL_SPACE)
+					return (0);
+				if (i < cub->map.rows - 1 && cub->map.map[i + 1][j] == MAP_FILL_SPACE)
+					return (0);
+				if (j > 0 && cub->map.map[i][j - 1] == MAP_FILL_SPACE)
+					return (0);
+				if (j < cub->map.cols - 1 && cub->map.map[i][j + 1] == MAP_FILL_SPACE)
+					return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+
 int	read_and_parse_scene(char *path, t_cub3d *cub)
 {
 	int		fd;
@@ -463,6 +498,11 @@ int	read_and_parse_scene(char *path, t_cub3d *cub)
 	if (!is_scene_completed(cub))
 	{
 		show_error("Scene is missing required elements.");
+		return (0);
+	}
+	if (!check_if_map_is_closed(cub))
+	{
+		show_error("Map is not closed.");
 		return (0);
 	}
 	return (1);
