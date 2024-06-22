@@ -58,8 +58,7 @@ int main(int argc, char **argv)
     }
     if (!validate_scene(argv[1], &cub3d))
     {
-        print_scene(&cub3d);
-        free_matrix(cub3d.map.map);
+        free_matrix(cub3d.map.map); // @TODO cub3d
         exit(1);
     }
     print_scene(&cub3d);

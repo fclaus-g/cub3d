@@ -12,6 +12,9 @@
 # define VISION_ANGLE PI / 3
 # define PLAYER_MINIMAP_SIZE 64
 # define CUB3D_EXTENSION ".cub"
+# define SCENE_SPACES " \t"
+# define SCENE_MAP_CHARS "012NSWE"
+# define MAP_FILL_SPACE ' '
 
 typedef struct s_rgb
 {
@@ -45,6 +48,7 @@ typedef struct scene
 {
 	t_scene_textures	textures;
 	t_map				map;
+	int					map_read_end;
 }	t_scene;
 
 // typedef struct s_coord
@@ -118,4 +122,5 @@ void	show_error(char *msg);
 int		validate_scene(char *path, t_cub3d *cub);
 void	free_matrix(char **matrix);
 void	print_scene(t_cub3d *cub);
+int		starts_with_and_space(char *line, char *start);
 #endif
