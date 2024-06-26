@@ -6,15 +6,21 @@
 #include "../lib/libft/libft.h"
 #include "../lib/get_next_line/get_next_line.h"
 
-# define PI M_PI
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
+
+# define HEIGHT 1080
+# define WIDTH 1920
 # define PIX 64 //tamaño de cada cuadro de la cuadricula
-# define MOV 4 //velocidad de movimiento del player
-# define VISION_ANGLE PI / 3
+# define MOV 4	//velocidad de movimiento del player
+# define VISION_ANGLE M_PI / 3
 # define PLAYER_MINIMAP_SIZE 64
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
 # define SCENE_MAP_CHARS "012NSWE"
 # define MAP_FILL_SPACE ' '
+# define NUM_RAYS 120
 
 typedef struct s_rgb
 {
@@ -59,63 +65,106 @@ typedef struct scene
 
 typedef struct splayer
 {
-	double		x;
-	double		y;
+	double		x_pix;
+	double		y_pix;
 	double		angle;
 }				t_player;
 
-typedef struct s_cub3d
+// typedef struct s_window
+// {
+// 	void		*mlx;
+// 	mlx_image_t	*canvas;
+// 	t_minimap	mini;
+// }	t_windows;
+
+// typedef struct s_map3d
+// {
+// 	int		rows;
+// 	int		cols;
+// 	char	**map;
+// }	t_map3d;
+
+typedef struct s_minimap
 {
-	t_scene		scene;
+	mlx_image_t	*canvas;
+	int			w;
+	int			h;
+}	t_minimap;
+
+typedef	struct cub3d
+{
 	t_map		map;
 	t_player	player;
+	t_scene		scene;
+	void		*window;
+	mlx_image_t	*window_canvas;
+	t_minimap	mini;
 }	t_cub3d;
 
-typedef struct s_game
-{
-	void *mlx;
-	t_map map;
-	t_player player;
 
-	int x_p;
-	int y_p;
-	int ins_floor;
-	int ins_wall;
-	int mini_w;
-	int mini_h;
+// typedef struct s_game
+// {
+// 	void *mlx;
+// 	t_map map;
+// 	t_player player;
 
-	mlx_image_t *mini;
-	mlx_image_t *wall;
-	mlx_image_t *floor;
-	mlx_image_t *plyr;
-}				t_game;
+// 	double dir_x;
+// 	double dir_y;
+// 	double plane_x;
+// 	double plane_y;
+// 	double fov;
+// 	double foto;
+// 	double old_foto;
+// 	double camera_x;
+// typedef struct s_game
+// {
+// 	void *mlx;
+// 	t_map map;
+// 	t_player player;
 
-void ft_init_data(t_game *cub);
+// 	int x_p;
+// 	int y_p;
+// 	int ins_floor;
+// 	int ins_wall;
+// 	int mini_w;
+// 	int mini_h;
+
+// 	mlx_image_t *mini;
+// 	mlx_image_t *wall;
+// 	mlx_image_t *floor;
+// 	mlx_image_t *plyr;
+// 	mlx_image_t *pantalla;
+// }				t_game;
+
+void ft_init_data(t_cub3d *cub);
 /*----------[paint_minimap]----------------*/
-void ft_init_minimap(t_game *cub);
-void ft_draw_map(t_game *cub);
+void ft_init_minimap(t_cub3d *cub);
+void	ft_init_map(t_cub3d *cub);
+void ft_draw_map(t_cub3d *cub);
 void ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
-void ft_draw_player(mlx_image_t *mini, int y, int x, int color);
-void ft_draw_ray(t_game *cub);
+void ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
+void ft_draw_ray(t_cub3d *cub);
+void ft_paint_floor_and_ceiling(t_cub3d *cub);
 
 /*-----------[paint_map_2d]----------------*/
-void ft_init_map2d(t_game *cub);
-void ft_load_images(t_game *cub);
-void ft_render_wall_and_floor(t_game *cub);
-void ft_render_player(t_game *cub);
+void ft_init_map2d(t_cub3d *cub);
+void ft_load_images(t_cub3d *cub);
+void ft_render_wall_and_floor(t_cub3d *cub);
+void ft_render_player(t_cub3d *cub);
 double	ft_player_lookat_angle(char c);
+//void ft_render_wall(t_cub3d *cub, int x, int y, double angle);
+//void ft_draw_wall(t_cub3d *cub, int rays);
 
 /*-----------[moves]-----------------------*/
-void ft_keys_moves(t_game *cub);
-void ft_move_up(t_game *cub);
-void ft_move_down(t_game *cub);
-void ft_move_left(t_game *cub);
-void ft_move_right(t_game *cub);
-
+void ft_keys_moves(t_cub3d *cub);
+void ft_move_up(t_cub3d *cub);
+void ft_move_down(t_cub3d *cub);
+void ft_move_left(t_cub3d *cub);
+void ft_move_right(t_cub3d *cub);
 void ft_hook(void *param);
 
 /*-----------[utils]-----------------------*/
-void	print_player_position(t_game *cub);
+void	print_player_position(t_cub3d *cub);
 
 /*-----------[map_validation]--------------*/
 void	show_error(char *msg);

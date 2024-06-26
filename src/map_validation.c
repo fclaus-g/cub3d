@@ -470,6 +470,28 @@ int	check_if_map_is_closed(t_cub3d *cub)
 }
 
 
+void	locate_player(t_cub3d *cub)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < cub->map.rows)
+	{
+		j = 0;
+		while (j < cub->map.cols)
+		{
+			if (is_map_player(cub->map.map[i][j]))
+			{
+				cub->player.x_pix = j * PIX;
+				cub->player.y_pix = i * PIX;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
 int	read_and_parse_scene(char *path, t_cub3d *cub)
 {
 	int		fd;
@@ -505,8 +527,12 @@ int	read_and_parse_scene(char *path, t_cub3d *cub)
 		show_error("Map is not closed.");
 		return (0);
 	}
+	cub->map.w_px = cub->map.cols * PIX;
+	cub->map.h_px = cub->map.rows * PIX;
+	locate_player(cub);
 	return (1);
 }
+
 
 int	validate_scene(char *path, t_cub3d *cub)
 {

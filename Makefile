@@ -17,7 +17,11 @@ HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) #est
 LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC		= gcc
-SRCS	= $(shell find ./src -iname "*.c") # @TODO: Cambiar a solo los archivos necesarios
+SRCS	= src/1main.c \
+			src/2paint_minimap.c \
+			src/3moves.c \
+			src/map_validation.c \
+
 OBJS	= ${SRCS:.c=.o}
 BONUSSRC = ${shell find ./bonus -iname "*.c"} # @TODO: Cambiar a solo los archivos necesarios
 BONUSOBJ = ${BONUSSRC:.c=.o}

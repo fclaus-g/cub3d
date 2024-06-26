@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-void ft_init_map2d(t_game *cub)
+void ft_init_map2d(t_cub3d *cub)
 {
 	ft_load_images(cub);
 	printf("Inicializando mapa\n");
@@ -9,7 +9,7 @@ void ft_init_map2d(t_game *cub)
 
 }
 
-void ft_load_images(t_game *cub)
+void ft_load_images(t_cub3d *cub)
 {
 	mlx_texture_t *aux;
 
@@ -25,7 +25,7 @@ void ft_load_images(t_game *cub)
 	mlx_delete_texture(aux);
 }
 
-void ft_render_wall_and_floor(t_game *cub)
+void ft_render_wall_and_floor(t_cub3d *cub)
 {
 	int y;
 	int x;
@@ -55,17 +55,17 @@ void ft_render_wall_and_floor(t_game *cub)
 double	ft_player_lookat_angle(char c)
 {
 	if (c == 'N')
-		return (PI / 2);
+		return (M_PI / 2);
 	else if (c == 'S')
-		return (PI * 3 / 2);
+		return (M_PI * 3 / 2);
 	else if (c == 'E')
 		return (0);
 	else if (c == 'W')
-		return (PI);
-	return (PI / 2);
+		return (M_PI);
+	return (M_PI / 2);
 }
 
-void ft_find_player(t_game *cub)
+void ft_find_player(t_cub3d *cub)
 {
 	int y;
 	int x;
@@ -87,7 +87,7 @@ void ft_find_player(t_game *cub)
 	}
 }
 
-void  ft_render_player(t_game *cub)
+void  ft_render_player(t_cub3d *cub)
 {
 	mlx_image_to_window(cub->mlx, cub->plyr, cub->player.x, cub->player.y);
 	mlx_set_instance_depth(&cub->plyr->instances[0], 10);

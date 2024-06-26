@@ -1,71 +1,67 @@
 #include "../inc/cub3d.h"
 
-void ft_init_minimap(t_game *cub)
+void ft_init_minimap(t_cub3d *cub)
 {
-	printf("Inicializando minimapa\n");
-
 	// Crear una nueva imagen para el suelo
-	cub->mini_w = cub->map.w_px / 4;
-    cub->mini_h = cub->map.h_px / 4;
-	cub->mini = mlx_new_image(cub->mlx, cub->mini_w, cub->mini_h);
-	if (!cub->mini)
+	cub->mini.w = cub->map.w_px / 4;
+    cub->mini.h = cub->map.h_px / 4;
+	cub->mini.canvas = mlx_new_image(cub->window, cub->mini.w, cub->mini.h);
+	if (!cub->mini.canvas)
 	{
-		printf("Falló la creación de la imagen\n");
+		show_error("Minimap canvas creation failed\n");
 		exit(1);
 	}
 	ft_draw_map(cub);
-	mlx_image_to_window(cub->mlx, cub->mini, 0, 0);
+	mlx_image_to_window(cub->window, cub->mini.canvas, 0, 0);
 }
 
-void	ft_init_map(t_game *cub)
+void	ft_init_map(t_cub3d *cub)
 {
-	printf("Inicializando mapa\n");
 	// Crear una nueva imagen para el suelo
-	cub->pantalla = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
-	if (!cub->pantalla)
+	cub->window_canvas = mlx_new_image(cub->window, WIDTH, HEIGHT);
+	if (!cub->window_canvas)
 	{
-		printf("Falló la creación de la pantalla\n");
+		show_error("Map canvas creation failed\n");
 		exit(1);
 	}
-	mlx_image_to_window(cub->mlx, cub->pantalla, 0, 0);
-	ft_paint_floor_and_ceiling(&cub);
+	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
+	ft_paint_floor_and_ceiling(cub);
 	//cargar texturas aqui
-	ft_raycast(cub);	
+	//ft_raycast(cub); pendiente de implementar voi a intentar partir del minimapa.
 }
 
-void ft_draw_map(t_game *cub)
+void ft_draw_map(t_cub3d *cub)
 {
 	int y;
 	int x;
 
 	y = -1;
-	while (++y < cub->mini_h)
+	while (++y < cub->mini.h)
 	{
 		x = 0;
-		while (++x < cub->mini_w)
+		while (++x < cub->mini.w)
 		{
 			if (cub->map.map[y / (PIX/4)][x / (PIX/4)] == '1')
-				mlx_put_pixel(cub->mini, x, y, 0xff0000ff);
+				mlx_put_pixel(cub->mini.canvas, x, y, 0xff0000ff);
 			else
-				mlx_put_pixel(cub->mini, x, y, 0xff00ffff);	
+				mlx_put_pixel(cub->mini.canvas, x, y, 0xff00ffff);	
 		}
 	}
 }
 
-void ft_draw_player(mlx_image_t *mini, int y, int x, int color)
+void ft_draw_player(mlx_image_t *canvas, int y, int x, int color)
 {
 	int i;
 	int j;
 
 	i = -1;
+	x = x / 4;
+	y = y / 4;
 	while (++i < PLAYER_MINIMAP_SIZE / 4)
 	{
 		j = -1;
 		while (++j < PLAYER_MINIMAP_SIZE / 4)
-		{
-			// printf("y: %d, x: %d\n", y + i, x + j);
-			mlx_put_pixel(mini, x + j, y + i, color);
-		}
+			mlx_put_pixel(canvas, x + j, y + i, color);
 	}
 }
 
@@ -88,7 +84,7 @@ void ft_draw_square(mlx_image_t *canvas, int y, int x, int color)
 	}
 }
 
-void ft_draw_ray(t_game *cub)
+void ft_draw_ray(t_cub3d *cub)
 {
 	int x;
 	int y;
@@ -98,120 +94,73 @@ void ft_draw_ray(t_game *cub)
 	//printf("Dibujando rayos\n");
 	angle = cub->player.angle - VISION_ANGLE / 2;
 	rays = 0;
-	while (rays++ < VISION_NUM_RAYS)
+	while (rays++ < NUM_RAYS)
 	{
-		x = cub->player.x + PLAYER_MINIMAP_SIZE / 2;
-		y = cub->player.y + PLAYER_MINIMAP_SIZE / 2;
-		//printf("Línea con ángulo: %f\n", angle);
+		x = cub->player.x_pix + PLAYER_MINIMAP_SIZE / 2;
+		y = cub->player.y_pix + PLAYER_MINIMAP_SIZE / 2;
+		//printf("Línea con ángulo: %f\n", angle);f
 		while (cub->map.map[y / PIX][x / PIX] != '1')
 		{
-			mlx_put_pixel(cub->mini, (int)(x / 4), (int)(y / 4), 0xffff0000);
+			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4), 0xffff0000);
 			x += sin(angle) * 4;
 			y -= cos(angle) * 4;
 		}
-		if (cub->map.map[y / PIX][x / PIX] == '1')
-			ft_render_wall(cub, x, y, VISION_ANGLE);
-		angle += VISION_ANGLE / (VISION_NUM_RAYS - 1);
+		angle += VISION_ANGLE / (NUM_RAYS - 1);
 	}
 	//printf("Rayos dibujados\n");
 }
 
-void ft_render_wall(t_game *cub, int x, int y, double angle)
-{
-	// double distance;
-	// double wall_height;
-	// double plano_proyeccion;
+// void ft_render_wall(t_cub3d *cub, int x, int y, double angle)
+// {
+// 	// double distance;
+// 	// double wall_height;
+// 	// double plano_proyeccion;
 
-	// plano_proyeccion = cub->map.w_px / (tan(VISION_ANGLE / 2));
-	// distance = sqrt(pow(x - cub->player.x, 2) + pow(y - cub->player.y, 2));
-	// wall_height = cub->map.h_px / distance * plano_proyeccion;
-	(void)x;
-	(void)y;
-	(void)angle;
-	ft_draw_wall(cub, VISION_NUM_RAYS);
-}
+// 	// plano_proyeccion = cub->map.w_px / (tan(VISION_ANGLE / 2));
+// 	// distance = sqrt(pow(x - cub->player.x_pix, 2) + pow(y - cub->player.y_pix, 2));
+// 	// wall_height = cub->map.h_px / distance * plano_proyeccion;
+// 	(void)x;
+// 	(void)y;
+// 	(void)angle;
+// 	ft_draw_wall(cub);
+// }
 
-void ft_draw_wall(t_game *cub, int rays)
-{
-	int start;
-	int end;
-	int painter;
-	int mid;
+// void ft_draw_wall(t_cub3d *cub, int rays)
+// {
+// 	int x;
 
-	(void)rays;
-	mid = HEIGHT / 2;
-	// start is zero
-	start = mid - HEIGHT / 2;
-	if (start < 0)
-		start = 0;
-	// end is the height of the screen
-	end = mid + HEIGHT / 2;
-	if (end > HEIGHT)
-		end = HEIGHT;
-	painter = start;
-	while (painter < end)
-	{
-		// printf("Pintando en x,y con mapa de %dx%d: %d, %d\n", WIDTH, HEIGHT, WIDTH / 2, painter);
-		mlx_put_pixel(cub->pantalla, WIDTH / 2, painter, 0xffffffff);
-		painter++;
-	}
-}
+// 	x = -1;
+// 	while (++x < HEIGHT)
+// 	{
+// 		cub->camera_x = 2 * x / (double)WIDTH - 1;
+// 		cub->dir_x = 
+// 	}
+// }
 
-void ft_paint_floor_and_ceiling(t_game *cub)
+void ft_paint_floor_and_ceiling(t_cub3d *cub)
 {
 	uint32_t y;
 	uint32_t x;
 
 	y = -1;
-	while (++y < cub->pantalla->height / 2)
+	while (++y < cub->window_canvas->height / 2)
 	{
 		x = -1;
-		while (++x < cub->pantalla->width)
+		while (++x < cub->window_canvas->width)
 		{
-			mlx_put_pixel(cub->pantalla, x, y, 0x00ff00ff);
+			mlx_put_pixel(cub->window_canvas, x, y, 0x00ff00ff);
 		}
 	}
 	y--;
-	while (++y < cub->pantalla->height)
+	while (++y < cub->window_canvas->height)
 	{
 		x = -1;
-		while (++x < cub->pantalla->width)
+		while (++x < cub->window_canvas->width)
 		{
-			mlx_put_pixel(cub->pantalla, x, y, 0xffffffff);
+			mlx_put_pixel(cub->window_canvas, x, y, 0xffffffff);
 		}
 	}
 	
-}
-
-void ft_draw_view(t_game *cub)
-{
-	int start_y;
-	int end_y;
-	int mid_y;
-	int count;
-
-	count = 0;
-	mid_y = cub->map.h_px / 2;
-	start_y = mid_y - cub->map.h_px / 2;
-	end_y = mid_y + cub->map.h_px / 2;
-	count = start_y;
-	while (count < start_y)
-	{
-		mlx_put_pixel(cub->view, NUM_RAYS, count, 0xffff00ff);
-		count++;
-	}
-	while (count < end_y)
-	{
-		mlx_put_pixel(cub->view, NUM_RAYS, count, 0xffff70ff);
-		count++;
-	}
-	while (count < cub->map.h_px)
-	{
-		mlx_put_pixel(cub->view, NUM_RAYS, count, 0xffffff);
-	}
-
-
-
 }
 
 /*NOTAS PARA PINTAR LAS PAREDES
@@ -242,3 +191,16 @@ Variables necesarias:
 
 
 */
+
+double	ft_player_lookat_angle(char c)
+{
+	if (c == 'N')
+		return (M_PI / 2);
+	else if (c == 'S')
+		return (M_PI * 3 / 2);
+	else if (c == 'E')
+		return (0);
+	else if (c == 'W')
+		return (M_PI);
+	return (M_PI / 2);
+}
