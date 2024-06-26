@@ -7,26 +7,69 @@
 #include "../lib/get_next_line/get_next_line.h"
 
 # define PI M_PI
-# define PIX 64
-# define MOV 4
+# define PIX 64 //tamaño de cada cuadro de la cuadricula
+# define MOV 4 //velocidad de movimiento del player
 # define VISION_ANGLE PI / 3
 # define PLAYER_MINIMAP_SIZE 64
+# define CUB3D_EXTENSION ".cub"
+# define SCENE_SPACES " \t"
+# define SCENE_MAP_CHARS "012NSWE"
+# define MAP_FILL_SPACE ' '
+
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
+typedef struct s_scene_textures
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	t_rgb	floor;
+	t_rgb	ceil;
+}	t_scene_textures;
 
 typedef struct s_map
 {
-	char		**map;
-	int		rows;
-	int		cols;
-	int		w_px;
-	int		h_px;
-}				t_map;
+	t_list			*lines;
+	char			**map;
+	int				left_padding;
+	int				rows;
+	int				cols;
+	int				w_px;
+	int				h_px;
+}	t_map;
+
+typedef struct scene
+{
+	t_scene_textures	textures;
+	t_map				map;
+	int					map_read_end;
+}	t_scene;
+
+// typedef struct s_coord
+// {
+// 	int	x;
+// 	int	y;
+// }	t_coord;
 
 typedef struct splayer
 {
 	double		x;
 	double		y;
-	double	angle;
+	double		angle;
 }				t_player;
+
+typedef struct s_cub3d
+{
+	t_scene		scene;
+	t_map		map;
+	t_player	player;
+}	t_cub3d;
 
 typedef struct s_game
 {
@@ -60,6 +103,7 @@ void ft_init_map2d(t_game *cub);
 void ft_load_images(t_game *cub);
 void ft_render_wall_and_floor(t_game *cub);
 void ft_render_player(t_game *cub);
+double	ft_player_lookat_angle(char c);
 
 /*-----------[moves]-----------------------*/
 void ft_keys_moves(t_game *cub);
@@ -68,10 +112,15 @@ void ft_move_down(t_game *cub);
 void ft_move_left(t_game *cub);
 void ft_move_right(t_game *cub);
 
-
 void ft_hook(void *param);
 
 /*-----------[utils]-----------------------*/
 void	print_player_position(t_game *cub);
-#endif
 
+/*-----------[map_validation]--------------*/
+void	show_error(char *msg);
+int		validate_scene(char *path, t_cub3d *cub);
+void	free_matrix(char **matrix);
+void	print_scene(t_cub3d *cub);
+int		starts_with_and_space(char *line, char *start);
+#endif

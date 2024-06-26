@@ -22,6 +22,7 @@ void ft_init_data(t_game *cub)
     
     cub->player.y = 3.0 * PIX;
     cub->player.x = 3.0 * PIX;
+    cub->player.angle = -1;
 
     cub->map.rows = 5;
     cub->map.cols = 11; // Cambié 12 a 11 ya que los strings del mapa tienen longitud 11
@@ -45,28 +46,39 @@ void ft_hook(void *param)
 	ft_draw_ray(cub);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-    t_game cub;
-    
-    ft_init_data(&cub);
+    // t_game  cub;
+    t_cub3d cub3d;
 
-    cub.mlx = mlx_init(cub.map.w_px, cub.map.h_px, "cub3d", 0);
-    if (!cub.mlx)
+    if (argc != 2)
     {
-        printf("Falló la inicialización de MLX\n");
+        show_error("Invalid number of arguments\n");
         exit(1);
     }
+    if (!validate_scene(argv[1], &cub3d))
+    {
+        free_matrix(cub3d.map.map); // @TODO cub3d
+        exit(1);
+    }
+    print_scene(&cub3d);
 
-    ft_init_map2d(&cub);
-    ft_init_minimap(&cub);
-    mlx_loop_hook(cub.mlx, &ft_hook, &cub);
-    mlx_loop(cub.mlx);
+    // cub.mlx = mlx_init(cub.map.w_px, cub.map.h_px, "cub3d", 0);
+    // if (!cub.mlx)
+    // {
+    //     printf("Falló la inicialización de MLX\n");
+    //     exit(1);
+    // }
 
-    mlx_terminate(cub.mlx);
+    // ft_init_map2d(&cub);
+    // ft_init_minimap(&cub);
+    // mlx_loop_hook(cub.mlx, &ft_hook, &cub);
+    // mlx_loop(cub.mlx);
+
+    // mlx_terminate(cub.mlx);
     
-    // Liberar la memoria asignada
-    free(cub.map.map);
+    // // Liberar la memoria asignada
+    // free(cub.map.map);
 
     return 0;
 }
