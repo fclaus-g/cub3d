@@ -34,8 +34,8 @@ void	ft_move_up(t_cub3d *cub)
 	printf("Moviendo hacia arriba\n");
 	x = cub->player.x_pix;
 	y = cub->player.y_pix;
-	if (cub->map.map[(y - MOV) / PIX][(x + 10)/ PIX] != '1' 
-		&& cub->map.map[(y - MOV) / PIX][(x + 50) / PIX] != '1')
+	if (cub->map.map[(y - MOV) / GRID_SIZE][(x + 10)/ GRID_SIZE] != '1' 
+		&& cub->map.map[(y - MOV) / GRID_SIZE][(x + 50) / GRID_SIZE] != '1')
 	{
 		cub->player.y_pix = cub->player.y_pix - MOV;
 		// print_player_position(cub);
@@ -49,8 +49,8 @@ void	ft_move_down(t_cub3d *cub)
 
 	x = cub->player.x_pix;
 	y = cub->player.y_pix;
-	if (cub->map.map[((y + 60) + MOV) / PIX][(x + 10) / PIX] != '1'
-		&& cub->map.map[((y + 60) + MOV) / PIX][(x + 50) / PIX] != '1')
+	if (cub->map.map[((y + 60) + MOV) / GRID_SIZE][(x + 10) / GRID_SIZE] != '1'
+		&& cub->map.map[((y + 60) + MOV) / GRID_SIZE][(x + 50) / GRID_SIZE] != '1')
 	{
 	 	cub->player.y_pix += MOV;
 		print_player_position(cub);
@@ -64,8 +64,8 @@ void	ft_move_left(t_cub3d *cub)
 
 	x = cub->player.x_pix;
 	y = cub->player.y_pix;
-	if (cub->map.map[(y) / PIX][((x + 10) - MOV) / PIX] != '1'
-		&& cub->map.map[((y + 60)) / PIX][((x + 10) - MOV) / PIX] != '1')
+	if (cub->map.map[(y) / GRID_SIZE][((x + 10) - MOV) / GRID_SIZE] != '1'
+		&& cub->map.map[((y + 60)) / GRID_SIZE][((x + 10) - MOV) / GRID_SIZE] != '1')
 	{
 		cub->player.x_pix -= MOV;
 		print_player_position(cub);
@@ -80,8 +80,8 @@ void	ft_move_right(t_cub3d *cub)
 	x = cub->player.x_pix;
 	y = cub->player.y_pix;
 	//ft_player_direction(cub, 'R');
-	if (cub->map.map[(y) / PIX][((x + 50) + MOV)/ PIX] != '1'
-		&& cub->map.map[((y + 60)) / PIX][((x + 50) + MOV) / PIX] != '1')
+	if (cub->map.map[(y) / GRID_SIZE][((x + 50) + MOV)/ GRID_SIZE] != '1'
+		&& cub->map.map[((y + 60)) / GRID_SIZE][((x + 50) + MOV) / GRID_SIZE] != '1')
 	{
 		cub->player.x_pix += MOV;
 		print_player_position(cub);

@@ -41,7 +41,7 @@ void ft_draw_map(t_cub3d *cub)
 		x = 0;
 		while (++x < cub->mini.w)
 		{
-			if (cub->map.map[y / (PIX/4)][x / (PIX/4)] == '1')
+			if (cub->map.map[y / (GRID_SIZE/4)][x / (GRID_SIZE/4)] == '1')
 				mlx_put_pixel(cub->mini.canvas, x, y, 0xff0000ff);
 			else
 				mlx_put_pixel(cub->mini.canvas, x, y, 0xff00ffff);	
@@ -57,10 +57,10 @@ void ft_draw_player(mlx_image_t *canvas, int y, int x, int color)
 	i = -1;
 	x = x / 4;
 	y = y / 4;
-	while (++i < PLAYER_MINIMAP_SIZE / 4)
+	while (++i < GRID_SIZE / 4)
 	{
 		j = -1;
-		while (++j < PLAYER_MINIMAP_SIZE / 4)
+		while (++j < GRID_SIZE / 4)
 			mlx_put_pixel(canvas, x + j, y + i, color);
 	}
 }
@@ -73,10 +73,10 @@ void ft_draw_square(mlx_image_t *canvas, int y, int x, int color)
 	i = -1;
 	if ((unsigned int)color != 0xffffffff)
 	{
-		while (++i < PIX)
+		while (++i < GRID_SIZE)
 		{
 			j = -1;
-			while (++j < PIX)
+			while (++j < GRID_SIZE)
 			{
 				mlx_put_pixel(canvas, x + j, y + i, color);
 			}
@@ -96,16 +96,18 @@ void ft_draw_ray(t_cub3d *cub)
 	rays = 0;
 	while (rays++ < NUM_RAYS)
 	{
-		x = cub->player.x_pix + PLAYER_MINIMAP_SIZE / 2;
-		y = cub->player.y_pix + PLAYER_MINIMAP_SIZE / 2;
+		printf("Rayo %d en ángulo %f\n", rays, angle);
+		x = cub->player.x_pix + GRID_SIZE / 2;
+		y = cub->player.y_pix + GRID_SIZE / 2;
 		//printf("Línea con ángulo: %f\n", angle);f
-		while (cub->map.map[y / PIX][x / PIX] != '1')
+		while (cub->map.map[y / GRID_SIZE][x / GRID_SIZE] != '1')
 		{
 			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4), 0xffff0000);
-			x += sin(angle) * 4;
-			y -= cos(angle) * 4;
+			x += sin(angle) * 20;
+			y -= cos(angle) * 20;
 		}
 		angle += VISION_ANGLE / (NUM_RAYS - 1);
+
 	}
 	//printf("Rayos dibujados\n");
 }
@@ -169,7 +171,7 @@ void ft_paint_floor_and_ceiling(t_cub3d *cub)
 -MACROS NECESARIAS:
 ANCHO DE PANTALLA
 ALTO DE PANTALLA
-TILE_SIZE Es el tamaño de cada cuadro en el mapa (PIX)
+TILE_SIZE Es el tamaño de cada cuadro en el mapa (GRID_SIZE)
 FOV es el angulo de vision
 ROTATION_SPEED es la velocidad de rotacion
 MOV_SPEED es la velocidad de movimiento (MOV)
@@ -194,6 +196,7 @@ Variables necesarias:
 
 double	ft_player_lookat_angle(char c)
 {
+	printf("Looking at angle %c\n", c);
 	if (c == 'N')
 		return (M_PI / 2);
 	else if (c == 'S')

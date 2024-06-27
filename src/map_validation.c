@@ -483,8 +483,9 @@ void	locate_player(t_cub3d *cub)
 		{
 			if (is_map_player(cub->map.map[i][j]))
 			{
-				cub->player.x_pix = j * PIX;
-				cub->player.y_pix = i * PIX;
+				cub->player.x_pix = j * GRID_SIZE;
+				cub->player.y_pix = i * GRID_SIZE;
+				printf("Player located at (%f, %f) with angle %f\n", cub->player.x_pix, cub->player.y_pix, cub->player.angle);
 				return ;
 			}
 			j++;
@@ -527,8 +528,8 @@ int	read_and_parse_scene(char *path, t_cub3d *cub)
 		show_error("Map is not closed.");
 		return (0);
 	}
-	cub->map.w_px = cub->map.cols * PIX;
-	cub->map.h_px = cub->map.rows * PIX;
+	cub->map.w_px = cub->map.cols * GRID_SIZE;
+	cub->map.h_px = cub->map.rows * GRID_SIZE;
 	locate_player(cub);
 	return (1);
 }

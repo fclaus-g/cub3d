@@ -12,13 +12,12 @@
 
 # define HEIGHT 1080
 # define WIDTH 1920
-# define PIX 64 //tamaño de cada cuadro de la cuadricula
+# define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
 # define MOV 4	//velocidad de movimiento del player
 # define VISION_ANGLE M_PI / 3
-# define PLAYER_MINIMAP_SIZE 64
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
-# define SCENE_MAP_CHARS "012NSWE"
+// # define SCENE_MAP_CHARS "01NSWE"
 # define MAP_FILL_SPACE ' '
 # define NUM_RAYS 120
 
@@ -91,6 +90,24 @@ typedef struct s_minimap
 	int			h;
 }	t_minimap;
 
+typedef struct s_plane
+{
+	double		x;
+	double		y;
+}	t_plane;
+
+typedef struct s_ray
+{
+	int		x;
+	int		y;
+}	t_ray;
+
+typedef struct s_dir
+{
+	double	x;
+	double	y;
+}	t_dir;
+
 typedef	struct cub3d
 {
 	t_map		map;
@@ -99,6 +116,9 @@ typedef	struct cub3d
 	void		*window;
 	mlx_image_t	*window_canvas;
 	t_minimap	mini;
+	t_plane		plane;
+	t_dir		dir;
+	t_ray		ray;
 }	t_cub3d;
 
 
