@@ -9,6 +9,8 @@ void ft_hook(void *param)
     ft_draw_map(cub);
     ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix, 0xffffffff);
 	ft_draw_ray(cub);
+    //ft_raycast(cub);
+    
 }
 
 int main(int argc, char **argv)
@@ -26,10 +28,14 @@ int main(int argc, char **argv)
         exit(1);
     }
     print_scene(&cub);
-
+    printf("scene printed\n");
     cub.window = mlx_init(WIDTH, HEIGHT, "cub3d", 0);
+    printf("mlx iniciado\n");
     ft_init_map(&cub);
+    printf("mapa inicializado\n");
     ft_init_minimap(&cub);
+    printf("minimapa inicializado\n");
+    //ft_raycast(&cub);
     mlx_loop_hook(cub.window, &ft_hook, &cub);
     mlx_loop(cub.window);
 

@@ -17,7 +17,6 @@ void ft_init_minimap(t_cub3d *cub)
 
 void	ft_init_map(t_cub3d *cub)
 {
-	// Crear una nueva imagen para el suelo
 	cub->window_canvas = mlx_new_image(cub->window, WIDTH, HEIGHT);
 	if (!cub->window_canvas)
 	{
@@ -25,9 +24,10 @@ void	ft_init_map(t_cub3d *cub)
 		exit(1);
 	}
 	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
+	cub->map.map[(int)cub->player.y_pix/GRID_SIZE][(int)cub->player.x_pix/GRID_SIZE] = '0';
 	ft_paint_floor_and_ceiling(cub);
-	//cargar texturas aqui
-	//ft_raycast(cub); pendiente de implementar voi a intentar partir del minimapa.
+	printf("Pintando el suelo y el techo\n");
+	ft_raycast(cub);
 }
 
 void ft_draw_map(t_cub3d *cub)
@@ -96,7 +96,7 @@ void ft_draw_ray(t_cub3d *cub)
 	rays = 0;
 	while (rays++ < NUM_RAYS)
 	{
-		printf("Rayo %d en ángulo %f\n", rays, angle);
+		//printf("Rayo %d en ángulo %f\n", rays, angle);
 		x = cub->player.x_pix + GRID_SIZE / 2;
 		y = cub->player.y_pix + GRID_SIZE / 2;
 		//printf("Línea con ángulo: %f\n", angle);f

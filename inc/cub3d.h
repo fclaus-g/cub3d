@@ -20,6 +20,7 @@
 // # define SCENE_MAP_CHARS "01NSWE"
 # define MAP_FILL_SPACE ' '
 # define NUM_RAYS 120
+# define INFINITE 1e30
 
 typedef struct s_rgb
 {
@@ -67,6 +68,10 @@ typedef struct splayer
 	double		x_pix;
 	double		y_pix;
 	double		angle;
+	double		dir_x;
+	double		dir_y;
+	double 		plane_x;
+	double 		plane_y;
 }				t_player;
 
 // typedef struct s_window
@@ -100,6 +105,23 @@ typedef struct s_ray
 {
 	int		x;
 	int		y;
+	float	dir_x;
+	float	dir_y;
+	float	camera_x;
+	int 	map_x;
+	int 	map_y;
+	float 	delta_dist_x;
+	float 	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	int		hit;
+	int		side;
+	float	perp_wall_dist;
+	int		line_height;
+	int		start_wall;
+	int		end_wall;
 }	t_ray;
 
 typedef struct s_dir
@@ -115,9 +137,10 @@ typedef	struct cub3d
 	t_scene		scene;
 	void		*window;
 	mlx_image_t	*window_canvas;
+	mlx_image_t *wall;
 	t_minimap	mini;
 	t_plane		plane;
-	t_dir		dir;
+	//t_dir		dir;
 	t_ray		ray;
 }	t_cub3d;
 
@@ -192,4 +215,17 @@ int		validate_scene(char *path, t_cub3d *cub);
 void	free_matrix(char **matrix);
 void	print_scene(t_cub3d *cub);
 int		starts_with_and_space(char *line, char *start);
+
+/*-----------[raycasting.c]----------------*/
+void ft_raycast(t_cub3d *cub);
+void ft_player_orientation(t_player *player);
+void ft_prepare_ray(t_cub3d *cub, int x);
+void ft_calc_hipotenusa(t_ray *ray);
+void ft_calc_player_hipotenusa(t_cub3d *cub);
+void ft_dda(t_cub3d *cub);
+void ft_wall_distance(t_cub3d *cub);
+void ft_identify_wall(t_cub3d *cub);
+void ft_paint_wall(t_cub3d *cub, int x);
+void ft_init_ray_data(t_cub3d *cub);
+
 #endif

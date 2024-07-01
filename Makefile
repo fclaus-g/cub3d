@@ -21,6 +21,7 @@ SRCS	= src/1main.c \
 			src/2paint_minimap.c \
 			src/3moves.c \
 			src/map_validation.c \
+			src/raycasting.c
 
 OBJS	= ${SRCS:.c=.o}
 BONUSSRC = ${shell find ./bonus -iname "*.c"} # @TODO: Cambiar a solo los archivos necesarios
