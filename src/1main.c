@@ -9,7 +9,9 @@ void ft_hook(void *param)
     ft_draw_map(cub);
     ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix, 0xffffffff);
 	ft_draw_ray(cub);
-    //ft_raycast(cub);
+    //mlx_delete_image(cub->window, cub->window_canvas);
+    ft_raycaster(cub);
+    //mlx_image_to_window(cub->window, cub->mini.canvas, 0, 0);
     
 }
 

@@ -10,10 +10,12 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-# define HEIGHT 1080
-# define WIDTH 1920
+# define HEIGHT 1080 / 2
+# define WIDTH 1920 / 2
 # define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
-# define MOV 4	//velocidad de movimiento del player
+# define MOV 0.06	//velocidad de movimiento del player
+# define ROT_SPEED 0.06 //velocidad de rotacion del player
+
 # define VISION_ANGLE M_PI / 3
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
@@ -65,11 +67,15 @@ typedef struct scene
 
 typedef struct splayer
 {
+	
+	char 		orient;
 	double		x_pix;
 	double		y_pix;
+	float		x;
+	float		y;
 	double		angle;
-	double		dir_x;
-	double		dir_y;
+	float		dir_x;
+	float		dir_y;
 	double 		plane_x;
 	double 		plane_y;
 }				t_player;
@@ -122,6 +128,7 @@ typedef struct s_ray
 	int		line_height;
 	int		start_wall;
 	int		end_wall;
+	float		wall_x;
 }	t_ray;
 
 typedef struct s_dir
@@ -227,5 +234,13 @@ void ft_wall_distance(t_cub3d *cub);
 void ft_identify_wall(t_cub3d *cub);
 void ft_paint_wall(t_cub3d *cub, int x);
 void ft_init_ray_data(t_cub3d *cub);
+
+void ft_print_linea(t_cub3d *cub);
+void ft_print_algo(t_cub3d *cub, int x);
+void ft_print_player(t_cub3d *cub);
+void ft_actualizar_jugador(t_player *player, int girar);
+void ft_print_ray_data(t_cub3d *cub);
+void ft_raycaster(t_cub3d *cub);
+void ft_init_player(t_cub3d *cub);
 
 #endif

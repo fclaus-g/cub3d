@@ -26,8 +26,11 @@ void	ft_init_map(t_cub3d *cub)
 	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
 	cub->map.map[(int)cub->player.y_pix/GRID_SIZE][(int)cub->player.x_pix/GRID_SIZE] = '0';
 	ft_paint_floor_and_ceiling(cub);
-	printf("Pintando el suelo y el techo\n");
-	ft_raycast(cub);
+	ft_init_player(cub);
+	ft_print_player(cub);
+	ft_raycaster(cub);
+	
+	//ft_raycast(cub);
 }
 
 void ft_draw_map(t_cub3d *cub)
@@ -93,6 +96,7 @@ void ft_draw_ray(t_cub3d *cub)
 
 	//printf("Dibujando rayos\n");
 	angle = cub->player.angle - VISION_ANGLE / 2;
+	//printf("---------------------angle es %f\n", angle);
 	rays = 0;
 	while (rays++ < NUM_RAYS)
 	{
@@ -103,8 +107,8 @@ void ft_draw_ray(t_cub3d *cub)
 		while (cub->map.map[y / GRID_SIZE][x / GRID_SIZE] != '1')
 		{
 			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4), 0xffff0000);
-			x += sin(angle) * 20;
-			y -= cos(angle) * 20;
+			x += cos(angle) * 20;
+			y -= sin(angle) * 20;
 		}
 		angle += VISION_ANGLE / (NUM_RAYS - 1);
 
@@ -112,32 +116,6 @@ void ft_draw_ray(t_cub3d *cub)
 	//printf("Rayos dibujados\n");
 }
 
-// void ft_render_wall(t_cub3d *cub, int x, int y, double angle)
-// {
-// 	// double distance;
-// 	// double wall_height;
-// 	// double plano_proyeccion;
-
-// 	// plano_proyeccion = cub->map.w_px / (tan(VISION_ANGLE / 2));
-// 	// distance = sqrt(pow(x - cub->player.x_pix, 2) + pow(y - cub->player.y_pix, 2));
-// 	// wall_height = cub->map.h_px / distance * plano_proyeccion;
-// 	(void)x;
-// 	(void)y;
-// 	(void)angle;
-// 	ft_draw_wall(cub);
-// }
-
-// void ft_draw_wall(t_cub3d *cub, int rays)
-// {
-// 	int x;
-
-// 	x = -1;
-// 	while (++x < HEIGHT)
-// 	{
-// 		cub->camera_x = 2 * x / (double)WIDTH - 1;
-// 		cub->dir_x = 
-// 	}
-// }
 
 void ft_paint_floor_and_ceiling(t_cub3d *cub)
 {
@@ -165,35 +143,6 @@ void ft_paint_floor_and_ceiling(t_cub3d *cub)
 	
 }
 
-/*NOTAS PARA PINTAR LAS PAREDES
-
-* Usando angulos:
--MACROS NECESARIAS:
-ANCHO DE PANTALLA
-ALTO DE PANTALLA
-TILE_SIZE Es el tamaño de cada cuadro en el mapa (GRID_SIZE)
-FOV es el angulo de vision
-ROTATION_SPEED es la velocidad de rotacion
-MOV_SPEED es la velocidad de movimiento (MOV)
-
--STRUCTS NECESARIAS:
-t_player 
-	int x;
-	int y;
-	double angle;
-	float fov_rd; //angulo de vision en radianes
-	int rotation //flag
-	int mov_left_right //flag
-	int mov_up_down //flag
-t_ray
-	double angle;
-	double dist;
-	int hit;//flag
-Variables necesarias:
-
-
-*/
-
 double	ft_player_lookat_angle(char c)
 {
 	printf("Looking at angle %c\n", c);
@@ -207,3 +156,4 @@ double	ft_player_lookat_angle(char c)
 		return (M_PI);
 	return (M_PI / 2);
 }
+

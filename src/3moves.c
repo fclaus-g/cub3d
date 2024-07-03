@@ -21,9 +21,24 @@ void ft_keys_moves(t_cub3d *cub)
 	if (mlx_is_key_down(cub->window, MLX_KEY_D))
 		ft_move_right(cub);
 	if (mlx_is_key_down(cub->window, MLX_KEY_LEFT))
-		cub->player.angle -= 0.1;
+	{
+		cub->player.angle += ROT_SPEED;
+		ft_actualizar_jugador(&cub->player, -1);
+		if (cub->player.angle < 0)
+		{
+			cub->player.angle += 2 * M_PI;
+		}
+	}	
 	if (mlx_is_key_down(cub->window, MLX_KEY_RIGHT))
-		cub->player.angle += 0.1;
+	{
+		cub->player.angle -= ROT_SPEED;
+		ft_actualizar_jugador(&cub->player, 1);
+		if (cub->player.angle > 2 * M_PI)
+		{
+			cub->player.angle -= 2 * M_PI;
+		}	
+	
+	}	
 }
 
 void	ft_move_up(t_cub3d *cub)
