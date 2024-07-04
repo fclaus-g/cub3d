@@ -13,16 +13,18 @@ void ft_print_player(t_cub3d *cub)
 void ft_actualizar_jugador(t_player *player, int girar)
 {
     double oldDirX = player->dir_x;
+	double oldDirY = player->dir_y;
     double oldPlaneX = player->plane_x;
     double rotSpeed = girar * ROT_SPEED; // Girar será 1 o -1 dependiendo de la dirección
 
     // Actualizar dirección
-    player->dir_x = player->dir_x * cos(rotSpeed) - player->dir_y * sin(rotSpeed);
-    player->dir_y = oldDirX * sin(rotSpeed) + player->dir_y * cos(rotSpeed);
-
+	player->dir_x = oldDirX * cos(rotSpeed) - oldDirY * sin(rotSpeed);
+	player->dir_y = oldDirX * sin(rotSpeed) + oldDirY * cos(rotSpeed);
+	printf("player dir x = %f y = %f\n", player->dir_x, player->dir_y);
     // Actualizar plano
     player->plane_x = player->plane_x * cos(rotSpeed) - player->plane_y * sin(rotSpeed);
     player->plane_y = oldPlaneX * sin(rotSpeed) + player->plane_y * cos(rotSpeed);
+	//printf("player plane x = %f y = %f\n", player->plane_x, player->plane_y);
 }
 
 /**

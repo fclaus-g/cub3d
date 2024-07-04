@@ -2,7 +2,7 @@
 
 void ft_init_ray_data(t_cub3d *cub)
 {
-	cub->ray.dir_x = 0; //convierto el angulo a radianes
+	cub->ray.dir_x = 0;
 	cub->ray.dir_y = 0;
 	cub->ray.camera_x = 0;
 	cub->ray.map_x = 0;
@@ -52,7 +52,7 @@ void ft_raycaster(t_cub3d *cub)
 	while (x < WIDTH)
 	{
 		ft_prepare_ray(cub, x);
-		printf("ray x = %d, y = %d\n", cub->ray.x, cub->ray.y);
+		//printf("ray x = %d, y = %d\n", cub->ray.x, cub->ray.y);
 		cub->ray.map_x = (int)cub->player.x_pix/64;
 		cub->ray.map_y = (int)cub->player.y_pix/64;
 		ft_calc_hipotenusa(&cub->ray);
@@ -60,7 +60,7 @@ void ft_raycaster(t_cub3d *cub)
 		ft_dda(cub);
 		ft_wall_distance(cub);
 		ft_identify_wall(cub);
-		ft_wall_x(cub);
+		//ft_wall_x(cub);
 		
 		ft_paint_wall(cub, x);
 		//mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
@@ -89,15 +89,16 @@ void ft_print_algo(t_cub3d *cub, int x)
 void ft_prepare_ray(t_cub3d *cub, int x)
 {
 	cub->ray.camera_x = 2 * x / (double)WIDTH - 1;
-	//printf("camera x = %f\n", cub->ray.camera_x);
+	printf("WIDTH = %d x = %d\n", WIDTH, x);
+	printf("camera x = %f\n", cub->ray.camera_x);
 	//cub->ray.x = cub->player.x_pix;
 	//cub->ray.y = cub->player.y_pix;
 	cub->ray.dir_x = cub->player.dir_x + cub->player.plane_x * cub->ray.camera_x;
 	cub->ray.dir_y = cub->player.dir_y + cub->player.plane_y * cub->ray.camera_x;
 	
 	//printf("player dir x = %f y = %f\n", cub->player.dir_x, cub->player.dir_y);
-	printf("player plane x = %f y = %f\n", cub->player.plane_x, cub->player.plane_y);
- 	printf("ray dir x = %f y = %f\n", cub->ray.dir_x, cub->ray.dir_y);
+	//printf("player plane x = %f y = %f\n", cub->player.plane_x, cub->player.plane_y);
+ 	//printf("ray dir x = %f y = %f\n", cub->ray.dir_x, cub->ray.dir_y);
 // 	printf("ray map x = %d y = %d\n", cub->ray.map_x, cub->ray.map_y);
 }
 
@@ -110,7 +111,7 @@ void ft_calc_hipotenusa(t_ray *ray)
 	else
 	{
 		ray->delta_dist_x = fabs(1 / ray->dir_x);
-		//printf("delta dist x: %f\n", ray->delta_dist_x);
+		//printf("delta dist x: %f dir x = %f\n", ray->delta_dist_x, ray->dir_x);
 	}
 	if (ray->dir_y == 0)
 	{
@@ -119,7 +120,7 @@ void ft_calc_hipotenusa(t_ray *ray)
 	else
 	{
 		ray->delta_dist_y = fabs(1 / ray->dir_y);
-		//printf("delta dist y: %f\n", ray->delta_dist_y);
+		//printf("delta dist y: %f ray y = %f\n", ray->delta_dist_y, ray->dir_y);
 	}
 	//printf("delta dist x: %f, delta dist y: %f\n", ray->delta_dist_x, ray->delta_dist_y);
 }
@@ -195,7 +196,7 @@ void ft_wall_distance(t_cub3d * cub)
 		//printf("perp wall dist = %f----------------------\n", cub->ray.perp_wall_dist);
 	}
 	cub->ray.line_height = (int)HEIGHT / cub->ray.perp_wall_dist;
-	printf("perp wall dist = %f, line height = %d\n", cub->ray.perp_wall_dist, cub->ray.line_height);
+	//printf("perp wall dist = %f, line height = %d\n", cub->ray.perp_wall_dist, cub->ray.line_height);
 
 }
 
@@ -205,7 +206,7 @@ void ft_identify_wall(t_cub3d *cub)
 	if (cub->ray.start_wall < 0)
 	{
 		cub->ray.start_wall = 0;
-		printf("start wall = %d\n", cub->ray.start_wall);
+		//printf("start wall = %d\n", cub->ray.start_wall);
 	}
 	cub->ray.end_wall = cub->ray.line_height / 2 + HEIGHT / 2;
 	if (cub->ray.end_wall >= cub->map.h_px)

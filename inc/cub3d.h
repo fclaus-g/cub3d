@@ -10,10 +10,10 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-# define HEIGHT 1080 / 2
-# define WIDTH 1920 / 2
+# define HEIGHT 720
+# define WIDTH 1280
 # define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
-# define MOV 0.06	//velocidad de movimiento del player
+# define MOV 4	//velocidad de movimiento del player
 # define ROT_SPEED 0.06 //velocidad de rotacion del player
 
 # define VISION_ANGLE M_PI / 3
