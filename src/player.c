@@ -11,3 +11,22 @@ void ft_init_player(t_cub3d *cub)
 	printf ("dir_y = %f\n", cub->player.dir_y);
 
 }
+
+void	print_player_position(t_cub3d *cub)
+{
+	printf("Player -> x: %f, y: %f\n", cub->player.x_pix, cub->player.y_pix);
+}
+
+double	ft_player_lookat_angle(char c)
+{
+	printf("Looking at angle %c\n", c);
+	if (c == 'N')
+		return (M_PI / 2);
+	else if (c == 'S')
+		return (M_PI * 3 / 2);
+	else if (c == 'E')
+		return (0);
+	else if (c == 'W')
+		return (M_PI);
+	return (M_PI / 2);
+}
