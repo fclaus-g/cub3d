@@ -26,11 +26,9 @@ void	ft_init_map(t_cub3d *cub)
 	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
 	cub->map.map[(int)cub->player.y_pix/GRID_SIZE][(int)cub->player.x_pix/GRID_SIZE] = '0';
 	ft_paint_floor_and_ceiling(cub);
-	ft_init_player(cub);
+	//ft_init_player(cub);
 	ft_print_player(cub);
 	ft_raycaster(cub);
-	
-	//ft_raycast(cub);
 }
 
 void ft_draw_map(t_cub3d *cub)
@@ -60,10 +58,10 @@ void ft_draw_player(mlx_image_t *canvas, int y, int x, int color)
 	i = -1;
 	x = x / 4;
 	y = y / 4;
-	while (++i < GRID_SIZE / 4)
+	while (++i < GRID_SIZE / 8)
 	{
 		j = -1;
-		while (++j < GRID_SIZE / 4)
+		while (++j < GRID_SIZE / 8)
 			mlx_put_pixel(canvas, x + j, y + i, color);
 	}
 }
@@ -101,8 +99,8 @@ void ft_draw_ray(t_cub3d *cub)
 	while (rays++ < NUM_RAYS)
 	{
 		//printf("Rayo %d en ángulo %f\n", rays, angle);
-		x = cub->player.x_pix + GRID_SIZE / 2;
-		y = cub->player.y_pix + GRID_SIZE / 2;
+		x = cub->player.x_pix + GRID_SIZE / 4;
+		y = cub->player.y_pix + GRID_SIZE / 4;
 		//printf("Línea con ángulo: %f\n", angle);f
 		while (cub->map.map[y / GRID_SIZE][x / GRID_SIZE] != '1')
 		{
@@ -143,17 +141,5 @@ void ft_paint_floor_and_ceiling(t_cub3d *cub)
 	
 }
 
-double	ft_player_lookat_angle(char c)
-{
-	printf("Looking at angle %c\n", c);
-	if (c == 'N')
-		return (M_PI / 2);
-	else if (c == 'S')
-		return (M_PI * 3 / 2);
-	else if (c == 'E')
-		return (0);
-	else if (c == 'W')
-		return (M_PI);
-	return (M_PI / 2);
-}
+
 

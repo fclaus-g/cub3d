@@ -86,20 +86,21 @@ void ft_print_algo(t_cub3d *cub, int x)
 	}
 }
 
+/**
+ * @brief 
+ * 
+ * @param cub 
+ * @param x - x position of the ray
+ *
+  
+ */
 void ft_prepare_ray(t_cub3d *cub, int x)
 {
 	cub->ray.camera_x = 2 * x / (double)WIDTH - 1;
-	printf("WIDTH = %d x = %d\n", WIDTH, x);
-	printf("camera x = %f\n", cub->ray.camera_x);
-	//cub->ray.x = cub->player.x_pix;
-	//cub->ray.y = cub->player.y_pix;
 	cub->ray.dir_x = cub->player.dir_x + cub->player.plane_x * cub->ray.camera_x;
 	cub->ray.dir_y = cub->player.dir_y + cub->player.plane_y * cub->ray.camera_x;
-	
-	//printf("player dir x = %f y = %f\n", cub->player.dir_x, cub->player.dir_y);
-	//printf("player plane x = %f y = %f\n", cub->player.plane_x, cub->player.plane_y);
- 	//printf("ray dir x = %f y = %f\n", cub->ray.dir_x, cub->ray.dir_y);
-// 	printf("ray map x = %d y = %d\n", cub->ray.map_x, cub->ray.map_y);
+	printf("dir x = %f, dir y = %f\n", cub->ray.dir_x, cub->ray.dir_y);
+	printf("camera x = %f\n", cub->ray.camera_x);
 }
 
 void ft_calc_hipotenusa(t_ray *ray)
@@ -234,11 +235,11 @@ void ft_wall_x(t_cub3d *cub)
 {
 	if (cub->ray.side == 0)
 	{
-		cub->ray.wall_x = cub->player.y_pix/64 + cub->ray.perp_wall_dist * cub->ray.dir_y;
+		cub->ray.wall_x = cub->player.y_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_y;
 	}
 	else
 	{
-		cub->ray.wall_x = cub->player.x_pix/64 + cub->ray.perp_wall_dist * cub->ray.dir_x;
+		cub->ray.wall_x = cub->player.x_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_x;
 	}
 	cub->ray.wall_x -= floor(cub->ray.wall_x);
 }
