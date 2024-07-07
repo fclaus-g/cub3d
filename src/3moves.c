@@ -1,9 +1,5 @@
 #include "../inc/cub3d.h"
 
-void	print_player_position(t_cub3d *cub)
-{
-	printf("Player -> x: %f, y: %f\n", cub->player.x_pix, cub->player.y_pix);
-}
 
 void ft_keys_moves(t_cub3d *cub)
 {
@@ -43,62 +39,72 @@ void ft_keys_moves(t_cub3d *cub)
 
 void	ft_move_up(t_cub3d *cub)
 {
-	int y;
-	int x;
+	double y;
+	double x;
+	double y_mov;
+	double x_mov;
 
-	//printf("Moviendo hacia arriba\n");
-	x = cub->player.x_pix;
-	y = cub->player.y_pix;
-	if (cub->map.map[(y - MOV) / GRID_SIZE][(x + 10)/ GRID_SIZE] != '1' 
-		&& cub->map.map[(y - MOV) / GRID_SIZE][(x + 50) / GRID_SIZE] != '1')
+	y_mov = -sin(cub->player.angle) * MOV;
+	x_mov = cos(cub->player.angle) * MOV;
+	y = cub->player.y_pix + y_mov;
+	x = cub->player.x_pix + x_mov;
+	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
 	{
-		cub->player.y_pix = cub->player.y_pix - MOV;
-		// print_player_position(cub);
+		cub->player.y_pix = y;
+		cub->player.x_pix = x;
 	}
 }
 
 void	ft_move_down(t_cub3d *cub)
 {
-	int y;
-	int x;
+	double y;
+	double x;
+	double y_mov;
+	double x_mov;
 
-	x = cub->player.x_pix;
-	y = cub->player.y_pix;
-	if (cub->map.map[((y + 60) + MOV) / GRID_SIZE][(x + 10) / GRID_SIZE] != '1'
-		&& cub->map.map[((y + 60) + MOV) / GRID_SIZE][(x + 50) / GRID_SIZE] != '1')
+	y_mov = sin(cub->player.angle) * MOV;
+	x_mov = -cos(cub->player.angle) * MOV;
+	y = cub->player.y_pix + y_mov;
+	x = cub->player.x_pix + x_mov;
+	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
 	{
-	 	cub->player.y_pix += MOV;
-		//print_player_position(cub);
+		cub->player.y_pix = y;
+		cub->player.x_pix = x;
 	}
 }
 
 void	ft_move_left(t_cub3d *cub)
 {
-	int y;
-	int x;
+	double y;
+	double x;
+	double y_mov;
+	double x_mov;
 
-	x = cub->player.x_pix;
-	y = cub->player.y_pix;
-	if (cub->map.map[(y) / GRID_SIZE][((x + 10) - MOV) / GRID_SIZE] != '1'
-		&& cub->map.map[((y + 60)) / GRID_SIZE][((x + 10) - MOV) / GRID_SIZE] != '1')
+	y_mov = -sin(cub->player.angle + M_PI/2) * MOV;
+	x_mov = cos(cub->player.angle + M_PI/2) * MOV;
+	y = cub->player.y_pix + y_mov;
+	x = cub->player.x_pix + x_mov;
+	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
 	{
-		cub->player.x_pix -= MOV;
-		//print_player_position(cub);
+		cub->player.y_pix = y;
+		cub->player.x_pix = x;
 	}
 }
 
 void	ft_move_right(t_cub3d *cub)
 {
-	int y;
-	int x;
+	double y;
+	double x;
+	double y_mov;
+	double x_mov;
 
-	x = cub->player.x_pix;
-	y = cub->player.y_pix;
-	//ft_player_direction(cub, 'R');
-	if (cub->map.map[(y) / GRID_SIZE][((x + 50) + MOV)/ GRID_SIZE] != '1'
-		&& cub->map.map[((y + 60)) / GRID_SIZE][((x + 50) + MOV) / GRID_SIZE] != '1')
+	y_mov = sin(cub->player.angle + M_PI/2) * MOV;
+	x_mov = -cos(cub->player.angle + M_PI/2) * MOV;
+	y = cub->player.y_pix + y_mov;
+	x = cub->player.x_pix + x_mov;
+	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
 	{
-		cub->player.x_pix += MOV;
-		//print_player_position(cub);
+		cub->player.y_pix = y;
+		cub->player.x_pix = x;
 	}
 }
