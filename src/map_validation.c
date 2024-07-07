@@ -171,6 +171,7 @@ int	validate_map_line(char *line, t_cub3d *cub)
 				return (0);
 			}
 			cub->player.angle = ft_player_lookat_angle(line[i]);
+			ft_player_orientation(&cub->player);
 		}
 		i++;
 	}
