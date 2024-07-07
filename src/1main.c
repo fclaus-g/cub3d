@@ -9,10 +9,8 @@ void ft_hook(void *param)
     ft_draw_map(cub);
     ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix, 0xffffffff);
 	ft_draw_ray(cub);
-    //mlx_delete_image(cub->window, cub->window_canvas);
-    ft_raycaster(cub);
-    //mlx_image_to_window(cub->window, cub->mini.canvas, 0, 0);
-    
+    ft_paint_floor_and_ceiling(cub);
+    ft_raycaster(cub);    
 }
 
 int main(int argc, char **argv)
@@ -37,14 +35,10 @@ int main(int argc, char **argv)
     printf("mapa inicializado\n");
     ft_init_minimap(&cub);
     printf("minimapa inicializado\n");
-    //ft_raycast(&cub);
     mlx_loop_hook(cub.window, &ft_hook, &cub);
     mlx_loop(cub.window);
-
     mlx_terminate(cub.window);
-    
     // Liberar la memoria asignada
     free(cub.map.map);
-
     return 0;
 }
