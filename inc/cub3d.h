@@ -15,7 +15,7 @@
 # define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
 # define MOV 4	//velocidad de movimiento del player
 # define ROT_SPEED 0.06 //velocidad de rotacion del player
-
+# define MOVE_SPEED 0.1
 # define VISION_ANGLE M_PI / 3
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
