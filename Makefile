@@ -22,7 +22,7 @@ SRCS	= src/1main.c \
 			src/3moves.c \
 			src/map_validation.c \
 			src/utils.c \
-			src/paint.c \
+			src/raycaster.c \
 			src/player.c
 
 
@@ -62,7 +62,7 @@ debug:
 		@echo "\033[0;32mArchivo debug generado"
 clean:
 	@echo "\n$(AZUL) **** Borrando archivos objeto **** $(DEF_COLOR)\n"
-	@rm -f $(OBJS)
+	@rm -f src/*.o
 	@rm -f $(BONUSOBJ)
 	@make clean -C ${LIBFT}
 	@make clean -C ${LIBGNL}
