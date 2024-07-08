@@ -42,7 +42,7 @@ void ft_draw_map(t_cub3d *cub)
 		x = 0;
 		while (++x < cub->mini.w)
 		{
-			if (cub->map.map[y / (GRID_SIZE/4)][x / (GRID_SIZE/4)] == '1')
+			if (cub->map.map[(int)(y / (GRID_SIZE/4))][(int)(x / (GRID_SIZE/4))] == '1')
 				mlx_put_pixel(cub->mini.canvas, x, y, 0xff0000ff);
 			else
 				mlx_put_pixel(cub->mini.canvas, x, y, 0xff00ffff);	
@@ -62,7 +62,7 @@ void ft_draw_player(mlx_image_t *canvas, int y, int x, int color)
 	{
 		j = -1;
 		while (++j < GRID_SIZE / 8)
-			mlx_put_pixel(canvas, x + j, y + i, color);
+			mlx_put_pixel(canvas, x + 8 + j, y + 8 + i, color);
 	}
 }
 
@@ -104,7 +104,7 @@ void ft_draw_ray(t_cub3d *cub)
 		//printf("Línea con ángulo: %f\n", angle);f
 		while (cub->map.map[y / GRID_SIZE][x / GRID_SIZE] != '1')
 		{
-			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4), 0xffff0000);
+			mlx_put_pixel(cub->mini.canvas, (int)(x / 4 + 8), (int)(y / 4 + 8), 0xffff0000);
 			x += cos(angle) * 20;
 			y -= sin(angle) * 20;
 		}

@@ -59,7 +59,7 @@ void ft_raycaster(t_cub3d *cub)
 		ft_calc_player_hipotenusa(cub);
 		ft_dda(cub);
 		ft_wall_distance(cub);
-		ft_identify_wall(cub);
+		ft_wall_height(cub);
 		//ft_wall_x(cub);
 		
 		ft_paint_wall(cub, x);
@@ -100,6 +100,7 @@ void ft_prepare_ray(t_cub3d *cub, int x)
 	cub->ray.dir_x = cub->player.dir_x + cub->player.plane_x * cub->ray.camera_x;
 	cub->ray.dir_y = cub->player.dir_y + cub->player.plane_y * cub->ray.camera_x;
 	printf("dir x = %f, dir y = %f\n", cub->ray.dir_x, cub->ray.dir_y);
+	print_player_position(cub);
 	printf("camera x = %f\n", cub->ray.camera_x);
 }
 
@@ -154,6 +155,24 @@ void ft_calc_player_hipotenusa(t_cub3d *cub)
 	}
 }
 
+uint32_t ft_wall_color(t_cub3d *cub)
+{
+	if (cub->ray.side == 0)
+	{
+		if (cub->ray.step_x == 1)
+			return 0xff0000ff;
+		else
+			return 0x00ff00ff;
+	}
+	else
+	{
+		if (cub->ray.step_y == 1)
+			return 0x0000ffff;
+		else
+			return 0xffff00ff;
+	}
+}
+
 void ft_dda(t_cub3d *cub)
 {
 	cub->ray.hit = 0;
@@ -180,6 +199,7 @@ void ft_dda(t_cub3d *cub)
 		{
 			//printf("hit------------------------------------------------------------\n");
 			cub->ray.hit = 1;
+			cub->ray.wall_color = ft_wall_color(cub);
 		}
 	}
 }
@@ -201,7 +221,7 @@ void ft_wall_distance(t_cub3d * cub)
 
 }
 
-void ft_identify_wall(t_cub3d *cub)
+void ft_wall_height(t_cub3d *cub)
 {
 	cub->ray.start_wall = ((-1) * cub->ray.line_height) / 2 + HEIGHT / 2;
 	if (cub->ray.start_wall < 0)
@@ -210,7 +230,7 @@ void ft_identify_wall(t_cub3d *cub)
 		//printf("start wall = %d\n", cub->ray.start_wall);
 	}
 	cub->ray.end_wall = cub->ray.line_height / 2 + HEIGHT / 2;
-	if (cub->ray.end_wall >= cub->map.h_px)
+	if (cub->ray.end_wall >= HEIGHT)
 	{
 		cub->ray.end_wall = HEIGHT - 1;
 		//printf("end wall = %d\n", cub->ray.end_wall);
@@ -226,20 +246,21 @@ void ft_paint_wall(t_cub3d *cub, int x)
 	//printf("pintando pared en columna en linea%d desde %d hasta %d\n", x, cub->ray.start_wall, cub->ray.end_wall);
 	while (y < cub->ray.end_wall)
 	{
-		mlx_put_pixel(cub->window_canvas, x, y, 0xffff00ff);
+		// printf("ft_paint_wall (x: %d, y: %d)\n", x, y);
+		mlx_put_pixel(cub->window_canvas, x, y, cub->ray.wall_color);
 		y++;
 	}
 }
 
-void ft_wall_x(t_cub3d *cub)
-{
-	if (cub->ray.side == 0)
-	{
-		cub->ray.wall_x = cub->player.y_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_y;
-	}
-	else
-	{
-		cub->ray.wall_x = cub->player.x_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_x;
-	}
-	cub->ray.wall_x -= floor(cub->ray.wall_x);
-}
+// void ft_wall_x(t_cub3d *cub)
+// {
+// 	if (cub->ray.side == 0)
+// 	{
+// 		cub->ray.wall_x = cub->player.y_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_y;
+// 	}
+// 	else
+// 	{
+// 		cub->ray.wall_x = cub->player.x_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_x;
+// 	}
+// 	cub->ray.wall_x -= floor(cub->ray.wall_x);
+// }

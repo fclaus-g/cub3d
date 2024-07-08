@@ -30,3 +30,4 @@ double	ft_player_lookat_angle(char c)
 		return (M_PI);
 	return (M_PI / 2);
 }
+

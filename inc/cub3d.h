@@ -109,25 +109,26 @@ typedef struct s_plane
 
 typedef struct s_ray
 {
-	int		x;
-	int		y;
-	float	dir_x;
-	float	dir_y;
-	float	camera_x;
-	int 	map_x;
-	int 	map_y;
-	float 	delta_dist_x;
-	float 	delta_dist_y;
-	int		step_x;
-	int		step_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	int		hit;
-	int		side;
-	float	perp_wall_dist;
-	int		line_height;
-	int		start_wall;
-	int		end_wall;
+	int			x;
+	int			y;
+	float		dir_x;
+	float		dir_y;
+	float		camera_x;
+	int 		map_x;
+	int 		map_y;
+	float 		delta_dist_x;
+	float 		delta_dist_y;
+	int			step_x;
+	int			step_y;
+	float		side_dist_x;
+	float		side_dist_y;
+	int			hit;
+	int			side;
+	float		perp_wall_dist;
+	int			line_height;
+	int			start_wall;
+	int			end_wall;
+	uint32_t	wall_color;
 	float		wall_x;
 }	t_ray;
 
@@ -231,7 +232,7 @@ void ft_calc_hipotenusa(t_ray *ray);
 void ft_calc_player_hipotenusa(t_cub3d *cub);
 void ft_dda(t_cub3d *cub);
 void ft_wall_distance(t_cub3d *cub);
-void ft_identify_wall(t_cub3d *cub);
+void ft_wall_height(t_cub3d *cub);
 void ft_paint_wall(t_cub3d *cub, int x);
 void ft_init_ray_data(t_cub3d *cub);
 
