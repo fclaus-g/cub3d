@@ -28,6 +28,7 @@ void	ft_init_map(t_cub3d *cub)
 	ft_paint_floor_and_ceiling(cub);
 	//ft_init_player(cub);
 	ft_print_player(cub);
+	ft_load_textures(cub);
 	ft_raycaster(cub);
 }
 
@@ -140,6 +141,21 @@ void ft_paint_floor_and_ceiling(t_cub3d *cub)
 	}
 	
 }
-
-
+void	ft_load_textures(t_cub3d *cub)
+{
+	cub->NO = malloc(sizeof(mlx_texture_t));
+	cub->SO = malloc(sizeof(mlx_texture_t));
+	cub->WE = malloc(sizeof(mlx_texture_t));
+	cub->EA = malloc(sizeof(mlx_texture_t));
+	if (!cub->NO || !cub->SO || !cub->WE || !cub->EA)
+	{
+		show_error("Texture allocation failed\n");
+		exit(1);
+	}
+	cub->NO = mlx_load_png("textures/N.png");
+	cub->SO = mlx_load_png("textures/S.png");
+	cub->WE = mlx_load_png("textures/W.png");
+	cub->EA = mlx_load_png("textures/E.png");
+	printf("Textures loaded NO %p, SO %p, WE %p, EA %p\n", cub->NO, cub->SO, cub->WE, cub->EA);
+}
 

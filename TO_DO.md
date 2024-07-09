@@ -8,3 +8,4 @@
 - [ ] En 42 crashea el programa.
 - [ ] Cambiar color del muro segun la orientacion respecto al player.
 - [ ] make hace relink
+- https://redketchup.io/color-picker

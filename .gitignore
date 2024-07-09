@@ -11,3 +11,7 @@ cub3d
 # Objetos
 *.o
 *.a
+
+# Logs
+*.log
+log.txt

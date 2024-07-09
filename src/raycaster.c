@@ -60,7 +60,7 @@ void ft_raycaster(t_cub3d *cub)
 		ft_dda(cub);
 		ft_wall_distance(cub);
 		ft_wall_height(cub);
-		//ft_wall_x(cub);
+		ft_wall_x(cub);
 		
 		ft_paint_wall(cub, x);
 		//mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
@@ -238,29 +238,72 @@ void ft_wall_height(t_cub3d *cub)
 	//printf("start wall = %d, end wall = %d\n", cub->ray.start_wall, cub->ray.end_wall);
 }
 
+mlx_texture_t *ft_choice_texture(t_cub3d *cub)
+{
+	// printf("ft_choice_texture side %d, step_x %d, step_y %d\n", cub->ray.side, cub->ray.step_x, cub->ray.step_y);
+	if (cub->ray.side == 0)
+	{
+		if (cub->ray.step_x == 1)
+			return cub->EA;
+		else
+			return cub->WE;
+	}
+	else
+	{
+		if (cub->ray.step_y == 1)
+			return cub->SO;
+		else
+			return cub->NO;
+	}
+}
+
+uint32_t get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y) {
+	uint32_t	*pixels;
+	uint32_t	color;
+
+	if (x < 0 || (uint32_t)x >= texture->width || y < 0 || (uint32_t)y >= texture->height)
+		return 0; // Coordenadas fuera de los límites de la textura
+
+	// Asumiendo que los datos de la textura están en un formato que permite este tipo de acceso
+	pixels = (uint32_t *)texture->pixels;
+	color = pixels[y * texture->width + x];
+	return color;
+}
+
 void ft_paint_wall(t_cub3d *cub, int x)
 {
 	int y;
+	mlx_texture_t *aux;
+	int wall_height;
+	int calculated_x;
+	int calculated_y;
+	// uint32_t color;
 	
+	aux = ft_choice_texture(cub);
 	y = cub->ray.start_wall;
-	//printf("pintando pared en columna en linea%d desde %d hasta %d\n", x, cub->ray.start_wall, cub->ray.end_wall);
+	wall_height = cub->ray.end_wall - cub->ray.start_wall;
+	printf("Using texture %p\n", aux);
 	while (y < cub->ray.end_wall)
 	{
+		calculated_y = (y - cub->ray.start_wall) * aux->height / wall_height;
+		calculated_x = cub->ray.wall_x * aux->width;
 		// printf("ft_paint_wall (x: %d, y: %d)\n", x, y);
-		mlx_put_pixel(cub->window_canvas, x, y, cub->ray.wall_color);
+		mlx_put_pixel(cub->window_canvas, x, y, get_pixel_color_from_texture(aux, calculated_x, calculated_y));
 		y++;
 	}
 }
 
-// void ft_wall_x(t_cub3d *cub)
-// {
-// 	if (cub->ray.side == 0)
-// 	{
-// 		cub->ray.wall_x = cub->player.y_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_y;
-// 	}
-// 	else
-// 	{
-// 		cub->ray.wall_x = cub->player.x_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_x;
-// 	}
-// 	cub->ray.wall_x -= floor(cub->ray.wall_x);
-// }
+void ft_wall_x(t_cub3d *cub)
+{
+	if (cub->ray.side == 0)
+	{
+		cub->ray.wall_x = cub->player.y_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_y;
+		printf("cub->ray.wall_x = %f\n", cub->ray.wall_x);
+	}
+	else
+	{
+		cub->ray.wall_x = cub->player.x_pix / GRID_SIZE + cub->ray.perp_wall_dist * cub->ray.dir_x;
+		printf("cub->ray.wall_x = %f\n", cub->ray.wall_x);
+	}
+	cub->ray.wall_x -= floor(cub->ray.wall_x);
+}

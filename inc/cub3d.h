@@ -150,6 +150,10 @@ typedef	struct cub3d
 	t_plane		plane;
 	//t_dir		dir;
 	t_ray		ray;
+	mlx_texture_t	*NO;
+	mlx_texture_t	*SO;
+	mlx_texture_t	*WE;
+	mlx_texture_t	*EA;
 }	t_cub3d;
 
 
@@ -243,5 +247,8 @@ void ft_actualizar_jugador(t_player *player, int girar);
 void ft_print_ray_data(t_cub3d *cub);
 void ft_raycaster(t_cub3d *cub);
 void ft_init_player(t_cub3d *cub);
-
+void ft_load_textures(t_cub3d *cub);
+// uint32_t ft_get_pixel_texture(t_cub3d *cub, int x, int y);
+uint32_t	get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y);
+void		ft_wall_x(t_cub3d *cub);
 #endif

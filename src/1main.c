@@ -13,6 +13,37 @@ void ft_hook(void *param)
     ft_raycaster(cub);    
 }
 
+void uint32_to_rgb(uint32_t color, uint8_t *r, uint8_t *g, uint8_t *b)
+{
+    *b = (color >> 16) & 0xFF; // Shift right 16 bits and mask out anything not in the lowest 8 bits
+    *g = (color >> 8) & 0xFF;  // Shift right 8 bits and mask out anything not in the lowest 8 bits
+    *r = color & 0xFF;         // Mask out anything not in the lowest 8 bits
+}
+
+// void test_texture_pick_color(void)
+// {
+//     mlx_texture_t *test;
+//     int x;
+//     int y;
+//     uint8_t r, g, b;
+//     uint32_t color;
+
+//     test = malloc(sizeof(mlx_texture_t));
+//     test = mlx_load_png("textures/W.png");
+//     x = 0; y = 0;
+//     color = get_pixel_color_from_texture(test, x, y);
+//     uint32_to_rgb(color, &r, &g, &b);
+//     printf("El color de la textura en (%d, %d) es %u con R: %u, G: %u, B: %u\n", x, y, color, r, g, b);
+//     x = 32; y = 32;
+//     color = get_pixel_color_from_texture(test, x, y);
+//     uint32_to_rgb(color, &r, &g, &b);
+//     printf("El color de la textura en (%d, %d) es %u con R: %u, G: %u, B: %u\n", x, y, color, r, g, b);
+//     x = 15; y = 9;
+//     color = get_pixel_color_from_texture(test, x, y);
+//     uint32_to_rgb(color, &r, &g, &b);
+//     printf("El color de la textura en (%d, %d) es %u con R: %u, G: %u, B: %u\n", x, y, color, r, g, b);
+// }
+
 int main(int argc, char **argv)
 {
     t_cub3d cub;
