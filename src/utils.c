@@ -1,69 +1,52 @@
 #include "../inc/cub3d.h"
 
-void ft_print_player(t_cub3d *cub)
+void	ft_print_player(t_cub3d *cub)
 {
 	printf("Player pixel position: %f, %f\n", cub->player.y_pix, cub->player.x_pix);
 	printf("player grid position: %f, %f\n", cub->player.y, cub->player.x);
 	printf("Player direction: %f, %f\n", cub->player.dir_y, cub->player.dir_x);
 	printf("Player plane: %f, %f\n", cub->player.plane_y, cub->player.plane_x);
 	printf("Player angle = %f\n", cub->player.angle);
-
 }
 
-void ft_actualizar_jugador(t_player *player, int girar)
+void	ft_init_ray_data(t_cub3d *cub)
 {
-    double oldDirX = player->dir_x;
-	double oldDirY = player->dir_y;
-    double oldPlaneX = player->plane_x;
-    double rotSpeed = girar * ROT_SPEED; // Girar será 1 o -1 dependiendo de la dirección
-
-    // Actualizar dirección
-	player->dir_x = oldDirX * cos(rotSpeed) - oldDirY * sin(rotSpeed);
-	player->dir_y = oldDirX * sin(rotSpeed) + oldDirY * cos(rotSpeed);
-	printf("player dir x = %f y = %f\n", player->dir_x, player->dir_y);
-    // Actualizar plano
-    player->plane_x = player->plane_x * cos(rotSpeed) - player->plane_y * sin(rotSpeed);
-    player->plane_y = oldPlaneX * sin(rotSpeed) + player->plane_y * cos(rotSpeed);
-	//printf("player plane x = %f y = %f\n", player->plane_x, player->plane_y);
+	cub->ray.dir_x = 0;
+	cub->ray.dir_y = 0;
+	cub->ray.camera_x = 0;
+	cub->ray.map_x = 0;
+	cub->ray.map_y = 0;
+	cub->ray.delta_dist_x = 0;
+	cub->ray.delta_dist_y = 0;
+	cub->ray.step_x = 0;
+	cub->ray.step_y = 0;
+	cub->ray.side_dist_x = 0;
+	cub->ray.side_dist_y = 0;
+	cub->ray.hit = 0;
+	cub->ray.side = 0;
+	cub->ray.perp_wall_dist = 0;
+	cub->ray.line_height = 0;
+	cub->ray.start_wall = 0;
+	cub->ray.end_wall = 0;
 }
 
-/**
- * @brief prepara la orientacion del jugador que usaremos
- * en los calculos siguientes * 
- * @param player 
- */
-void ft_player_orientation(t_player *player)
+void	ft_print_ray_data(t_cub3d *cub)
 {
-	if (player->angle == M_PI / 2)
-	{
-		player->dir_x = 0;
-		player->dir_y = -1;
-		player->plane_x = 0.66;
-		player->plane_y = 0;
-		printf("player orientacion = 90 mira hacia el este x -1 plane y 0.66\n");
-	}
-	else if (player->angle == M_PI * 3 / 2)
-	{
-		player->dir_x = 0;
-		player->dir_y = 1;
-		player->plane_x = -0.66;
-		player->plane_y = 0;
-		printf("player orientacion = 270\n");
-	}
-	else if (player->angle == M_PI)
-	{
-		player->dir_x = -1;
-		player->dir_y = 0;
-		player->plane_x = 0;
-		player->plane_y = 0.66;
-		printf("player orientacion = 180\n");
-	}	
-	else if (player->angle == 0)
-	{
-		player->dir_x = 1;
-		player->dir_y = 0;
-		player->plane_x = 0;
-		player->plane_y = -0.66;
-		printf("player orientacion = 0\n");
-	}
+	printf("dir_x = %f\n", cub->ray.dir_x);
+	printf("dir_y = %f\n", cub->ray.dir_y);
+	printf("camera_x = %f\n", cub->ray.camera_x);
+	printf("map_x = %d\n", cub->ray.map_x);
+	printf("map_y = %d\n", cub->ray.map_y);
+	printf("delta_dist_x = %f\n", cub->ray.delta_dist_x);
+	printf("delta_dist_y = %f\n", cub->ray.delta_dist_y);
+	printf("step_x = %d\n", cub->ray.step_x);
+	printf("step_y = %d\n", cub->ray.step_y);
+	printf("side_dist_x = %f\n", cub->ray.side_dist_x);
+	printf("side_dist_y = %f\n", cub->ray.side_dist_y);
+	printf("hit = %d\n", cub->ray.hit);
+	printf("side = %d\n", cub->ray.side);
+	printf("perp_wall_dist = %f\n", cub->ray.perp_wall_dist);
+	printf("line_height = %d\n", cub->ray.line_height);
+	printf("start_wall = %d\n", cub->ray.start_wall);
+	printf("end_wall = %d\n", cub->ray.end_wall);
 }

@@ -194,7 +194,7 @@ typedef	struct cub3d
 void ft_init_data(t_cub3d *cub);
 /*----------[paint_minimap]----------------*/
 void ft_init_minimap(t_cub3d *cub);
-void	ft_init_map(t_cub3d *cub);
+void	ft_init_view(t_cub3d *cub);
 void ft_draw_map(t_cub3d *cub);
 void ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
 void ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
@@ -202,7 +202,7 @@ void ft_draw_ray(t_cub3d *cub);
 void ft_paint_floor_and_ceiling(t_cub3d *cub);
 
 /*-----------[paint_map_2d]----------------*/
-void ft_init_map2d(t_cub3d *cub);
+void ft_init_view2d(t_cub3d *cub);
 void ft_load_images(t_cub3d *cub);
 void ft_render_wall_and_floor(t_cub3d *cub);
 void ft_render_player(t_cub3d *cub);
@@ -243,7 +243,7 @@ void ft_init_ray_data(t_cub3d *cub);
 void ft_print_linea(t_cub3d *cub);
 void ft_print_algo(t_cub3d *cub, int x);
 void ft_print_player(t_cub3d *cub);
-void ft_actualizar_jugador(t_player *player, int girar);
+void ft_refresh_player(t_player *player, int girar);
 void ft_print_ray_data(t_cub3d *cub);
 void ft_raycaster(t_cub3d *cub);
 void ft_init_player(t_cub3d *cub);
@@ -251,4 +251,9 @@ void ft_load_textures(t_cub3d *cub);
 // uint32_t ft_get_pixel_texture(t_cub3d *cub, int x, int y);
 uint32_t	get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y);
 void		ft_wall_x(t_cub3d *cub);
+void ft_paint_wall(t_cub3d *cub, int x);
+void ft_init_ray_data(t_cub3d *cub);
+uint32_t ft_wall_color(t_cub3d *cub);
+mlx_texture_t *ft_choice_texture(t_cub3d *cub);
+void ft_paint_floor_and_ceiling(t_cub3d *cub);
 #endif

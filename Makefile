@@ -17,13 +17,16 @@ HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) #est
 LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC		= gcc
-SRCS	= src/1main.c \
-			src/2paint_minimap.c \
-			src/3moves.c \
+SRCS	= src/main.c \
+			src/minimap.c \
+			src/moves.c \
 			src/map_validation.c \
 			src/utils.c \
 			src/raycaster.c \
-			src/player.c
+			src/player.c \
+			src/walls.c \
+			src/view.c \
+			src/textures.c \
 
 
 OBJS	= ${SRCS:.c=.o}
