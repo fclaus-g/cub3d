@@ -18,14 +18,16 @@ void	ft_wall_distance(t_cub3d * cub)
 void	ft_wall_height(t_cub3d *cub)
 {
 	cub->ray.start_wall = ((-1) * cub->ray.line_height) / 2 + HEIGHT / 2;
+	cub->ray.real_start_wall = cub->ray.start_wall;
 	if (cub->ray.start_wall < 0)
 	{
 		cub->ray.start_wall = 0;
 	}
 	cub->ray.end_wall = cub->ray.line_height / 2 + HEIGHT / 2;
+	cub->ray.real_end_wall = cub->ray.end_wall;
 	if (cub->ray.end_wall >= HEIGHT)
 	{
-		cub->ray.end_wall = HEIGHT - 1;
+		cub->ray.end_wall = HEIGHT;
 	}
 }
 
@@ -50,27 +52,24 @@ uint32_t	ft_wall_color(t_cub3d *cub)
 void	ft_paint_wall(t_cub3d *cub, int x)
 {
 	int				y;
-	mlx_texture_t	*aux;
+	mlx_texture_t	*texture;
 	int				wall_height;
+	int				real_wall_height;
 	int				calculated_x;
 	int				calculated_y;
 
-	aux = ft_choice_texture(cub);
+	texture = ft_choice_texture(cub);
 	y = cub->ray.start_wall;
 	wall_height = cub->ray.end_wall - cub->ray.start_wall;
-	calculated_x = (int)(cub->ray.wall_x * (double)aux->width);
-	if (cub->ray.side == 0 && cub->ray.dir_x > 0)
-		calculated_x = aux->width - calculated_x - 1;
-	if (cub->ray.side == 1 && cub->ray.dir_y < 0)
-		calculated_x = aux->width - calculated_x - 1;
+	real_wall_height = cub->ray.real_end_wall - cub->ray.real_start_wall;
+	calculated_x = (int)(cub->ray.wall_x * (double)texture->width);
 	while (y < cub->ray.end_wall)
 	{
-		calculated_y = (y - cub->ray.start_wall) * aux->height / wall_height;
-		if (calculated_y >= (int)aux->height)
-		{
-			calculated_y = aux->height - 1;
-		}
-		mlx_put_pixel(cub->window_canvas, x, y, get_pixel_color_from_texture(aux, calculated_x, calculated_y));
+		if (wall_height < (int)(cub->window_canvas->height))
+			calculated_y = (y - cub->ray.start_wall) * texture->height / wall_height;
+		else
+			calculated_y = (y + (real_wall_height - wall_height) / 2) * texture->height / real_wall_height;
+		mlx_put_pixel(cub->window_canvas, x, y, get_pixel_color_from_texture(texture, calculated_x, calculated_y));
 		y++;
 	}
 }

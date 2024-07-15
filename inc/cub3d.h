@@ -17,7 +17,7 @@
 # define MOV 1	//velocidad de movimiento del player
 # define ROT_SPEED 0.06 //velocidad de rotacion del player
 # define MOVE_SPEED 0.1
-# define OFFSET 18
+# define OFFSET 32
 # define VISION_ANGLE M_PI / 3
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
@@ -130,6 +130,8 @@ typedef struct s_ray
 	int			line_height;
 	int			start_wall;
 	int			end_wall;
+	int			real_start_wall;
+	int			real_end_wall;
 	uint32_t	wall_color;
 	float		wall_x;
 }	t_ray;
