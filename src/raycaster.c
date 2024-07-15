@@ -20,6 +20,8 @@ void	ft_raycaster(t_cub3d *cub)
 		ft_paint_wall(cub, x);
 		x++;
 	}
+	//mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
+	//mlx_image_to_window(cub->window, cub->mini.canvas, 0, 0);
 }
 
 /**
@@ -35,6 +37,8 @@ void	ft_prepare_ray(t_cub3d *cub, int x)
 	cub->ray.camera_x = 2 * x / (double)WIDTH - 1;
 	cub->ray.dir_x = cub->player.dir_x + cub->player.plane_x * cub->ray.camera_x;
 	cub->ray.dir_y = cub->player.dir_y + cub->player.plane_y * cub->ray.camera_x;
+	cub->ray.map_x = (int)cub->player.x_pix / GRID_SIZE;
+	cub->ray.map_y = (int)cub->player.y_pix / GRID_SIZE;
 }
 
 void	ft_calc_hipotenusa(t_ray *ray)
@@ -98,10 +102,10 @@ void	ft_dda(t_cub3d *cub)
 			cub->ray.map_y += cub->ray.step_y;
 			cub->ray.side = 1;
 		}
-		if (cub->map.map[cub->ray.map_y][cub->ray.map_x] != '0')
+		if (cub->map.map[cub->ray.map_y][cub->ray.map_x] == '1')
 		{
 			cub->ray.hit = 1;
-			cub->ray.wall_color = ft_wall_color(cub);
+			//cub->ray.wall_color = ft_wall_color(cub);
 		}
 	}
 }

@@ -484,8 +484,8 @@ void	locate_player(t_cub3d *cub)
 		{
 			if (is_map_player(cub->map.map[i][j]))
 			{
-				cub->player.x_pix = j * GRID_SIZE;
-				cub->player.y_pix = i * GRID_SIZE;
+				cub->player.x_pix = (j * GRID_SIZE) + (GRID_SIZE / 2);
+				cub->player.y_pix = (i * GRID_SIZE) + (GRID_SIZE / 2);
 				printf("Player located at (%f, %f) with angle %f\n", cub->player.x_pix, cub->player.y_pix, cub->player.angle);
 				return ;
 			}

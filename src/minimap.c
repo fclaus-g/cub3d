@@ -39,12 +39,12 @@ void	ft_draw_player(mlx_image_t *canvas, int y, int x, int color)
 	int	j;
 
 	i = -1;
-	x = x / 4;
-	y = y / 4;
-	while (++i < GRID_SIZE / 4)
+	x = x /4 - 3;
+	y = y / 4 - 3;
+	while (++i < GRID_SIZE / 8)
 	{
 		j = -1;
-		while (++j < GRID_SIZE / 4)
+		while (++j < GRID_SIZE / 8)
 			mlx_put_pixel(canvas, x + j, y + i, color);
 	}
 }
@@ -80,8 +80,8 @@ void	ft_draw_ray(t_cub3d *cub)
 	rays = 0;
 	while (rays++ < NUM_RAYS)
 	{
-		x = cub->player.x_pix + GRID_SIZE / 2;
-		y = cub->player.y_pix + GRID_SIZE / 2;
+		x = cub->player.x_pix;
+		y = cub->player.y_pix;
 		while (cub->map.map[y / GRID_SIZE][x / GRID_SIZE] != '1')
 		{
 			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4), 0xffff0000);

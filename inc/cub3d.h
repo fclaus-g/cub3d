@@ -13,9 +13,11 @@
 # define HEIGHT 720
 # define WIDTH 1280
 # define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
-# define MOV 4	//velocidad de movimiento del player
+
+# define MOV 1	//velocidad de movimiento del player
 # define ROT_SPEED 0.06 //velocidad de rotacion del player
 # define MOVE_SPEED 0.1
+# define OFFSET 18
 # define VISION_ANGLE M_PI / 3
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
@@ -256,4 +258,5 @@ void ft_init_ray_data(t_cub3d *cub);
 uint32_t ft_wall_color(t_cub3d *cub);
 mlx_texture_t *ft_choice_texture(t_cub3d *cub);
 void ft_paint_floor_and_ceiling(t_cub3d *cub);
+int ft_check_collision(t_cub3d *cub, double y, double x);
 #endif

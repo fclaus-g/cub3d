@@ -2,7 +2,7 @@
 
 void	ft_keys_moves(t_cub3d *cub)
 {
-    if (mlx_is_key_down(cub->window, MLX_KEY_ESCAPE))
+	if (mlx_is_key_down(cub->window, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(cub->window);
 		exit (0);
@@ -46,7 +46,7 @@ void	ft_move_up(t_cub3d *cub)
 	x_mov = cos(cub->player.angle) * MOV;
 	y = cub->player.y_pix + y_mov;
 	x = cub->player.x_pix + x_mov;
-	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
+	if (!ft_check_collision(cub, x, y))
 	{
 		cub->player.y_pix = y;
 		cub->player.x_pix = x;
@@ -60,11 +60,11 @@ void	ft_move_down(t_cub3d *cub)
 	double	y_mov;
 	double	x_mov;
 
-	y_mov = sin(cub->player.angle) * MOV;
-	x_mov = -cos(cub->player.angle) * MOV;
+	y_mov = -sin(cub->player.angle + M_PI) * MOV;
+	x_mov = cos(cub->player.angle + M_PI) * MOV;
 	y = cub->player.y_pix + y_mov;
 	x = cub->player.x_pix + x_mov;
-	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
+	if (!ft_check_collision(cub, x, y))
 	{
 		cub->player.y_pix = y;
 		cub->player.x_pix = x;
@@ -82,7 +82,7 @@ void	ft_move_left(t_cub3d *cub)
 	x_mov = cos(cub->player.angle + M_PI / 2) * MOV;
 	y = cub->player.y_pix + y_mov;
 	x = cub->player.x_pix + x_mov;
-	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
+	if (!ft_check_collision(cub, x, y))
 	{
 		cub->player.y_pix = y;
 		cub->player.x_pix = x;
@@ -96,13 +96,30 @@ void	ft_move_right(t_cub3d *cub)
 	double	y_mov;
 	double	x_mov;
 
-	y_mov = sin(cub->player.angle + M_PI / 2) * MOV;
-	x_mov = -cos(cub->player.angle + M_PI / 2) * MOV;
+	y_mov = -sin(cub->player.angle - M_PI / 2) * MOV;
+	x_mov = cos(cub->player.angle - M_PI / 2) * MOV;
 	y = cub->player.y_pix + y_mov;
 	x = cub->player.x_pix + x_mov;
-	if (cub->map.map[(int)(y / GRID_SIZE)][(int)(x / GRID_SIZE)] != '1')
+	if (!ft_check_collision(cub, x, y))
 	{
 		cub->player.y_pix = y;
 		cub->player.x_pix = x;
 	}
+}
+
+int ft_check_collision(t_cub3d *cub, double x, double y)
+{
+	int grid_x_min = (int)(x - OFFSET) / GRID_SIZE;
+	int grid_x_max = (int)(x + OFFSET) / GRID_SIZE;
+	int grid_y_min = (int)(y - OFFSET) / GRID_SIZE;
+	int grid_y_max = (int)(y + OFFSET) / GRID_SIZE;
+
+	// Verifica todas las esquinas del jugador
+	if (cub->map.map[grid_y_min][grid_x_min] == '1' || cub->map.map[grid_y_min][grid_x_max] == '1' ||
+		cub->map.map[grid_y_max][grid_x_min] == '1' || cub->map.map[grid_y_max][grid_x_max] == '1')
+	{
+		return 1;
+	}
+
+	return 0;
 }
