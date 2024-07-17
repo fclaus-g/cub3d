@@ -10,9 +10,9 @@ void	ft_init_view(t_cub3d *cub)
 	}
 	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
 	cub->map.map[(int)cub->player.y_pix / GRID_SIZE][(int)cub->player.x_pix / GRID_SIZE] = '0';
-	ft_paint_floor_and_ceiling(cub);
-	//ft_print_player(cub);
 	ft_load_textures(cub);
+	//ft_paint_floor_and_ceiling(cub);
+	ft_render_floor_and_ceiling(cub);
 	ft_raycaster(cub);
 }
 
@@ -40,3 +40,4 @@ void	ft_paint_floor_and_ceiling(t_cub3d *cub)
 		}
 	}
 }
+

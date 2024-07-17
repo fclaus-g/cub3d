@@ -9,8 +9,10 @@ void	ft_hook(void *param)
 	ft_draw_map(cub);
 	ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix, 0xffffffff);
 	ft_draw_ray(cub);
-	ft_paint_floor_and_ceiling(cub);
+	//ft_paint_floor_and_ceiling(cub);
+	ft_render_floor_and_ceiling(cub);
 	ft_raycaster(cub);
+	ft_paint_hand(cub);
 }
 
 void	uint32_to_rgb(uint32_t color, uint8_t *r, uint8_t *g, uint8_t *b)
