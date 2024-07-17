@@ -27,6 +27,7 @@ SRCS	= src/main.c \
 			src/walls.c \
 			src/view.c \
 			src/textures.c \
+			src/bonus.c
 
 
 OBJS	= ${SRCS:.c=.o}

@@ -1,10 +1,10 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <math.h>
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "../lib/libft/libft.h"
-#include "../lib/get_next_line/get_next_line.h"
+# include <math.h>
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../lib/libft/libft.h"
+# include "../lib/get_next_line/get_next_line.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
@@ -14,10 +14,9 @@
 # define WIDTH 1280
 # define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
 
-# define MOV 1	//velocidad de movimiento del player
+# define MOV 2	//velocidad de movimiento del player
 # define ROT_SPEED 0.06 //velocidad de rotacion del player
-# define MOVE_SPEED 0.1
-# define OFFSET 32
+# define OFFSET 17
 # define VISION_ANGLE M_PI / 3
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
@@ -116,10 +115,10 @@ typedef struct s_ray
 	float		dir_x;
 	float		dir_y;
 	float		camera_x;
-	int 		map_x;
-	int 		map_y;
-	float 		delta_dist_x;
-	float 		delta_dist_y;
+	int			map_x;
+	int			map_y;
+	float		delta_dist_x;
+	float		delta_dist_y;
 	int			step_x;
 	int			step_y;
 	float		side_dist_x;
@@ -142,23 +141,25 @@ typedef struct s_dir
 	double	y;
 }	t_dir;
 
-typedef	struct cub3d
+typedef struct	cub3d
 {
-	t_map		map;
-	t_player	player;
-	t_scene		scene;
-	void		*window;
-	mlx_image_t	*window_canvas;
-	mlx_image_t *wall;
-	t_minimap	mini;
-	t_plane		plane;
-	//t_dir		dir;
-	t_ray		ray;
+	t_map			map;
+	t_player		player;
+	t_scene			scene;
+	void			*window;
+	mlx_image_t		*window_canvas;
+	mlx_image_t		*wall;
+	t_minimap		mini;
+	t_plane			plane;
+	t_ray			ray;
 	mlx_texture_t	*NO;
 	mlx_texture_t	*SO;
 	mlx_texture_t	*WE;
 	mlx_texture_t	*EA;
-}	t_cub3d;
+	mlx_texture_t	*floor;
+	mlx_texture_t	*ceil;
+	mlx_texture_t	*hand;
+}				t_cub3d;
 
 
 // typedef struct s_game
@@ -261,4 +262,6 @@ uint32_t ft_wall_color(t_cub3d *cub);
 mlx_texture_t *ft_choice_texture(t_cub3d *cub);
 void ft_paint_floor_and_ceiling(t_cub3d *cub);
 int ft_check_collision(t_cub3d *cub, double y, double x);
+void ft_paint_hand(t_cub3d *cub);
+void ft_render_floor_and_ceiling(t_cub3d *cub);
 #endif

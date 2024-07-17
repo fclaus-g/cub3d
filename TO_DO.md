@@ -12,8 +12,14 @@
 		- [ ] 
 - [x] Ajustar el offset del player(se mete en las paredes de derecha y abajo respecto al 2d)
 - [ ] make hace relink
+- [ ] La función ft_check_collision hay que darle una vuelta, declaración de variables y lineas.
 - [ ] En map_validacion hay 32 funciones a dividir en 6 archivos .c
 	* - [ ] +25 lineas función read_parse_scene()
 	  - [ ] +25 lineas función 	check_if_map_is_closed(t_cub3d *cub)
 	  - [ ] +25 lineas función fill_map_matrix(t_cub3d *cub)
+- [ ] Texturas cielo y suelo.
+- [ ] Texturas one piece.
+- [ ] Añadir una pistolilla o algo
+- [ ] Añadir mirar con el raton además de con las flechas
+- [ ] Animación
 - https://redketchup.io/color-picker
