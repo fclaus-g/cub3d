@@ -11,9 +11,15 @@ void	ft_init_view(t_cub3d *cub)
 	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
 	cub->map.map[(int)cub->player.y_pix / GRID_SIZE][(int)cub->player.x_pix / GRID_SIZE] = '0';
 	ft_load_textures(cub);
-	//ft_paint_floor_and_ceiling(cub);
-	ft_render_floor_and_ceiling(cub);
+	ft_paint_floor_and_ceiling(cub);
+	// ft_render_floor_and_ceiling(cub);
 	ft_raycaster(cub);
+}
+
+
+uint32_t rgb_to_uint32(t_rgb rgb)
+{
+	return (rgb.r << 24 | rgb.g << 16 | rgb.b << 8 | 0xFF);
 }
 
 void	ft_paint_floor_and_ceiling(t_cub3d *cub)
@@ -27,7 +33,7 @@ void	ft_paint_floor_and_ceiling(t_cub3d *cub)
 		x = -1;
 		while (++x < cub->window_canvas->width)
 		{
-			mlx_put_pixel(cub->window_canvas, x, y, 0x00ff00ff);
+			mlx_put_pixel(cub->window_canvas, x, y, rgb_to_uint32(cub->scene.textures.ceil));
 		}
 	}
 	y--;
@@ -36,7 +42,7 @@ void	ft_paint_floor_and_ceiling(t_cub3d *cub)
 		x = -1;
 		while (++x < cub->window_canvas->width)
 		{
-			mlx_put_pixel(cub->window_canvas, x, y, 0xffffffff);
+			mlx_put_pixel(cub->window_canvas, x, y, rgb_to_uint32(cub->scene.textures.floor));
 		}
 	}
 }

@@ -34,13 +34,13 @@ OBJS	= ${SRCS:.c=.o}
 BONUSSRC = ${shell find ./bonus -iname "*.c"} # @TODO: Cambiar a solo los archivos necesarios
 BONUSOBJ = ${BONUSSRC:.c=.o}
 
-all: libmlx libft libgnl $(NAME)
+all: libmlx libft.a get_next_line.a $(NAME)
 
-libft  :
+libft.a:
 	@echo "\n$(AMARILLO) **** Compilando LIBFT **** $(DEF_COLOR)\n"
-	@make -C ${LIBFT} bonus
+	@make -C ${LIBFT}
 	@echo "\n$(VERDE) **** LIBFT compilada **** $(DEF_COLOR)\n"
-libgnl :
+get_next_line.a:
 	@echo "\n$(AMARILLO) **** Compilando GNL **** $(DEF_COLOR)\n"
 	@make -C ${LIBGNL}
 	@echo "\n$(VERDE) **** GNL compilada **** $(DEF_COLOR)\n"
@@ -79,7 +79,6 @@ fclean: clean
 	@rm -f so_long_bonus
 	@make fclean -C ${LIBFT}
 	@make fclean -C ${LIBGNL}
-	@make clean -C ${LIBMLX}
 	@echo "\n$(VERDE) **** Ejecutable borrado **** $(DEF_COLOR)\n"
 
 re: clean all

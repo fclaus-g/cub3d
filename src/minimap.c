@@ -11,7 +11,7 @@ void	ft_init_minimap(t_cub3d *cub)
 		exit(1);
 	}
 	ft_draw_map(cub);
-	mlx_image_to_window(cub->window, cub->mini.canvas, 0, 0);
+	// mlx_image_to_window(cub->window, cub->mini.canvas, 0, 0);
 }
 
 void	ft_draw_map(t_cub3d *cub)

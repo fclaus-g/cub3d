@@ -19,6 +19,7 @@ void	init_scene(t_cub3d *cub)
 	cub->map.rows = 0;
 	cub->map.cols = 0;
 	cub->player.angle = -1;
+	cub->hand = NULL;
 }
 
 void	show_error_free(char *msg1, char *msg2, int msg_clean)
@@ -236,6 +237,11 @@ int	validate_texture_line(char *line, char **texture)
 	free_matrix(texture_components);
 	if (!path)
 		show_error_and_exit("Failed to allocate memory for texture path.", 1);
+	if (!file_is_reachable(path))
+	{
+		show_error_free(path, ": Texture file not found or without permissions.\n", 1);
+		return (0);
+	}
 	*texture = path;
 	return (1);
 }
@@ -532,6 +538,7 @@ int	read_and_parse_scene(char *path, t_cub3d *cub)
 	cub->map.w_px = cub->map.cols * GRID_SIZE;
 	cub->map.h_px = cub->map.rows * GRID_SIZE;
 	locate_player(cub);
+	ft_load_textures(cub);
 	return (1);
 }
 

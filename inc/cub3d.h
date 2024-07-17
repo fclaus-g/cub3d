@@ -260,7 +260,6 @@ void ft_paint_wall(t_cub3d *cub, int x);
 void ft_init_ray_data(t_cub3d *cub);
 uint32_t ft_wall_color(t_cub3d *cub);
 mlx_texture_t *ft_choice_texture(t_cub3d *cub);
-void ft_paint_floor_and_ceiling(t_cub3d *cub);
 int ft_check_collision(t_cub3d *cub, double y, double x);
 void ft_paint_hand(t_cub3d *cub);
 void ft_render_floor_and_ceiling(t_cub3d *cub);

@@ -1,20 +1,48 @@
 #include "../inc/cub3d.h"
 
+/**
+ * @brief Paint the hand of the player
+ * @todo scale the hand to the size of the window (width and height)
+ * @param cub 
+ */
 void ft_paint_hand(t_cub3d *cub)
 {
-	int y;
-	int x;
-	uint32_t color;
+	int			y;
+	int			x;
+	uint32_t	color;
+	double		scale;
+	// int			calculated_x;
+	// int			calculated_y;
 
+	if (!cub->hand)
+		return ;
 	y = 0;
-	while (y < (int)cub->hand->height)
+	if (cub->window_canvas->width < cub->hand->width)
+		scale = cub->hand->width / cub->window_canvas->width;
+	else
+		scale = 1;
+	
+	while (y < (int)cub->window_canvas->height)
 	{
 		x = 0;
-		while (x < (int)cub->hand->width)
+		while (x < (int)cub->window_canvas->width)
+		// {
+		// 	// calculated_x = (int)(x * scale);
+		// 	// calculated_y = (int)(y * scale);
+		// 	// printf("x: %d, y: %d\n", x, y);
+		// 	color = get_pixel_color_from_texture(cub->hand, (int)(x * scale), (int)(y * scale));
+		// 	if (color != 0)
+		// 		mlx_put_pixel(cub->window_canvas, x, y, color);
+		// 	x++;
+		// }
 		{
-			color = get_pixel_color_from_texture(cub->hand, x, y);
-			if (color != 0)
-				mlx_put_pixel(cub->window_canvas, x, y, color);
+			if (y >= cub->window_canvas->height - cub->hand->height * scale && x >= ((cub->window_canvas->width - cub->hand->width * scale) / 2) &&  x <= ((cub->window_canvas->width - cub->hand->width * scale) / 2) + cub->hand->width * scale)
+			{
+				// printf("x: %d, y: %d\n", x, y);
+				color = get_pixel_color_from_texture(cub->hand, (int)(x - (cub->window_canvas->width - cub->hand->width * scale) / 2), (int)(y + (cub->hand->height * scale - cub->window_canvas->height)));
+				if (color != 0)
+					mlx_put_pixel(cub->window_canvas, x, y, color);
+			}
 			x++;
 		}
 		y++;
