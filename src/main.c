@@ -15,6 +15,43 @@ void	ft_hook(void *param)
 	ft_paint_hand(cub);
 }
 
+
+void	ft_mouse_hook(enum mouse_key button, enum action accion, enum modifier_key tecla, void *param)
+{
+	// t_cub3d	*cub;
+
+	(void)button;
+	(void)accion;
+	(void)tecla;
+	(void)param;
+	// Disparo
+	// if (button == 1)
+	// {
+	// 	cub->player.shoot = 1;
+	// }
+}
+
+void	ft_cursor_hook(double x, double y, void *param)
+{
+	t_cub3d	*cub;
+
+	cub = (t_cub3d *)param;
+	(void)x;
+	(void)y;
+	// if (cub->player.cursor_x < 0)
+	// 	cub->player.cursor_x = 0;
+	if (cub->cursor_x < x)
+		ft_rotate_player(cub, 1);
+	else if (cub->cursor_x > x)
+		ft_rotate_player(cub, -1);
+	cub->cursor_x = x;
+	// printf("x: %d, y: %d\n", x, y);
+	// if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+	// {
+	// 	cub->player.angle = (double)x / WIDTH * 2 * M_PI;
+	// }
+}
+
 int	main(int argc, char **argv)
 {
 	// (void)argc;
@@ -40,6 +77,8 @@ int	main(int argc, char **argv)
 	// printf("mapa inicializado\n");
 	ft_init_minimap(&cub);
 	// printf("minimapa inicializado\n");
+	// mlx_mouse_hook(cub.window, &ft_mouse_hook, &cub);
+	mlx_cursor_hook(cub.window, &ft_cursor_hook, &cub);
 	mlx_loop_hook(cub.window, &ft_hook, &cub);
 	mlx_loop(cub.window);
 	free_cub(&cub);

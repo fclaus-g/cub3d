@@ -159,6 +159,7 @@ typedef struct cub3d
 	mlx_texture_t	*floor;
 	mlx_texture_t	*ceil;
 	mlx_texture_t	*hand;
+	double			cursor_x;
 }				t_cub3d;
 
 // typedef struct s_game
@@ -207,6 +208,7 @@ void			ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
 void			ft_draw_ray(t_cub3d *cub);
 
 /*-----------[moves]-----------------------*/
+void			ft_rotate_player(t_cub3d *cub, int direction);
 void			ft_keys_moves(t_cub3d *cub);
 void			ft_move_up(t_cub3d *cub);
 void			ft_move_down(t_cub3d *cub);
