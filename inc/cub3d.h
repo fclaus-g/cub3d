@@ -152,10 +152,10 @@ typedef struct cub3d
 	t_minimap		mini;
 	t_plane			plane;
 	t_ray			ray;
-	mlx_texture_t	*NO;
-	mlx_texture_t	*SO;
-	mlx_texture_t	*WE;
-	mlx_texture_t	*EA;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
 	mlx_texture_t	*floor;
 	mlx_texture_t	*ceil;
 	mlx_texture_t	*hand;
@@ -286,4 +286,6 @@ void ft_print_algo(t_cub3d *cub, int x);
 void ft_render_player(t_cub3d *cub);
 void			ft_init_player(t_cub3d *cub);
 //void ft_render_wall(t_cub3d *cub, int x, int y, double angle);
+void	ft_delete_textures(t_cub3d *cub);
+void	free_cub(t_cub3d *cub);
 #endif

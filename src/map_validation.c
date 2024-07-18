@@ -500,6 +500,18 @@ void	locate_player(t_cub3d *cub)
 		i++;
 	}
 }
+void	end_read_fd(int fd) {
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+}
+
 int	read_and_parse_scene(char *path, t_cub3d *cub)
 {
 	int		fd;
@@ -517,11 +529,14 @@ int	read_and_parse_scene(char *path, t_cub3d *cub)
 		free(tmp);
 		if (!validate_scene_line(line, cub))
 		{
-			close(fd);
+			free(line);
+			end_read_fd(fd);
 			return (0);
 		}
+		// free(line);
 		line = get_next_line(fd);
 	}
+	// free(line);
 	close(fd);
 	cub->map.cols -= cub->map.left_padding;
 	fill_map_matrix(cub);
@@ -538,7 +553,6 @@ int	read_and_parse_scene(char *path, t_cub3d *cub)
 	cub->map.w_px = cub->map.cols * GRID_SIZE;
 	cub->map.h_px = cub->map.rows * GRID_SIZE;
 	locate_player(cub);
-	ft_load_textures(cub);
 	return (1);
 }
 

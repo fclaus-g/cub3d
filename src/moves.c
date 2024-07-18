@@ -5,6 +5,7 @@ void	ft_keys_moves(t_cub3d *cub)
 	if (mlx_is_key_down(cub->window, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(cub->window);
+		free_cub(cub);
 		exit (0);
 	}
 	if (mlx_is_key_down(cub->window, MLX_KEY_W))
@@ -126,4 +127,40 @@ int ft_check_collision(t_cub3d *cub, double x, double y)
 		return (1);
 	}
 	return (0);
+}
+
+void ft_delete_textures(t_cub3d *cub)
+{
+	(void)cub;
+	printf("===================DELETING TEXTURES!!!================\n");
+	printf("===================DELETING TEXTURES!!!================\n");
+	printf("===================DELETING TEXTURES!!!================\n");
+	printf("===================DELETING TEXTURES!!!================\n");
+	printf("===================DELETING TEXTURES!!!================\n");
+	printf("===================DELETING TEXTURES!!!================\n");
+	// mlx_delete_texture(cub->scene.textures.floor);
+	// mlx_delete_texture(cub->scene.textures.ceil);
+	// mlx_delete_texture(cub->no);
+	// mlx_delete_texture(cub->so);
+	// mlx_delete_texture(cub->we);
+	// mlx_delete_texture(cub->ea);
+	// mlx_delete_texture(cub->hand);
+	if (cub->no)
+		mlx_delete_texture(cub->no);
+	if (cub->so)
+		mlx_delete_texture(cub->so);
+	if (cub->we)
+		mlx_delete_texture(cub->we);
+	if (cub->ea)
+		mlx_delete_texture(cub->ea);
+	if (cub->hand)
+		mlx_delete_texture(cub->hand);
+}
+void	free_cub(t_cub3d *cub)
+{
+	ft_lstclear(&cub->map.lines, free);
+	ft_delete_textures(cub);
+	free_matrix(cub->map.map);
+	mlx_terminate(cub->window);
+	free(cub);
 }

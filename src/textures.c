@@ -5,16 +5,16 @@ mlx_texture_t	*ft_choice_texture(t_cub3d *cub)
 	if (cub->ray.side == 0)
 	{
 		if (cub->ray.step_x == 1)
-			return (cub->EA);
+			return (cub->ea);
 		else
-			return (cub->WE);
+			return (cub->we);
 	}
 	else
 	{
 		if (cub->ray.step_y == 1)
-			return (cub->SO);
+			return (cub->so);
 		else
-			return (cub->NO);
+			return (cub->no);
 	}
 }
 
@@ -33,7 +33,7 @@ uint32_t	transform_color(uint32_t color)
 	r = (color >> 16) & 0xFF;
 	g = (color >> 8) & 0xFF;
 	b = color & 0xFF;
-	if (a < 255)
+	if (a < 128)
 		return 0;
 	return (b << 24 | g << 16 | r << 8 | a);
 }
@@ -68,24 +68,12 @@ uint32_t	get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y)
 
 void	ft_load_textures(t_cub3d *cub)
 {
-	// cub->NO = malloc(sizeof(mlx_texture_t));
-	// cub->SO = malloc(sizeof(mlx_texture_t));
-	// cub->WE = malloc(sizeof(mlx_texture_t));
-	// cub->EA = malloc(sizeof(mlx_texture_t));
-	// cub->hand = malloc(sizeof(mlx_texture_t));
-	// cub->floor = malloc(sizeof(mlx_texture_t));
-	// cub->ceil = malloc(sizeof(mlx_texture_t));
-	// if (!cub->NO || !cub->SO || !cub->WE || !cub->EA)
-	// {
-	// 	show_error("Texture allocation failed\n");
-	// 	exit(1);
-	// }
-	cub->NO = mlx_load_png(cub->scene.textures.no);
-	cub->SO = mlx_load_png(cub->scene.textures.so);
-	cub->WE = mlx_load_png(cub->scene.textures.we);
-	cub->EA = mlx_load_png(cub->scene.textures.ea);
+	cub->no = mlx_load_png(cub->scene.textures.no);
+	cub->so = mlx_load_png(cub->scene.textures.so);
+	cub->we = mlx_load_png(cub->scene.textures.we);
+	cub->ea = mlx_load_png(cub->scene.textures.ea);
 	cub->hand = mlx_load_png("textures/manopistola.png");
-	cub->floor = mlx_load_png("textures/Sbyn.png");
-	cub->ceil = mlx_load_png("textures/oxido.png");
-	// printf("Textures loaded NO %p, SO %p, WE %p, EA %p\n", cub->NO, cub->SO, cub->WE, cub->EA);
+	//cub->floor = mlx_load_png("textures/Sbyn.png");
+	//cub->ceil = mlx_load_png("textures/oxido.png");
+	// printf("Textures loaded NO %p, SO %p, WE %p, EA %p\n", cub->no, cub->so, cub->we, cub->ea);
 }

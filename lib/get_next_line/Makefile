@@ -6,7 +6,7 @@
 #    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 16:28:47 by fclaus-g          #+#    #+#              #
-#    Updated: 2022/12/23 10:16:07 by fclaus-g         ###   ########.fr        #
+#    Updated: 2024/07/18 18:23:40 by fclaus-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 RM = rm -f
 

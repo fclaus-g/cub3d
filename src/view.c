@@ -2,6 +2,7 @@
 
 void	ft_init_view(t_cub3d *cub)
 {
+	ft_init_player(cub);
 	cub->window_canvas = mlx_new_image(cub->window, WIDTH, HEIGHT);
 	if (!cub->window_canvas)
 	{
