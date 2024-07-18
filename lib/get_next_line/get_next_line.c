@@ -6,7 +6,7 @@
 /*   By: fclaus-g <fclaus-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:25:17 by fclaus-g          #+#    #+#             */
-/*   Updated: 2024/05/29 20:34:24 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:38:11 by fclaus-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char	*up_buf(char *static_buf)
 		count++;
 	if (static_buf[count] == '\0')
 		return (free (static_buf), NULL);
-	temp = (char *)malloc(sizeof(char) * (ft_strlen_gnl(static_buf) - count + 1));
+	temp = (char *)malloc(sizeof(char) * \
+		(ft_strlen_gnl(static_buf) - count + 1));
 	if (!temp)
 		return (NULL);
 	count++;

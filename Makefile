@@ -17,18 +17,30 @@ HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) #est
 LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC		= gcc
-SRCS	= $(shell find ./src -iname "*.c")
+SRCS	= src/main.c \
+			src/minimap.c \
+			src/moves.c \
+			src/map_validation.c \
+			src/utils.c \
+			src/raycaster.c \
+			src/player.c \
+			src/walls.c \
+			src/view.c \
+			src/textures.c \
+			src/bonus.c
+
+
 OBJS	= ${SRCS:.c=.o}
-BONUSSRC = ${shell find ./bonus -iname "*.c"}
+BONUSSRC = ${shell find ./bonus -iname "*.c"} # @TODO: Cambiar a solo los archivos necesarios
 BONUSOBJ = ${BONUSSRC:.c=.o}
 
-all: libmlx libft libgnl $(NAME)
+all: libmlx libft.a get_next_line.a $(NAME)
 
-libft  :
+libft.a:
 	@echo "\n$(AMARILLO) **** Compilando LIBFT **** $(DEF_COLOR)\n"
 	@make -C ${LIBFT}
 	@echo "\n$(VERDE) **** LIBFT compilada **** $(DEF_COLOR)\n"
-libgnl :
+get_next_line.a:
 	@echo "\n$(AMARILLO) **** Compilando GNL **** $(DEF_COLOR)\n"
 	@make -C ${LIBGNL}
 	@echo "\n$(VERDE) **** GNL compilada **** $(DEF_COLOR)\n"
@@ -54,19 +66,19 @@ debug:
 		@echo "\033[0;32mArchivo debug generado"
 clean:
 	@echo "\n$(AZUL) **** Borrando archivos objeto **** $(DEF_COLOR)\n"
-	@rm -f $(OBJS)
+	@rm -f src/*.o
 	@rm -f $(BONUSOBJ)
 	@make clean -C ${LIBFT}
 	@make clean -C ${LIBGNL}
 #	@make clean -C ${LIBMLX}
 	@echo "\n$(VERDE) **** Archivos objeto borrados **** $(DEF_COLOR)\n"
+
 fclean: clean
 	@echo "\n$(AZUL) **** Borrando ejecutable **** $(DEF_COLOR)\n"
 	@rm -f $(NAME)
 	@rm -f so_long_bonus
 	@make fclean -C ${LIBFT}
 	@make fclean -C ${LIBGNL}
-	@make clean -C ${LIBMLX}
 	@echo "\n$(VERDE) **** Ejecutable borrado **** $(DEF_COLOR)\n"
 
 re: clean all

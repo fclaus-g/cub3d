@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:23:16 by fclaus-g          #+#    #+#             */
-/*   Updated: 2023/06/23 18:13:02 by fclaus-g         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:27:31 by frgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		c2++;
 	}
 	s3[count + c2] = 0;
-	free((char *)s1);
 	return (s3);
 }
