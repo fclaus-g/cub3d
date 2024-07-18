@@ -23,19 +23,19 @@ void	uint32_to_rgba(uint32_t color, uint8_t *a, uint8_t *r, uint8_t *g, uint8_t 
 	*r = color & 0xFF;
 }
 
-uint32_t rgba_to_uint32(uint8_t a, uint8_t r, uint8_t g, uint8_t b)
+uint32_t	rgba_to_uint32(uint8_t a, uint8_t r, uint8_t g, uint8_t b)
 {
 	return (a << 24 | r << 16 | g << 8 | b);
 }
 
-void test_color(void)
+void	test_color(void)
 {
 	void			*window;
 	mlx_image_t		*image;
 	mlx_texture_t	*texture;
-	uint32_t	color;
-	uint8_t	a, r, g, b;
-	int x, y;
+	uint32_t		color;
+	uint8_t			a, r, g, b;
+	int 			x, y;
 
 	x = 0; y = 0;
 	window = mlx_init(800, 600, "test", 0);

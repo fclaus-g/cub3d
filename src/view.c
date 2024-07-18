@@ -16,8 +16,7 @@ void	ft_init_view(t_cub3d *cub)
 	ft_raycaster(cub);
 }
 
-
-uint32_t rgb_to_uint32(t_rgb rgb)
+uint32_t	rgb_to_uint32(t_rgb rgb)
 {
 	return (rgb.r << 24 | rgb.g << 16 | rgb.b << 8 | 0xFF);
 }
@@ -46,4 +45,3 @@ void	ft_paint_floor_and_ceiling(t_cub3d *cub)
 		}
 	}
 }
-

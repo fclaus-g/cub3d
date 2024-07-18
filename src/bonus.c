@@ -5,7 +5,7 @@
  * @todo scale the hand to the size of the window (width and height)
  * @param cub 
  */
-void ft_paint_hand(t_cub3d *cub)
+void	ft_paint_hand(t_cub3d *cub)
 {
 	int			y;
 	int			x;
@@ -21,7 +21,6 @@ void ft_paint_hand(t_cub3d *cub)
 		scale = cub->hand->width / cub->window_canvas->width;
 	else
 		scale = 1;
-	
 	while (y < (int)cub->window_canvas->height)
 	{
 		x = 0;

@@ -19,17 +19,23 @@ double	ft_player_lookat_angle(char c)
 	return (M_PI / 2);
 }
 
-void	ft_refresh_player(t_player *player, int girar)//----------------------------------Arreglar igualacion de variables
+void	ft_refresh_player(t_player *player, int girar)
 {
-	double	oldDirX = player->dir_x;
-	double	oldDirY = player->dir_y;
-	double	oldPlaneX = player->plane_x;
-	double	rotSpeed = girar * ROT_SPEED;
+	double	old_dirx;
+	double	old_diry;
+	double	old_planex;
+	double	rot_speed;
 
-	player->dir_x = oldDirX * cos(rotSpeed) - oldDirY * sin(rotSpeed);
-	player->dir_y = oldDirX * sin(rotSpeed) + oldDirY * cos(rotSpeed);
-	player->plane_x = player->plane_x * cos(rotSpeed) - player->plane_y * sin(rotSpeed);
-	player->plane_y = oldPlaneX * sin(rotSpeed) + player->plane_y * cos(rotSpeed);
+	old_dirx = player->dir_x;
+	old_diry = player->dir_y;
+	old_planex = player->plane_x;
+	rot_speed = girar * ROT_SPEED;
+	player->dir_x = old_dirx * cos(rot_speed) - old_diry * sin(rot_speed);
+	player->dir_y = old_dirx * sin(rot_speed) + old_diry * cos(rot_speed);
+	player->plane_x = player->plane_x * \
+	cos(rot_speed) - player->plane_y * sin(rot_speed);
+	player->plane_y = old_planex * \
+	sin(rot_speed) + player->plane_y * cos(rot_speed);
 }
 
 /**

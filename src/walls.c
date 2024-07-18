@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-void	ft_wall_distance(t_cub3d * cub)
+void	ft_wall_distance(t_cub3d *cub)
 {
 	if (cub->ray.side == 0)
 	{

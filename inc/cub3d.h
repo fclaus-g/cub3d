@@ -10,8 +10,8 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
-# define HEIGHT 720
-# define WIDTH 1280
+# define HEIGHT 1080
+# define WIDTH 1920
 # define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
 
 # define MOV 2	//velocidad de movimiento del player
@@ -69,7 +69,7 @@ typedef struct scene
 typedef struct splayer
 {
 	
-	char 		orient;
+	char		orient;
 	double		x_pix;
 	double		y_pix;
 	float		x;
@@ -77,8 +77,8 @@ typedef struct splayer
 	double		angle;
 	float		dir_x;
 	float		dir_y;
-	double 		plane_x;
-	double 		plane_y;
+	double		plane_x;
+	double		plane_y;
 }				t_player;
 
 // typedef struct s_window
@@ -141,7 +141,7 @@ typedef struct s_dir
 	double	y;
 }	t_dir;
 
-typedef struct	cub3d
+typedef struct cub3d
 {
 	t_map			map;
 	t_player		player;
@@ -160,7 +160,6 @@ typedef struct	cub3d
 	mlx_texture_t	*ceil;
 	mlx_texture_t	*hand;
 }				t_cub3d;
-
 
 // typedef struct s_game
 // {
@@ -196,71 +195,95 @@ typedef struct	cub3d
 // 	mlx_image_t *pantalla;
 // }				t_game;
 
-void ft_init_data(t_cub3d *cub);
-/*----------[paint_minimap]----------------*/
-void ft_init_minimap(t_cub3d *cub);
-void	ft_init_view(t_cub3d *cub);
-void ft_draw_map(t_cub3d *cub);
-void ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
-void ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
-void ft_draw_ray(t_cub3d *cub);
-void ft_paint_floor_and_ceiling(t_cub3d *cub);
+/*-----------[bonus]----------------*/
+void			ft_paint_hand(t_cub3d *cub);
+void			ft_render_floor_and_ceiling(t_cub3d *cub);
 
+/*----------[minimap]----------------*/
+void			ft_init_minimap(t_cub3d *cub);
+void			ft_draw_map(t_cub3d *cub);
+void			ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
+void			ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
+void			ft_draw_ray(t_cub3d *cub);
+
+/*-----------[moves]-----------------------*/
+void			ft_keys_moves(t_cub3d *cub);
+void			ft_move_up(t_cub3d *cub);
+void			ft_move_down(t_cub3d *cub);
+void			ft_move_left(t_cub3d *cub);
+void			ft_move_right(t_cub3d *cub);
+int				ft_check_collision(t_cub3d *cub, double y, double x);
+
+/*-----------[player]----------------*/
+double			ft_player_lookat_angle(char c);
+void			print_player_position(t_cub3d *cub);
+void			ft_refresh_player(t_player *player, int girar);
+void			ft_player_orientation(t_player *player);
+
+/*-----------[map_validation]--------------*/
+void			show_error(char *msg);
+int				validate_scene(char *path, t_cub3d *cub);
+void			free_matrix(char **matrix);
+void			print_scene(t_cub3d *cub);
+int				starts_with_and_space(char *line, char *start);
+
+/*-----------[minimap]-----------------------*/
+void			ft_init_minimap(t_cub3d *cub);
+void			ft_draw_map(t_cub3d *cub);
+void			ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
+void			ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
+void			ft_draw_ray(t_cub3d *cub);
+
+/*-----------[raycaster]----------------*/
+void			ft_raycaster(t_cub3d *cub);
+void			ft_prepare_ray(t_cub3d *cub, int x);
+void			ft_calc_hipotenusa(t_ray *ray);
+void			ft_calc_player_hipotenusa(t_cub3d *cub);
+void			ft_dda(t_cub3d *cub);
+
+/*-----------[textures]----------------*/
+mlx_texture_t	*ft_choice_texture(t_cub3d *cub);
+uint32_t		transform_color(uint32_t color);
+uint32_t		get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y);
+void			ft_load_textures(t_cub3d *cub);
+
+/*-----------[walls]----------------*/
+void			ft_wall_distance(t_cub3d *cub);
+void			ft_wall_height(t_cub3d *cub);
+void			ft_paint_wall(t_cub3d *cub, int x);
+void			ft_init_ray_data(t_cub3d *cub);
+
+/*-----------[utils]----------------*/
+void			ft_print_player(t_cub3d *cub);
+void			ft_init_ray_data(t_cub3d *cub);
+void			ft_print_ray_data(t_cub3d *cub);
+
+/*-----------[view]----------------*/
+void			ft_init_view(t_cub3d *cub);
+uint32_t		rgb_to_uint32(t_rgb rgb);
+void			ft_paint_floor_and_ceiling(t_cub3d *cub);
+
+/*-----------[walls]----------------*/
+void			ft_wall_distance(t_cub3d *cub);
+void			ft_wall_height(t_cub3d *cub);
+uint32_t		ft_wall_color(t_cub3d *cub);
+void			ft_paint_wall(t_cub3d *cub, int x);
+void			ft_wall_x(t_cub3d *cub);
+
+
+
+// uint32_t ft_get_pixel_texture(t_cub3d *cub, int x, int y);
+
+
+void ft_init_data(t_cub3d *cub);
+void ft_hook(void *param);
 /*-----------[paint_map_2d]----------------*/
 void ft_init_view2d(t_cub3d *cub);
 void ft_load_images(t_cub3d *cub);
 void ft_render_wall_and_floor(t_cub3d *cub);
-void ft_render_player(t_cub3d *cub);
-double	ft_player_lookat_angle(char c);
-//void ft_render_wall(t_cub3d *cub, int x, int y, double angle);
-//void ft_draw_wall(t_cub3d *cub, int rays);
-
-/*-----------[moves]-----------------------*/
-void ft_keys_moves(t_cub3d *cub);
-void ft_move_up(t_cub3d *cub);
-void ft_move_down(t_cub3d *cub);
-void ft_move_left(t_cub3d *cub);
-void ft_move_right(t_cub3d *cub);
-void ft_hook(void *param);
-
-/*-----------[utils]-----------------------*/
-void	print_player_position(t_cub3d *cub);
-
-/*-----------[map_validation]--------------*/
-void	show_error(char *msg);
-int		validate_scene(char *path, t_cub3d *cub);
-void	free_matrix(char **matrix);
-void	print_scene(t_cub3d *cub);
-int		starts_with_and_space(char *line, char *start);
-
-/*-----------[raycasting.c]----------------*/
-void ft_raycast(t_cub3d *cub);
-void ft_player_orientation(t_player *player);
-void ft_prepare_ray(t_cub3d *cub, int x);
-void ft_calc_hipotenusa(t_ray *ray);
-void ft_calc_player_hipotenusa(t_cub3d *cub);
-void ft_dda(t_cub3d *cub);
-void ft_wall_distance(t_cub3d *cub);
-void ft_wall_height(t_cub3d *cub);
-void ft_paint_wall(t_cub3d *cub, int x);
-void ft_init_ray_data(t_cub3d *cub);
-
 void ft_print_linea(t_cub3d *cub);
 void ft_print_algo(t_cub3d *cub, int x);
-void ft_print_player(t_cub3d *cub);
-void ft_refresh_player(t_player *player, int girar);
-void ft_print_ray_data(t_cub3d *cub);
-void ft_raycaster(t_cub3d *cub);
-void ft_init_player(t_cub3d *cub);
-void ft_load_textures(t_cub3d *cub);
-// uint32_t ft_get_pixel_texture(t_cub3d *cub, int x, int y);
-uint32_t	get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y);
-void		ft_wall_x(t_cub3d *cub);
-void ft_paint_wall(t_cub3d *cub, int x);
-void ft_init_ray_data(t_cub3d *cub);
-uint32_t ft_wall_color(t_cub3d *cub);
-mlx_texture_t *ft_choice_texture(t_cub3d *cub);
-int ft_check_collision(t_cub3d *cub, double y, double x);
-void ft_paint_hand(t_cub3d *cub);
-void ft_render_floor_and_ceiling(t_cub3d *cub);
+void ft_render_player(t_cub3d *cub);
+void			ft_init_player(t_cub3d *cub);
+//void ft_render_wall(t_cub3d *cub, int x, int y, double angle);
 #endif

@@ -24,7 +24,7 @@ void	init_scene(t_cub3d *cub)
 
 void	show_error_free(char *msg1, char *msg2, int msg_clean)
 {
-	char *error;
+	char	*error;
 
 	error = ft_strjoin(msg1, msg2);
 	show_error(error);
@@ -48,7 +48,7 @@ void	show_error_and_exit(char *msg, int exit_code)
 
 void	show_error(char *msg)
 {
-	char *error;
+	char	*error;
 
 	error = ft_strjoin("Error\n", msg);
 	ft_putstr_fd(error, 2);
@@ -57,7 +57,7 @@ void	show_error(char *msg)
 
 int	is_map_space(char c)
 {
-	return ft_strchr(SCENE_SPACES, c) != NULL;
+	return (ft_strchr(SCENE_SPACES, c) != NULL);
 }
 
 int	is_map_element(char c)
@@ -99,7 +99,8 @@ int	validate_scene_extension(char *path)
 
 	ext_len = ft_strlen(CUB3D_EXTENSION);
 	if (ft_strlen(path) < ext_len
-		|| ft_strncmp(path + ft_strlen(path) - ext_len, CUB3D_EXTENSION, ext_len) != 0) {
+		|| ft_strncmp(path + ft_strlen(path) - ext_len, CUB3D_EXTENSION, ext_len) != 0)
+	{
 		show_error("Invalid scene file extension.");
 		return (0);
 	}
@@ -130,7 +131,6 @@ int	is_map_line(char *line)
 	}
 	return (1);
 }
-
 
 void	map_calculations(t_cub3d *cub, char *line)
 {
@@ -183,10 +183,10 @@ int	validate_map_line(char *line, t_cub3d *cub)
 
 int	is_cardinal_line(char *line)
 {
-	return starts_with_and_space(line, "NO")
+	return (starts_with_and_space(line, "NO")
 		|| starts_with_and_space(line, "SO")
 		|| starts_with_and_space(line, "WE")
-		|| starts_with_and_space(line, "EA");
+		|| starts_with_and_space(line, "EA"));
 }
 
 void	free_matrix(char **matrix)
