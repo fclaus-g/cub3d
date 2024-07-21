@@ -17,8 +17,10 @@
 # define MOV 2	//velocidad de movimiento del player
 # define ROT_SPEED 0.06 //velocidad de rotacion del player
 # define OFFSET 17
+# define VISION_ANGLE M_PI / 3
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
+// # define SCENE_MAP_CHARS "01NSWE"
 # define MAP_FILL_SPACE ' '
 # define NUM_RAYS 120
 # define INFINITE 1e30
@@ -30,6 +32,12 @@ typedef struct s_rgb
 	int	b;
 }	t_rgb;
 
+typedef struct s_rgb_texture
+{
+	t_rgb	color;
+	char	*path;
+}	t_rgb_texture;
+
 typedef struct s_scene_textures
 {
 	char	*no;
@@ -38,6 +46,8 @@ typedef struct s_scene_textures
 	char	*ea;
 	t_rgb	floor;
 	t_rgb	ceil;
+	char	*floor_path;
+	char	*ceil_path;
 }	t_scene_textures;
 
 typedef struct s_map
@@ -153,6 +163,9 @@ typedef struct cub3d
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
+	mlx_texture_t	*floor;
+	mlx_texture_t	*ceil;
+	mlx_texture_t	*hand;
 	double			cursor_x;
 }				t_cub3d;
 
@@ -189,6 +202,10 @@ typedef struct cub3d
 // 	mlx_image_t *plyr;
 // 	mlx_image_t *pantalla;
 // }				t_game;
+
+/*-----------[bonus]----------------*/
+void			ft_paint_hand(t_cub3d *cub);
+void			ft_render_floor_and_ceiling(t_cub3d *cub);
 
 /*----------[minimap]----------------*/
 void			ft_init_minimap(t_cub3d *cub);
@@ -307,5 +324,8 @@ void			show_error_and_exit(char *msg, int exit_code);
 void			free_matrix(char **matrix);
 int				matrix_len(char **matrix);
 int				starts_with_and_space(char *line, char *start);
+
+/*-----------[bonus/hooks]----------------*/
+void			ft_cursor_hook(double x, double y, void *param);
 
 #endif

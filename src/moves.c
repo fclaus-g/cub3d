@@ -5,6 +5,7 @@ void	ft_keys_moves(t_cub3d *cub)
 	if (mlx_is_key_down(cub->window, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(cub->window);
+		free_cub(cub);
 		exit (0);
 	}
 	if (mlx_is_key_down(cub->window, MLX_KEY_W))
@@ -16,23 +17,9 @@ void	ft_keys_moves(t_cub3d *cub)
 	if (mlx_is_key_down(cub->window, MLX_KEY_D))
 		ft_move_right(cub);
 	if (mlx_is_key_down(cub->window, MLX_KEY_LEFT))
-	{
-		cub->player.angle += ROT_SPEED;
-		ft_refresh_player(&cub->player, -1);
-		if (cub->player.angle < 0)
-		{
-			cub->player.angle += 2 * M_PI;
-		}
-	}	
+		ft_rotate_player(cub, -1);
 	if (mlx_is_key_down(cub->window, MLX_KEY_RIGHT))
-	{
-		cub->player.angle -= ROT_SPEED;
-		ft_refresh_player(&cub->player, 1);
-		if (cub->player.angle > 2 * M_PI)
-		{
-			cub->player.angle -= 2 * M_PI;
-		}	
-	}
+		ft_rotate_player(cub, 1);
 }
 
 void	ft_move_up(t_cub3d *cub)
@@ -105,25 +92,4 @@ void	ft_move_right(t_cub3d *cub)
 		cub->player.y_pix = y;
 		cub->player.x_pix = x;
 	}
-}
-
-int ft_check_collision(t_cub3d *cub, double x, double y)
-{
-	int	grid_x_min;
-	int	grid_x_max;
-	int	grid_y_min;
-	int	grid_y_max;
-
-	grid_x_min = (int)(x - OFFSET) / GRID_SIZE;
-	grid_x_max = (int)(x + OFFSET) / GRID_SIZE;
-	grid_y_min = (int)(y - OFFSET) / GRID_SIZE;
-	grid_y_max = (int)(y + OFFSET) / GRID_SIZE;
-	if (cub->map.map[grid_y_min][grid_x_min] == '1' || \
-		cub->map.map[grid_y_min][grid_x_max] == '1' || \
-		cub->map.map[grid_y_max][grid_x_min] == '1' || \
-		cub->map.map[grid_y_max][grid_x_max] == '1')
-	{
-		return (1);
-	}
-	return (0);
 }

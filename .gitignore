@@ -14,4 +14,4 @@ cub3d
 
 # Logs
 *.log
-log.txt
+log*.txt
