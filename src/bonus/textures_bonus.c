@@ -1,4 +1,4 @@
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d_bonus.h"
 
 mlx_texture_t	*ft_choice_texture(t_cub3d *cub)
 {
@@ -60,4 +60,7 @@ void	ft_load_textures(t_cub3d *cub)
 	cub->so = mlx_load_png(cub->scene.textures.so);
 	cub->we = mlx_load_png(cub->scene.textures.we);
 	cub->ea = mlx_load_png(cub->scene.textures.ea);
+	cub->hand = mlx_load_png("textures/manopistola.png");
+	cub->ceil = mlx_load_png("textures/oxido.png"); // @TODO from structure
+	cub->floor = mlx_load_png("textures/floor.png"); // @TODO from structure
 }

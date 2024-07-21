@@ -39,42 +39,44 @@ void	ft_refresh_player(t_player *player, int girar)
 }
 
 /**
- * @brief prepara la orientacion del jugador que usaremos
- * en los calculos siguientes *
+ * @brief prepare the orientation of the player that we will use
+ * to calculate the rays
  * @param player
  */
 void	ft_player_orientation(t_player *player)
 {
+	player->dir_x = 0;
+	player->dir_y = 0;
+	player->plane_x = 0;
+	player->plane_y = 0;
 	if (player->angle == M_PI / 2)
 	{
-		player->dir_x = 0;
 		player->dir_y = -1;
 		player->plane_x = 0.66;
-		player->plane_y = 0;
-		printf("player orientacion = 90 mira hacia el este x -1 plane y 0.66\n");
 	}
 	else if (player->angle == M_PI * 3 / 2)
 	{
-		player->dir_x = 0;
 		player->dir_y = 1;
 		player->plane_x = -0.66;
-		player->plane_y = 0;
-		printf("player orientacion = 270\n");
 	}
 	else if (player->angle == M_PI)
 	{
 		player->dir_x = -1;
-		player->dir_y = 0;
-		player->plane_x = 0;
 		player->plane_y = 0.66;
-		printf("player orientacion = 180\n");
 	}
 	else if (player->angle == 0)
 	{
 		player->dir_x = 1;
-		player->dir_y = 0;
-		player->plane_x = 0;
 		player->plane_y = -0.66;
-		printf("player orientacion = 0\n");
 	}
+}
+
+void	ft_rotate_player(t_cub3d *cub, int direction)
+{
+	cub->player.angle += direction * ROT_SPEED * -1;
+	ft_refresh_player(&cub->player, direction);
+	if (direction == -1 && cub->player.angle < 0)
+		cub->player.angle += 2 * M_PI;
+	else if (direction == 1 && cub->player.angle > 2 * M_PI)
+		cub->player.angle -= 2 * M_PI;
 }

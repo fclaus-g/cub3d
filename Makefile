@@ -18,20 +18,49 @@ LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC		= gcc
 SRCS	= src/main.c \
-			src/minimap.c \
 			src/moves.c \
-			src/map_validation.c \
+			src/collision.c \
 			src/utils.c \
 			src/raycaster.c \
 			src/player.c \
 			src/walls.c \
 			src/view.c \
 			src/textures.c \
-			src/bonus.c
-
+			src/parser/scene.c \
+			src/parser/validation.c \
+			src/parser/color_textures.c \
+			src/parser/init.c \
+			src/parser/utils.c \
+			src/parser/errors.c \
+			src/parser/is.c \
+			src/parser/is_map.c \
+			src/parser/strings.c \
+			src/parser/fill_map.c \
 
 OBJS	= ${SRCS:.c=.o}
-BONUSSRC = ${shell find ./bonus -iname "*.c"} # @TODO: Cambiar a solo los archivos necesarios
+BONUSSRC =	src/bonus/main_bonus.c \
+			src/moves.c \
+			src/collision.c \
+			src/raycaster.c \
+			src/player.c \
+			src/walls.c \
+			src/view.c \
+			src/parser/scene.c \
+			src/parser/validation.c \
+			src/parser/color_textures.c \
+			src/parser/utils.c \
+			src/parser/errors.c \
+			src/parser/is.c \
+			src/parser/is_map.c \
+			src/parser/strings.c \
+			src/parser/fill_map.c \
+			src/bonus/hooks_bonus.c \
+			src/bonus/minimap_bonus.c \
+			src/bonus/bonus_bonus.c \
+			src/bonus/textures_bonus.c \
+			src/bonus/init_bonus.c \
+			src/bonus/utils_bonus.c \
+
 BONUSOBJ = ${BONUSSRC:.c=.o}
 
 all: libmlx libft.a get_next_line.a $(NAME)
@@ -54,11 +83,10 @@ $(NAME): $(OBJS) inc/cub3d.h
 	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
 	@echo "\n$(VERDE) **** CUB3D compilado **** $(DEF_COLOR)\n"
 
-%.o: bonus/%.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<\n)"
-	
-#$(BONUSOBJ):$(BONUSSRC)	
-#	$(CC) $(CFLAGS) $(BONUSSRC)
+bonus: libmlx libft.a get_next_line.a $(BONUSOBJ)
+	@echo "\n$(AMARILLO) **** Compilando CUB3D BONUS **** $(DEF_COLOR)\n"
+	@$(CC) $(BONUSOBJ) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
+	@echo "\n$(VERDE) **** CUB3D BONUS compilado **** $(DEF_COLOR)\n"
 
 debug:
 		@gcc -Wall -Wextra -Werror -g ./bonus/*.c $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a \

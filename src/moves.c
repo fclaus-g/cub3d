@@ -1,15 +1,5 @@
 #include "../inc/cub3d.h"
 
-void	ft_rotate_player(t_cub3d *cub, int direction)
-{
-	cub->player.angle += direction * ROT_SPEED * -1;
-	ft_refresh_player(&cub->player, direction);
-	if (direction == -1 && cub->player.angle < 0)
-		cub->player.angle += 2 * M_PI;
-	if (direction == 1 && cub->player.angle > 2 * M_PI)
-		cub->player.angle -= 2 * M_PI;
-}
-
 void	ft_keys_moves(t_cub3d *cub)
 {
 	if (mlx_is_key_down(cub->window, MLX_KEY_ESCAPE))
@@ -27,7 +17,7 @@ void	ft_keys_moves(t_cub3d *cub)
 	if (mlx_is_key_down(cub->window, MLX_KEY_D))
 		ft_move_right(cub);
 	if (mlx_is_key_down(cub->window, MLX_KEY_LEFT))
-		ft_rotate_player(cub, -1);	
+		ft_rotate_player(cub, -1);
 	if (mlx_is_key_down(cub->window, MLX_KEY_RIGHT))
 		ft_rotate_player(cub, 1);
 }
@@ -102,61 +92,4 @@ void	ft_move_right(t_cub3d *cub)
 		cub->player.y_pix = y;
 		cub->player.x_pix = x;
 	}
-}
-
-int ft_check_collision(t_cub3d *cub, double x, double y)
-{
-	int	grid_x_min;
-	int	grid_x_max;
-	int	grid_y_min;
-	int	grid_y_max;
-
-	grid_x_min = (int)(x - OFFSET) / GRID_SIZE;
-	grid_x_max = (int)(x + OFFSET) / GRID_SIZE;
-	grid_y_min = (int)(y - OFFSET) / GRID_SIZE;
-	grid_y_max = (int)(y + OFFSET) / GRID_SIZE;
-	if (cub->map.map[grid_y_min][grid_x_min] == '1' || \
-		cub->map.map[grid_y_min][grid_x_max] == '1' || \
-		cub->map.map[grid_y_max][grid_x_min] == '1' || \
-		cub->map.map[grid_y_max][grid_x_max] == '1')
-	{
-		return (1);
-	}
-	return (0);
-}
-
-void ft_delete_textures(t_cub3d *cub)
-{
-	(void)cub;
-	printf("===================DELETING TEXTURES!!!================\n");
-	printf("===================DELETING TEXTURES!!!================\n");
-	printf("===================DELETING TEXTURES!!!================\n");
-	printf("===================DELETING TEXTURES!!!================\n");
-	printf("===================DELETING TEXTURES!!!================\n");
-	printf("===================DELETING TEXTURES!!!================\n");
-	// mlx_delete_texture(cub->scene.textures.floor);
-	// mlx_delete_texture(cub->scene.textures.ceil);
-	// mlx_delete_texture(cub->no);
-	// mlx_delete_texture(cub->so);
-	// mlx_delete_texture(cub->we);
-	// mlx_delete_texture(cub->ea);
-	// mlx_delete_texture(cub->hand);
-	if (cub->no)
-		mlx_delete_texture(cub->no);
-	if (cub->so)
-		mlx_delete_texture(cub->so);
-	if (cub->we)
-		mlx_delete_texture(cub->we);
-	if (cub->ea)
-		mlx_delete_texture(cub->ea);
-	if (cub->hand)
-		mlx_delete_texture(cub->hand);
-}
-void	free_cub(t_cub3d *cub)
-{
-	ft_lstclear(&cub->map.lines, free);
-	ft_delete_textures(cub);
-	free_matrix(cub->map.map);
-	mlx_terminate(cub->window);
-	free(cub);
 }

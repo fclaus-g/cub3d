@@ -1,4 +1,4 @@
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d_bonus.h"
 
 void	ft_print_player(t_cub3d *cub)
 {
@@ -54,14 +54,6 @@ void	ft_print_ray_data(t_cub3d *cub)
 
 void	free_cub(t_cub3d *cub)
 {
-	if (cub->scene.textures.no)
-		free(cub->scene.textures.no);
-	if (cub->scene.textures.so)
-		free(cub->scene.textures.so);
-	if (cub->scene.textures.we)
-		free(cub->scene.textures.we);
-	if (cub->scene.textures.ea)
-		free(cub->scene.textures.ea);
 	ft_lstclear(&cub->map.lines, free);
 	ft_delete_textures(cub);
 	free_matrix(cub->map.map);
@@ -78,4 +70,6 @@ void	ft_delete_textures(t_cub3d *cub)
 		mlx_delete_texture(cub->we);
 	if (cub->ea)
 		mlx_delete_texture(cub->ea);
+	if (cub->hand)
+		mlx_delete_texture(cub->hand);
 }
