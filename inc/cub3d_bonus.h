@@ -105,6 +105,7 @@ typedef struct splayer
 typedef struct s_minimap
 {
 	mlx_image_t	*canvas;
+	mlx_image_t	*micro;
 	int			w;
 	int			h;
 }	t_minimap;
@@ -166,7 +167,11 @@ typedef struct cub3d
 	mlx_texture_t	*floor;
 	mlx_texture_t	*ceil;
 	mlx_texture_t	*hand;
+	mlx_texture_t	*sprite1;
+	mlx_texture_t	*sprite2;
+	mlx_texture_t	*sprite3;
 	double			cursor_x;
+	int				timer;
 }				t_cub3d;
 
 // typedef struct s_game
@@ -206,6 +211,7 @@ typedef struct cub3d
 /*-----------[bonus]----------------*/
 void			ft_paint_hand(t_cub3d *cub);
 void			ft_render_floor_and_ceiling(t_cub3d *cub);
+void			ft_paint_stats(t_cub3d *cub, mlx_texture_t *sprite);
 
 /*----------[minimap]----------------*/
 void			ft_init_minimap(t_cub3d *cub);

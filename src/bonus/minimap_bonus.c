@@ -18,14 +18,18 @@ void	ft_draw_map(t_cub3d *cub)
 {
 	int	y;
 	int	x;
+	int	grid_x;
+	int	grid_y;
 
 	y = -1;
 	while (++y < cub->mini.h)
 	{
 		x = 0;
+		grid_y = y / (GRID_SIZE / 4);
 		while (++x < cub->mini.w)
 		{
-			if (cub->map.map[(int)(y / (GRID_SIZE / 4))][(int)(x / (GRID_SIZE / 4 ))] == '1')
+			grid_x = x / (GRID_SIZE / 4);
+			if (cub->map.map[grid_y][grid_x] == '1')
 				mlx_put_pixel(cub->mini.canvas, x, y, 0xff0000ff);
 			else
 				mlx_put_pixel(cub->mini.canvas, x, y, 0xff00ffff);

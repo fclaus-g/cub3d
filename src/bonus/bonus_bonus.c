@@ -1,8 +1,8 @@
 #include "../../inc/cub3d_bonus.h"
 
 /**
- * @brief Paint the hand of the player
- * @todo scale the hand to the size of the window (width and height)
+ * @brief Paint the stats of the player
+ * @todo scale the stats to the size of the window (width and height)
  * @param cub 
  */
 void	ft_paint_hand(t_cub3d *cub)
@@ -71,3 +71,33 @@ void ft_render_floor_and_ceiling(t_cub3d *cub)
 	// }
 }
 
+void	ft_paint_stats(t_cub3d *cub, mlx_texture_t *stats)
+{
+	int			y;
+	int			x;
+	uint32_t	color;
+	double		scale;
+
+	if (!stats)
+		return ;
+	y = 0;
+	if (cub->window_canvas->width < stats->width)
+		scale = stats->width / cub->window_canvas->width;
+	else
+		scale = 1;
+	while (y < (int)cub->window_canvas->height)
+	{
+		x = 0;
+		while (x < (int)cub->window_canvas->width)
+		{
+			if (y >= cub->window_canvas->height - stats->height * scale && x >= ((cub->window_canvas->width - stats->width * scale) / 2) &&  x <= ((cub->window_canvas->width - stats->width * scale) / 2) + stats->width * scale)
+			{
+				color = get_pixel_color_from_texture(stats, (int)(x - (cub->window_canvas->width - stats->width * scale) / 2), (int)(y + (stats->height * scale - cub->window_canvas->height)));
+				if (color != 0)
+					mlx_put_pixel(cub->window_canvas, x, y, color);
+			}
+			x++;
+		}
+		y++;
+	}
+}
