@@ -1,4 +1,4 @@
-#include "../../inc/cub3d_bonus.h"
+#include "../inc/cub3d.h"
 
 static void init_cub_values(t_cub3d *cub)
 {
@@ -24,7 +24,6 @@ static void init_cub_values(t_cub3d *cub)
 	cub->ray.start_wall = 0;
 	cub->ray.end_wall = 0;
 	cub->cursor_x = 0;
-	cub->timer = 0;
 
 }
 
@@ -37,11 +36,9 @@ static void	init_scene(t_cub3d *cub)
 	cub->scene.textures.floor.r = -1;
 	cub->scene.textures.floor.g = -1;
 	cub->scene.textures.floor.b = -1;
-	cub->scene.textures.floor_path = NULL;
 	cub->scene.textures.ceil.r = -1;
 	cub->scene.textures.ceil.g = -1;
 	cub->scene.textures.ceil.b = -1;
-	cub->scene.textures.ceil_path = NULL;
 	cub->scene.map_read_end = 0;
 	cub->map.map = NULL;
 	cub->map.lines = NULL;
@@ -53,16 +50,10 @@ static void	init_scene(t_cub3d *cub)
 
 static void	init_textures(t_cub3d *cub)
 {
-	cub->hand = NULL;
 	cub->no = NULL;
 	cub->so = NULL;
 	cub->we = NULL;
 	cub->ea = NULL;
-	cub->sprite1 = NULL;
-	cub->sprite2 = NULL;
-	cub->sprite3 = NULL;
-	cub->ceil = NULL;
-	cub->floor = NULL;
 }
 
 void	init_cub(t_cub3d *cub)

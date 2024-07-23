@@ -289,7 +289,7 @@ void			ft_paint_wall(t_cub3d *cub, int x);
 void			ft_wall_x(t_cub3d *cub);
 
 /*-----------[parser/init]----------------*/
-void			init_scene(t_cub3d *cub);
+void			init_cub(t_cub3d *cub);
 
 /*-----------[parser/scene]----------------*/
 int				read_and_parse_scene(char *path, t_cub3d *cub);

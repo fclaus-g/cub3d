@@ -54,6 +54,7 @@ int	main(int argc, char **argv)
 		show_error("Invalid number of arguments\n");
 		exit(1);
 	}
+	init_cub(&cub);
 	if (!validate_scene(argv[1], &cub))
 	{
 		free_cub(&cub);

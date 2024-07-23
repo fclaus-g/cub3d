@@ -65,7 +65,8 @@ void	free_cub(t_cub3d *cub)
 	ft_lstclear(&cub->map.lines, free);
 	ft_delete_textures(cub);
 	free_matrix(cub->map.map);
-	mlx_terminate(cub->window);
+	if (cub->window)
+		mlx_terminate(cub->window);
 }
 
 void	ft_delete_textures(t_cub3d *cub)

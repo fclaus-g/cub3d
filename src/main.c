@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 {
 	t_cub3d	cub;
 
+	init_cub(&cub);
 	if (argc != 2)
 	{
 		show_error("Invalid number of arguments\n");

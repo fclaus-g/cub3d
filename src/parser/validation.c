@@ -101,7 +101,6 @@ int	validate_scene_line(char *line, t_cub3d *cub)
 
 int	validate_scene(char *path, t_cub3d *cub)
 {
-	init_scene(cub);
 	if (!validate_scene_extension(path))
 		return (0);
 	if (!file_is_reachable(path))

@@ -26,10 +26,10 @@ SRCS	= src/main.c \
 			src/walls.c \
 			src/view.c \
 			src/textures.c \
+			src/init.c \
 			src/parser/scene.c \
 			src/parser/validation.c \
 			src/parser/color_textures.c \
-			src/parser/init.c \
 			src/parser/utils.c \
 			src/parser/errors.c \
 			src/parser/is.c \
@@ -83,7 +83,7 @@ $(NAME): $(OBJS) inc/cub3d.h
 	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
 	@echo "\n$(VERDE) **** CUB3D compilado **** $(DEF_COLOR)\n"
 
-bonus: libmlx libft.a get_next_line.a $(BONUSOBJ)
+bonus: libmlx libft.a get_next_line.a $(BONUSOBJ) inc/cub3d_bonus.h
 	@echo "\n$(AMARILLO) **** Compilando CUB3D BONUS **** $(DEF_COLOR)\n"
 	@$(CC) $(BONUSOBJ) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
 	@echo "\n$(VERDE) **** CUB3D BONUS compilado **** $(DEF_COLOR)\n"
