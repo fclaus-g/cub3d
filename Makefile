@@ -39,21 +39,21 @@ SRCS	= src/main.c \
 
 OBJS	= ${SRCS:.c=.o}
 BONUSSRC =	src/bonus/main_bonus.c \
-			src/bonus/moves.c \
-			src/bonus/collision.c \
-			src/bonus/raycaster.c \
-			src/bonus/player.c \
-			src/bonus/walls.c \
-			src/bonus/view.c \
-			src/bonus/parser/scene.c \
-			src/bonus/parser/validation.c \
-			src/bonus/parser/color_textures.c \
-			src/bonus/parser/utils.c \
-			src/bonus/parser/errors.c \
-			src/bonus/parser/is.c \
-			src/bonus/parser/is_map.c \
-			src/bonus/parser/strings.c \
-			src/bonus/parser/fill_map.c \
+			src/bonus/moves_bonus.c \
+			src/bonus/collision_bonus.c \
+			src/bonus/raycaster_bonus.c \
+			src/bonus/player_bonus.c \
+			src/bonus/walls_bonus.c \
+			src/bonus/view_bonus.c \
+			src/bonus/parser/scene_bonus.c \
+			src/bonus/parser/validation_bonus.c \
+			src/bonus/parser/color_textures_bonus.c \
+			src/bonus/parser/utils_bonus.c \
+			src/bonus/parser/errors_bonus.c \
+			src/bonus/parser/is_bonus.c \
+			src/bonus/parser/is_map_bonus.c \
+			src/bonus/parser/strings_bonus.c \
+			src/bonus/parser/fill_map_bonus.c \
 			src/bonus/hooks_bonus.c \
 			src/bonus/minimap_bonus.c \
 			src/bonus/bonus_bonus.c \
