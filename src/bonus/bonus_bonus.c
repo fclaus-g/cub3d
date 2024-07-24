@@ -35,40 +35,54 @@ void	ft_paint_hand(t_cub3d *cub)
 		y++;
 	}
 }
+static void ft_prepare_ray_dir(t_cub3d *cub, int y)
+{
+	cub->ray.ray_dir_x0 = cub->ray.dir_x - cub->plane.x;
+	cub->ray.ray_dir_y0 = cub->ray.dir_y - cub->plane.y;
+	cub->ray.ray_dir_x1 = cub->ray.dir_x + cub->plane.x;
+	cub->ray.ray_dir_y1 = cub->ray.dir_y + cub->plane.y;
+	cub->ray.row_dist = 0.5 * cub->window_canvas->height / (y - cub->window_canvas->height / 2);
+	cub->ray.floor_step_x = cub->ray.row_dist * (cub->ray.ray_dir_x1 - cub->ray.ray_dir_x0) / cub->window_canvas->width;
+	cub->ray.floor_step_y = cub->ray.row_dist * (cub->ray.ray_dir_y1 - cub->ray.ray_dir_y0) / cub->window_canvas->width;
+	cub->ray.floor_x = (cub->player.x_pix / 64) + cub->ray.row_dist * cub->ray.ray_dir_x0;
+	printf("floor_x: %f\n", cub->ray.floor_x);
+	cub->ray.floor_y = (cub->player.x_pix / 64) + cub->ray.row_dist * cub->ray.ray_dir_y0;
+	printf("floor_y: %f\n", cub->ray.floor_y);
+}
+
+static void ft_get_texture_coord(t_cub3d *cub, mlx_texture_t *texture)
+{
+	printf("texture width: %d\n", texture->width);
+	printf("previo a la petacion\n");
+	cub->ray.tx_x = (int)(texture->width * (cub->ray.floor_x - (int)cub->ray.floor_x)) % (texture->width - 1);
+	printf("aquir petal\n");
+	cub->ray.tx_y = (int)(texture->height * (cub->ray.floor_y - (int)cub->ray.floor_y)) % (texture->height - 1);
+	cub->ray.floor_x += cub->ray.floor_step_x;
+	cub->ray.floor_y += cub->ray.floor_step_y;
+}
 
 void ft_render_floor_and_ceiling(t_cub3d *cub)
 {
-	// uint32_t	y;
-	// uint32_t	x;
-	// uint32_t	color;
-	// uint32_t	z;
+	int y;
+	int x;
 
-	(void)cub;
+	y = 0;
+	while (y < (int)cub->window_canvas->height)
+	{
+		ft_prepare_ray_dir(cub, y);
+		printf("ray_dir_x0: %f\n", cub->ray.ray_dir_x0);
+		printf("texture width: \n");
+		x = 0;
+		while (x < (int)cub->window_canvas->width)
+		{
+			ft_get_texture_coord(cub, cub->floor);
+			printf("tx_x: %d\n", cub->ray.tx_x);
+			mlx_put_pixel(cub->window_canvas, x, y, get_pixel_color_from_texture(cub->floor, cub->ray.tx_x, cub->ray.tx_y));
+			x++;
+		}
+		y++;
+	}
 
-	// y = -1;
-	// while (++y < cub->window_canvas->height / 2)
-	// {
-	// 	x = -1;
-	// 	z = 0;
-	// 	printf("Floor width %d, height %d\n", cub->floor->width, cub->floor->height);
-	// 	while (++x < cub->window_canvas->width)
-	// 	{
-	// 		if (z >= cub->floor->width)
-	// 			z = 0;
-	// 		color = get_pixel_color_from_texture(cub->ceil, x % cub->ceil->width, y % cub->ceil->height);
-	// 		mlx_put_pixel(cub->window_canvas, x, y, color);
-	// 	}
-	// }
-	// y--;
-	// while (++y < cub->window_canvas->height - 1)
-	// {
-	// 	x = -1;
-	// 	while (++x < cub->window_canvas->width)
-	// 	{
-	// 		color = get_pixel_color_from_texture(cub->floor, x % cub->floor->width, y % cub->floor->height);
-	// 		mlx_put_pixel(cub->window_canvas, x, y, color);
-	// 	}
-	// }
 }
 
 void	ft_paint_stats(t_cub3d *cub, mlx_texture_t *stats)
@@ -101,3 +115,4 @@ void	ft_paint_stats(t_cub3d *cub, mlx_texture_t *stats)
 		y++;
 	}
 }
+
