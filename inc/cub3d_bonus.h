@@ -12,15 +12,13 @@
 
 # define HEIGHT 1080
 # define WIDTH 1920
-# define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
+# define GRID_SIZE 64
 
-# define MOV 2	//velocidad de movimiento del player
-# define ROT_SPEED 0.06 //velocidad de rotacion del player
+# define MOV 2
+# define ROT_SPEED 0.06
 # define OFFSET 17
-# define VISION_ANGLE M_PI / 3
 # define CUB3D_EXTENSION ".cub"
-# define SCENE_SPACES " \t"
-// # define SCENE_MAP_CHARS "01NSWE"
+# define SCENE_SPACES " \t""
 # define MAP_FILL_SPACE ' '
 # define NUM_RAYS 120
 # define INFINITE 1e30
@@ -88,20 +86,6 @@ typedef struct splayer
 	double		plane_y;
 }				t_player;
 
-// typedef struct s_window
-// {
-// 	void		*mlx;
-// 	mlx_image_t	*canvas;
-// 	t_minimap	mini;
-// }	t_windows;
-
-// typedef struct s_map3d
-// {
-// 	int		rows;
-// 	int		cols;
-// 	char	**map;
-// }	t_map3d;
-
 typedef struct s_minimap
 {
 	mlx_image_t	*canvas;
@@ -141,18 +125,18 @@ typedef struct s_ray
 	int			real_end_wall;
 	uint32_t	wall_color;
 	float		wall_x;
-	float ray_dir_x0;
-	float ray_dir_y0;
-	float ray_dir_x1;
-	float ray_dir_y1;
-	float pos_z;
-	float row_dist;
-	float floor_step_x;
-	float floor_step_y;
-	float floor_x;
-	float floor_y;
-	int tx_x;
-	int tx_y;
+	float		ray_dir_x0;
+	float		ray_dir_y0;
+	float		ray_dir_x1;
+	float		ray_dir_y1;
+	float		pos_z;
+	float		row_dist;
+	float		floor_step_x;
+	float		floor_step_y;
+	float		floor_x;
+	float		floor_y;
+	int			tx_x;
+	int			tx_y;
 }	t_ray;
 
 typedef struct s_dir
@@ -186,43 +170,9 @@ typedef struct cub3d
 	int				timer;
 }				t_cub3d;
 
-// typedef struct s_game
-// {
-// 	void *mlx;
-// 	t_map map;
-// 	t_player player;
-
-// 	double dir_x;
-// 	double dir_y;
-// 	double plane_x;
-// 	double plane_y;
-// 	double fov;
-// 	double foto;
-// 	double old_foto;
-// 	double camera_x;
-// typedef struct s_game
-// {
-// 	void *mlx;
-// 	t_map map;
-// 	t_player player;
-
-// 	int x_p;
-// 	int y_p;
-// 	int ins_floor;
-// 	int ins_wall;
-// 	int mini_w;
-// 	int mini_h;
-
-// 	mlx_image_t *mini;
-// 	mlx_image_t *wall;
-// 	mlx_image_t *floor;
-// 	mlx_image_t *plyr;
-// 	mlx_image_t *pantalla;
-// }				t_game;
-
 /*-----------[bonus]----------------*/
 void			ft_paint_hand(t_cub3d *cub);
-void			ft_render_floor_and_ceiling(t_cub3d *cub);
+//void			ft_render_floor_and_ceiling(t_cub3d *cub, mlx_texture_t *texture);
 void			ft_paint_stats(t_cub3d *cub, mlx_texture_t *sprite);
 
 /*----------[minimap]----------------*/
