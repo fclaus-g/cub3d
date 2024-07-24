@@ -13,12 +13,12 @@
 # define HEIGHT 1080
 # define WIDTH 1920
 # define GRID_SIZE 64
-
+# define VISION_ANGLE M_PI / 3
 # define MOV 2
 # define ROT_SPEED 0.06
 # define OFFSET 17
 # define CUB3D_EXTENSION ".cub"
-# define SCENE_SPACES " \t""
+# define SCENE_SPACES " \t"
 # define MAP_FILL_SPACE ' '
 # define NUM_RAYS 120
 # define INFINITE 1e30
