@@ -1,4 +1,4 @@
-#include "../../inc/cub3d.h"
+#include "../inc/cub3d.h"
 
 int	ft_check_collision(t_cub3d *cub, double x, double y)
 {

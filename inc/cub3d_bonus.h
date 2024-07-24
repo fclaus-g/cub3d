@@ -12,7 +12,7 @@
 
 # define HEIGHT 1080
 # define WIDTH 1920
-# define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
+# define GRID_SIZE 32 //tamaño de cada cuadro de la cuadricula
 
 # define MOV 2	//velocidad de movimiento del player
 # define ROT_SPEED 0.06 //velocidad de rotacion del player

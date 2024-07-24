@@ -2,8 +2,8 @@
 
 void	ft_init_minimap(t_cub3d *cub)
 {
-	cub->mini.w = cub->map.w_px / 4;
-	cub->mini.h = cub->map.h_px / 4;
+	cub->mini.w = cub->window_canvas->width / 8;
+	cub->mini.h = cub->mini.w;
 	cub->mini.canvas = mlx_new_image(cub->window, cub->mini.w, cub->mini.h);
 	if (!cub->mini.canvas)
 	{
@@ -16,23 +16,36 @@ void	ft_init_minimap(t_cub3d *cub)
 
 void	ft_draw_map(t_cub3d *cub)
 {
-	int	y;
-	int	x;
-	int	grid_x;
-	int	grid_y;
+	// int		grid_size;
+	t_coord mini_start;
+	t_coord	mini_coord;
+	t_coord	grid_coord;
+	t_coord	player;
 
-	y = -1;
-	while (++y < cub->mini.h)
+	// grid_size = 1;
+	player.x = (int)(cub->player.x_pix / GRID_SIZE);
+	player.y = (int)(cub->player.y_pix / GRID_SIZE);
+	printf("Player en posición (y=%d, x=%d)\n", player.y, player.x);
+
+	mini_start.x = fmax(0, (int)(player.x - cub->mini.w / 2));
+	mini_start.y = fmax(0, (int)(player.y - cub->mini.h / 2));
+	printf("Comienzo a pintar mapa en (y=%d, x=%d)\n", mini_start.y, mini_start.x);
+	// exit(0);
+
+
+	mini_coord.y = -1;
+	while (++mini_coord.y < cub->mini.h)
 	{
-		x = 0;
-		grid_y = y / (GRID_SIZE / 4);
-		while (++x < cub->mini.w)
+		mini_coord.x = -1;
+		grid_coord.y = (int)((mini_start.y + mini_coord.y) / GRID_SIZE);
+		while (++mini_coord.x < cub->mini.w)
 		{
-			grid_x = x / (GRID_SIZE / 4);
-			if (cub->map.map[grid_y][grid_x] == '1')
-				mlx_put_pixel(cub->mini.canvas, x, y, 0xff0000ff);
+			// printf("Coordenada minimap(y=%d, x=%d) grid(y=%d, x=%d)\n", mini_coord.y, mini_coord.x, grid_coord.y, grid_coord.x);
+			grid_coord.x = (int)((mini_start.x + mini_coord.x) / GRID_SIZE);
+			if (cub->map.map[grid_coord.y][grid_coord.x] == '1')
+				mlx_put_pixel(cub->mini.canvas, mini_coord.x, mini_coord.y, 0xff0000ff);
 			else
-				mlx_put_pixel(cub->mini.canvas, x, y, 0xff00ffff);
+				mlx_put_pixel(cub->mini.canvas, mini_coord.x, mini_coord.y, 0xff00ffff);
 		}
 	}
 }
