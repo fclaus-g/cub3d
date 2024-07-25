@@ -66,12 +66,12 @@ void	ft_player_orientation(t_player *player)
 	else if (player->angle == M_PI)
 	{
 		player->dir_x = -1;
-		player->plane_y = 0.66;
+		player->plane_y = -0.66;
 	}
 	else if (player->angle == 0)
 	{
 		player->dir_x = 1;
-		player->plane_y = -0.66;
+		player->plane_y = 0.66;
 	}
 }
 

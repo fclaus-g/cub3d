@@ -22,7 +22,12 @@ double	ft_player_lookat_angle(char c)
 		return (M_PI);
 	return (M_PI / 2);
 }
-
+/**
+ * @brief Refresh the player orientation when we rotate  
+ * 
+ * @param player 
+ * @param girar 
+ */
 void	ft_refresh_player(t_player *player, int girar)
 {
 	double	old_dirx;
@@ -66,12 +71,12 @@ void	ft_player_orientation(t_player *player)
 	else if (player->angle == M_PI)
 	{
 		player->dir_x = -1;
-		player->plane_y = 0.66;
+		player->plane_y = -0.66;
 	}
 	else if (player->angle == 0)
 	{
 		player->dir_x = 1;
-		player->plane_y = -0.66;
+		player->plane_y = 0.66;
 	}
 }
 
