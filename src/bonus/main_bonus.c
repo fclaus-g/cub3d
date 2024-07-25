@@ -1,6 +1,5 @@
 #include "../../inc/cub3d_bonus.h"
 
-
 void	ft_init_view(t_cub3d *cub)
 {
 	cub->window_canvas = mlx_new_image(cub->window, WIDTH, HEIGHT);
@@ -13,7 +12,7 @@ void	ft_init_view(t_cub3d *cub)
 	cub->map.map[(int)cub->player.y_pix][(int)cub->player.x_pix] = '0';
 	ft_load_textures(cub);
 	printf("Textures loaded\n");
-	ft_paint_floor_and_ceiling(cub);
+	ft_render_floor_and_ceiling(cub);
 	printf("Floor and ceiling rendered\n");
 	ft_raycaster(cub);
 }
@@ -24,10 +23,11 @@ void	ft_hook(void *param)
 
 	cub = (t_cub3d *)param;
 	ft_keys_moves(cub);
-	ft_draw_map(cub);
-	ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix, 0xffffffff);
-	ft_draw_ray(cub);
-	ft_paint_floor_and_ceiling(cub);
+	//ft_draw_map(cub);
+	//ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix,
+	//	0xffffffff);
+	//ft_draw_ray(cub);
+	ft_render_floor_and_ceiling(cub);
 	ft_raycaster(cub);
 	ft_paint_hand(cub);
 	if (cub->timer >= 0 && cub->timer <= 50)
@@ -64,7 +64,7 @@ int	main(int argc, char **argv)
 	cub.window = mlx_init(WIDTH, HEIGHT, "cub3d", 0);
 	cub.timer = 0;
 	ft_init_view(&cub);
-	ft_init_minimap(&cub);
+	//ft_init_minimap(&cub);
 	mlx_loop_hook(cub.window, &ft_hook, &cub);
 	mlx_cursor_hook(cub.window, &ft_cursor_hook, &cub);
 	mlx_loop(cub.window);

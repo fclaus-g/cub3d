@@ -172,7 +172,7 @@ typedef struct cub3d
 
 /*-----------[bonus]----------------*/
 void			ft_paint_hand(t_cub3d *cub);
-//void			ft_render_floor_and_ceiling(t_cub3d *cub, mlx_texture_t *texture);
+void			ft_render_floor_and_ceiling(t_cub3d *cub);
 void			ft_paint_stats(t_cub3d *cub, mlx_texture_t *sprite);
 
 /*----------[minimap]----------------*/

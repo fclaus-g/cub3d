@@ -61,10 +61,9 @@ void	ft_load_textures(t_cub3d *cub)
 	cub->we = mlx_load_png(cub->scene.textures.we);
 	cub->ea = mlx_load_png(cub->scene.textures.ea);
 	cub->hand = mlx_load_png("textures/manopistola.png");
-	cub->ceil = mlx_load_png("textures/oxido.png"); // @TODO from structure
-	cub->floor = mlx_load_png("textures/floor.png"); // @TODO from structure
+	cub->ceil = mlx_load_png("textures/N2.png"); // @TODO from structure
+	cub->floor = mlx_load_png("textures/N3.png"); // @TODO from structure
 	cub->sprite1 = mlx_load_png("textures/stats.png");
 	cub->sprite2 = mlx_load_png("textures/stats1.png");
 	cub->sprite3 = mlx_load_png("textures/stats2.png");
-	
 }

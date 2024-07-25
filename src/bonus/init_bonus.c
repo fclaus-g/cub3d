@@ -1,6 +1,6 @@
 #include "../../inc/cub3d_bonus.h"
 
-static void init_cub_values(t_cub3d *cub)
+static void	init_cub_values(t_cub3d *cub)
 {
 	cub->wall = NULL;
 	cub->mini.canvas = NULL;
@@ -25,7 +25,6 @@ static void init_cub_values(t_cub3d *cub)
 	cub->ray.end_wall = 0;
 	cub->cursor_x = 0;
 	cub->timer = 0;
-
 }
 
 static void	init_scene(t_cub3d *cub)
