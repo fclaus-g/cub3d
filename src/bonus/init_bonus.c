@@ -65,6 +65,21 @@ static void	init_textures(t_cub3d *cub)
 	cub->floor = NULL;
 }
 
+static void	init_player(t_cub3d *cub)
+{
+	cub->player.init_orient = 0;
+	cub->player.x_pix = 0;
+	cub->player.y_pix = 0;
+	cub->player.x = 0;
+	cub->player.y = 0;
+	cub->player.angle = -1;
+	cub->player.dir_x = 0;
+	cub->player.dir_y = 0;
+	cub->player.plane_x = 0;
+	cub->player.plane_y = 0;
+	cub->player.fov = M_PI / 3;
+}
+
 void	init_cub(t_cub3d *cub)
 {
 	cub->wall = NULL;
@@ -72,5 +87,6 @@ void	init_cub(t_cub3d *cub)
 	cub->mini.canvas = NULL;
 	init_cub_values(cub);
 	init_textures(cub);
+	init_player(cub);
 	init_scene(cub);
 }
