@@ -26,8 +26,8 @@ static int	fill_cub_with_scene(t_cub3d *cub)
 		show_error("Map is not closed.");
 		return (0);
 	}
-	cub->map.w_px = cub->map.cols * GRID_SIZE;
-	cub->map.h_px = cub->map.rows * GRID_SIZE;
+	cub->map.w_px = cub->map.cols;
+	cub->map.h_px = cub->map.rows;
 	locate_player(cub);
 	return (1);
 }
