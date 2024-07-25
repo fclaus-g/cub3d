@@ -79,8 +79,7 @@ void	ft_draw_ray(t_cub3d *cub)
 	double	angle;
 	int		rays;
 
-	//printf("Dibujando rayos\n");
-	angle = cub->player.angle - VISION_ANGLE / 2;
+	angle = cub->player.angle - cub->player.fov / 2;
 	rays = 0;
 	while (rays++ < NUM_RAYS)
 	{
@@ -93,6 +92,6 @@ void	ft_draw_ray(t_cub3d *cub)
 			x += cos(angle) * 20;
 			y -= sin(angle) * 20;
 		}
-		angle += VISION_ANGLE / (NUM_RAYS - 1);
+		angle += cub->player.fov / (NUM_RAYS - 1);
 	}
 }
