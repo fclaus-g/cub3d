@@ -31,12 +31,12 @@ void	ft_move_up(t_cub3d *cub)
 
 	y_mov = -sin(cub->player.angle) * MOV;
 	x_mov = cos(cub->player.angle) * MOV;
-	y = cub->player.y_pix + y_mov;
-	x = cub->player.x_pix + x_mov;
+	y = cub->player.pos.y + y_mov;
+	x = cub->player.pos.x + x_mov;
 	if (!ft_check_collision(cub, x, y))
 	{
-		cub->player.y_pix = y;
-		cub->player.x_pix = x;
+		cub->player.pos.y = y;
+		cub->player.pos.x = x;
 	}
 }
 
@@ -49,12 +49,12 @@ void	ft_move_down(t_cub3d *cub)
 
 	y_mov = -sin(cub->player.angle + M_PI) * MOV;
 	x_mov = cos(cub->player.angle + M_PI) * MOV;
-	y = cub->player.y_pix + y_mov;
-	x = cub->player.x_pix + x_mov;
+	y = cub->player.pos.y + y_mov;
+	x = cub->player.pos.x + x_mov;
 	if (!ft_check_collision(cub, x, y))
 	{
-		cub->player.y_pix = y;
-		cub->player.x_pix = x;
+		cub->player.pos.y = y;
+		cub->player.pos.x = x;
 	}
 }
 
@@ -67,12 +67,12 @@ void	ft_move_left(t_cub3d *cub)
 
 	y_mov = -sin(cub->player.angle + M_PI / 2) * MOV;
 	x_mov = cos(cub->player.angle + M_PI / 2) * MOV;
-	y = cub->player.y_pix + y_mov;
-	x = cub->player.x_pix + x_mov;
+	y = cub->player.pos.y + y_mov;
+	x = cub->player.pos.x + x_mov;
 	if (!ft_check_collision(cub, x, y))
 	{
-		cub->player.y_pix = y;
-		cub->player.x_pix = x;
+		cub->player.pos.y = y;
+		cub->player.pos.x = x;
 	}
 }
 
@@ -85,11 +85,11 @@ void	ft_move_right(t_cub3d *cub)
 
 	y_mov = -sin(cub->player.angle - M_PI / 2) * MOV;
 	x_mov = cos(cub->player.angle - M_PI / 2) * MOV;
-	y = cub->player.y_pix + y_mov;
-	x = cub->player.x_pix + x_mov;
+	y = cub->player.pos.y + y_mov;
+	x = cub->player.pos.x + x_mov;
 	if (!ft_check_collision(cub, x, y))
 	{
-		cub->player.y_pix = y;
-		cub->player.x_pix = x;
+		cub->player.pos.y = y;
+		cub->player.pos.x = x;
 	}
 }

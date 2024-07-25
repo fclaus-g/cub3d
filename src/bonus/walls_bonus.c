@@ -4,15 +4,15 @@ void	ft_wall_distance(t_cub3d *cub)
 {
 	if (cub->ray.side == 0)
 	{
-		cub->ray.perp_wall_dist = (cub->ray.map_x
-				- cub->player.x_pix + (1 - cub->ray.step_x) / 2)
-			/ cub->ray.dir_x;
+		cub->ray.perp_wall_dist = (cub->ray.map.x
+				- cub->player.pos.x + (1 - cub->ray.step.x) / 2)
+			/ cub->ray.dir.x;
 	}
 	else
 	{
-		cub->ray.perp_wall_dist = (cub->ray.map_y
-				- cub->player.y_pix + (1 - cub->ray.step_y) / 2)
-			/ cub->ray.dir_y;
+		cub->ray.perp_wall_dist = (cub->ray.map.y
+				- cub->player.pos.y + (1 - cub->ray.step.y) / 2)
+			/ cub->ray.dir.y;
 	}
 	cub->ray.line_height = (int)HEIGHT / cub->ray.perp_wall_dist;
 }
@@ -37,14 +37,14 @@ uint32_t	ft_wall_color(t_cub3d *cub)
 {
 	if (cub->ray.side == 0)
 	{
-		if (cub->ray.step_x == 1)
+		if (cub->ray.step.x == 1)
 			return (0xff0000ff);
 		else
 			return (0x00ff00ff);
 	}
 	else
 	{
-		if (cub->ray.step_y == 1)
+		if (cub->ray.step.y == 1)
 			return (0x0000ffff);
 		else
 			return (0xffff00ff);
@@ -57,7 +57,7 @@ void	ft_paint_wall(t_cub3d *cub, int x)
 	mlx_texture_t	*texture;
 	int				wall_height;
 	int				real_wall_height;
-	t_coord			calculated;
+	t_coordi			calculated;
 
 	texture = ft_choice_texture(cub);
 	y = cub->ray.start_wall;
@@ -82,13 +82,13 @@ void	ft_wall_x(t_cub3d *cub)
 {
 	if (cub->ray.side == 0)
 	{
-		cub->ray.wall_x = cub->player.y_pix
-			+ cub->ray.perp_wall_dist * cub->ray.dir_y;
+		cub->ray.wall_x = cub->player.pos.y
+			+ cub->ray.perp_wall_dist * cub->ray.dir.y;
 	}
 	else
 	{
-		cub->ray.wall_x = cub->player.x_pix
-			+ cub->ray.perp_wall_dist * cub->ray.dir_x;
+		cub->ray.wall_x = cub->player.pos.x
+			+ cub->ray.perp_wall_dist * cub->ray.dir.x;
 	}
 	cub->ray.wall_x -= floor(cub->ray.wall_x);
 }

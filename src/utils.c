@@ -2,27 +2,28 @@
 
 void	ft_print_player(t_cub3d *cub)
 {
-	printf("Player pixel position: %f, %f\n", cub->player.y_pix,
-		cub->player.x_pix);
-	printf("player grid position: %f, %f\n", cub->player.y, cub->player.x);
-	printf("Player direction: %f, %f\n", cub->player.dir_y, cub->player.dir_x);
-	printf("Player plane: %f, %f\n", cub->player.plane_y, cub->player.plane_x);
+	printf("Player pixel position: (y=%f, x=%f\n", cub->player.pos.y,
+		cub->player.pos.x);
+	printf("player init grid position: (y=%d, x=%d\n", cub->player.init_pos.y,
+		cub->player.init_pos.x);
+	printf("Player direction: %f, %f\n", cub->player.dir.y, cub->player.dir.x);
+	printf("Player plane: %f, %f\n", cub->player.plane.y, cub->player.plane.x);
 	printf("Player angle = %f\n", cub->player.angle);
 }
 
 void	ft_init_ray_data(t_cub3d *cub)
 {
-	cub->ray.dir_x = 0;
-	cub->ray.dir_y = 0;
+	cub->ray.dir.x = 0;
+	cub->ray.dir.y = 0;
 	cub->ray.camera_x = 0;
-	cub->ray.map_x = 0;
-	cub->ray.map_y = 0;
-	cub->ray.delta_dist_x = 0;
-	cub->ray.delta_dist_y = 0;
-	cub->ray.step_x = 0;
-	cub->ray.step_y = 0;
-	cub->ray.side_dist_x = 0;
-	cub->ray.side_dist_y = 0;
+	cub->ray.map.x = 0;
+	cub->ray.map.y = 0;
+	cub->ray.delta_dist.x = 0;
+	cub->ray.delta_dist.y = 0;
+	cub->ray.step.x = 0;
+	cub->ray.step.y = 0;
+	cub->ray.side_dist.x = 0;
+	cub->ray.side_dist.y = 0;
 	cub->ray.hit = 0;
 	cub->ray.side = 0;
 	cub->ray.perp_wall_dist = 0;
@@ -33,17 +34,17 @@ void	ft_init_ray_data(t_cub3d *cub)
 
 void	ft_print_ray_data(t_cub3d *cub)
 {
-	printf("dir_x = %f\n", cub->ray.dir_x);
-	printf("dir_y = %f\n", cub->ray.dir_y);
+	printf("dir_x = %f\n", cub->ray.dir.x);
+	printf("dir_y = %f\n", cub->ray.dir.y);
 	printf("camera_x = %f\n", cub->ray.camera_x);
-	printf("map_x = %d\n", cub->ray.map_x);
-	printf("map_y = %d\n", cub->ray.map_y);
-	printf("delta_dist_x = %f\n", cub->ray.delta_dist_x);
-	printf("delta_dist_y = %f\n", cub->ray.delta_dist_y);
-	printf("step_x = %d\n", cub->ray.step_x);
-	printf("step_y = %d\n", cub->ray.step_y);
-	printf("side_dist_x = %f\n", cub->ray.side_dist_x);
-	printf("side_dist_y = %f\n", cub->ray.side_dist_y);
+	printf("map_x = %d\n", cub->ray.map.x);
+	printf("map_y = %d\n", cub->ray.map.y);
+	printf("delta_dist_x = %f\n", cub->ray.delta_dist.x);
+	printf("delta_dist_y = %f\n", cub->ray.delta_dist.y);
+	printf("step_x = %d\n", cub->ray.step.x);
+	printf("step_y = %d\n", cub->ray.step.y);
+	printf("side_dist_x = %f\n", cub->ray.side_dist.x);
+	printf("side_dist_y = %f\n", cub->ray.side_dist.y);
 	printf("hit = %d\n", cub->ray.hit);
 	printf("side = %d\n", cub->ray.side);
 	printf("perp_wall_dist = %f\n", cub->ray.perp_wall_dist);

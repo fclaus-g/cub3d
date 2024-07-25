@@ -1,5 +1,5 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <math.h>
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -54,8 +54,6 @@ typedef struct s_map
 	int				left_padding;
 	int				rows;
 	int				cols;
-	int				w_px;
-	int				h_px;
 }	t_map;
 
 typedef struct scene
@@ -65,24 +63,26 @@ typedef struct scene
 	int					map_read_end;
 }	t_scene;
 
-typedef struct s_coord
+typedef struct s_coordi
 {
 	int	x;
 	int	y;
-}	t_coord;
+}	t_coordi;
+
+typedef struct s_coordd
+{
+	double	x;
+	double	y;
+}	t_coordd;
 
 typedef struct splayer
 {
 	char		init_orient;
-	double		x_pix;
-	double		y_pix;
-	float		x;
-	float		y;
+	t_coordi	init_pos;
+	t_coordd	pos;
 	double		angle;
-	float		dir_x;
-	float		dir_y;
-	double		plane_x;
-	double		plane_y;
+	t_coordd	dir;
+	t_coordd	plane;
 	float		fov; // field of view
 }				t_player;
 
@@ -94,27 +94,14 @@ typedef struct s_minimap
 	int			h;
 }	t_minimap;
 
-typedef struct s_plane
-{
-	double		x;
-	double		y;
-}	t_plane;
-
 typedef struct s_ray
 {
-	int			x;
-	int			y;
-	float		dir_x;
-	float		dir_y;
+	t_coordi	map;
+	t_coordi	step;
+	t_coordd	dir;
+	t_coordd	side_dist;
+	t_coordd	delta_dist;
 	float		camera_x;
-	int			map_x;
-	int			map_y;
-	float		delta_dist_x;
-	float		delta_dist_y;
-	int			step_x;
-	int			step_y;
-	float		side_dist_x;
-	float		side_dist_y;
 	int			hit;
 	int			side;
 	float		perp_wall_dist;
@@ -127,22 +114,16 @@ typedef struct s_ray
 	float		wall_x;
 }	t_ray;
 
-typedef struct s_dir
-{
-	double	x;
-	double	y;
-}	t_dir;
-
 typedef struct cub3d
 {
-	t_map			map;
+	t_map			map; // Map retrieved from the .cub file
 	t_player		player;
 	t_scene			scene;
 	void			*window;
 	mlx_image_t		*window_canvas;
 	mlx_image_t		*wall;
 	t_minimap		mini;
-	t_plane			plane;
+	t_coordd		plane;
 	t_ray			ray;
 	mlx_texture_t	*no;
 	mlx_texture_t	*so;
@@ -159,13 +140,6 @@ typedef struct cub3d
 /*-----------[bonus]----------------*/
 void			ft_paint_hand(t_cub3d *cub);
 void			ft_paint_stats(t_cub3d *cub, mlx_texture_t *sprite);
-
-/*----------[minimap]----------------*/
-void			ft_init_minimap(t_cub3d *cub);
-void			ft_draw_map(t_cub3d *cub);
-void			ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
-void			ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
-void			ft_draw_ray(t_cub3d *cub);
 
 /*-----------[moves]-----------------------*/
 void			ft_keys_moves(t_cub3d *cub);
@@ -193,7 +167,6 @@ int				starts_with_and_space(char *line, char *start);
 /*-----------[minimap]-----------------------*/
 void			ft_init_minimap(t_cub3d *cub);
 void			ft_draw_map(t_cub3d *cub);
-void			ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
 void			ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
 void			ft_draw_ray(t_cub3d *cub);
 

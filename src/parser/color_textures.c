@@ -6,7 +6,7 @@ int	validate_texture_line(char *line, char **texture)
 	char	*path;
 
 	if (*texture != NULL)
-		return (show_error("Duplicate texture line."), 0);
+		return (show_error("Duplicate texture line."), show_error(line), 0);
 	texture_components = ft_split(line, ' ');
 	if (matrix_len(texture_components) != 2)
 	{

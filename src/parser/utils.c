@@ -65,9 +65,11 @@ void	locate_player(t_cub3d *cub)
 		{
 			if (is_map_player(cub->map.map[i][j]))
 			{
-				cub->player.x_pix = j + 0.5;
-				cub->player.y_pix = i + 0.5;
-				cub->player.init_orient = cub->map.map[i][j];
+				cub->player = (t_player){
+					.pos.x = j + 0.5, .pos.y = i + 0.5,
+					.init_pos.x = j, .init_pos.y = i,
+					.init_orient = cub->map.map[i][j]
+				};
 				return ;
 			}
 			j++;

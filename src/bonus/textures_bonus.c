@@ -4,14 +4,14 @@ mlx_texture_t	*ft_choice_texture(t_cub3d *cub)
 {
 	if (cub->ray.side == 0)
 	{
-		if (cub->ray.step_x == 1)
+		if (cub->ray.step.x == 1)
 			return (cub->ea);
 		else
 			return (cub->we);
 	}
 	else
 	{
-		if (cub->ray.step_y == 1)
+		if (cub->ray.step.y == 1)
 			return (cub->so);
 		else
 			return (cub->no);

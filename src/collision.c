@@ -8,8 +8,8 @@
  */
 int	ft_check_collision(t_cub3d *cub, double x, double y)
 {
-	t_coord	min_coord;
-	t_coord	max_coord;
+	t_coordi	min_coord;
+	t_coordi	max_coord;
 
 	min_coord.x = (int)(x - OFFSET);
 	min_coord.y = (int)(y - OFFSET);

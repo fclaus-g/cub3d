@@ -9,7 +9,7 @@ void	ft_init_view(t_cub3d *cub)
 		exit(1);
 	}
 	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
-	cub->map.map[(int)cub->player.y_pix][(int)cub->player.x_pix] = '0';
+	cub->map.map[(int)cub->player.pos.y][(int)cub->player.pos.x] = '0';
 	ft_load_textures(cub);
 	ft_paint_floor_and_ceiling(cub);
 	ft_raycaster(cub);
@@ -22,7 +22,7 @@ void	ft_hook(void *param)
 	cub = (t_cub3d *)param;
 	ft_keys_moves(cub);
 	//ft_draw_map(cub);
-	//ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix,
+	//ft_draw_player(cub->mini.canvas, cub->player.pos.y, cub->player.pos.x,
 	//	0xffffffff);
 	//ft_draw_ray(cub);
 	ft_paint_floor_and_ceiling(cub);

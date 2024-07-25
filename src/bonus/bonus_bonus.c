@@ -1,6 +1,6 @@
 #include "../../inc/cub3d_bonus.h"
 
-static int	check_center(t_cub3d *c, mlx_texture_t *txt, t_coord ps, double sc)
+static int	check_center(t_cub3d *c, mlx_texture_t *txt, t_coordi ps, double sc)
 {
 	if (ps.y >= c->window_canvas->height - txt->height * sc
 		&& ps.x >= ((c->window_canvas->width - txt->width * sc) / 2)
@@ -17,7 +17,7 @@ static int	check_center(t_cub3d *c, mlx_texture_t *txt, t_coord ps, double sc)
  */
 void	ft_paint_hand(t_cub3d *cub)
 {
-	t_coord		pos;
+	t_coordi		pos;
 	uint32_t	color;
 	double		scale;
 
@@ -47,7 +47,7 @@ void	ft_paint_hand(t_cub3d *cub)
 
 void	ft_paint_stats(t_cub3d *cub, mlx_texture_t *stats)
 {
-	t_coord		pos;
+	t_coordi		pos;
 	uint32_t	color;
 	double		scale;
 

@@ -6,17 +6,17 @@ static void init_cub_values(t_cub3d *cub)
 	cub->mini.canvas = NULL;
 	cub->plane.x = 0;
 	cub->plane.y = 0;
-	cub->ray.dir_x = 0;
-	cub->ray.dir_y = 0;
+	cub->ray.dir.x = 0;
+	cub->ray.dir.y = 0;
 	cub->ray.camera_x = 0;
-	cub->ray.map_x = 0;
-	cub->ray.map_y = 0;
-	cub->ray.delta_dist_x = 0;
-	cub->ray.delta_dist_y = 0;
-	cub->ray.step_x = 0;
-	cub->ray.step_y = 0;
-	cub->ray.side_dist_x = 0;
-	cub->ray.side_dist_y = 0;
+	cub->ray.map.x = 0;
+	cub->ray.map.y = 0;
+	cub->ray.delta_dist.x = 0;
+	cub->ray.delta_dist.y = 0;
+	cub->ray.step.x = 0;
+	cub->ray.step.y = 0;
+	cub->ray.side_dist.x = 0;
+	cub->ray.side_dist.y = 0;
 	cub->ray.hit = 0;
 	cub->ray.side = 0;
 	cub->ray.perp_wall_dist = 0;
@@ -57,21 +57,26 @@ static void	init_textures(t_cub3d *cub)
 
 static void	init_player(t_cub3d *cub)
 {
-	cub->player.init_orient = 0;
-	cub->player.x_pix = 0;
-	cub->player.y_pix = 0;
-	cub->player.x = 0;
-	cub->player.y = 0;
-	cub->player.angle = -1;
-	cub->player.dir_x = 0;
-	cub->player.dir_y = 0;
-	cub->player.plane_x = 0;
-	cub->player.plane_y = 0;
-	cub->player.fov = M_PI / 3;
+	cub->player = (t_player) {
+		.init_pos = {0, 0},
+		.init_orient = 0,
+		.pos = {0, 0},
+		.dir = {0, 0},
+		.plane = {0, 0},
+		.angle = -1,
+		.fov = M_PI / 3
+	};
 }
 
 void	init_cub(t_cub3d *cub)
 {
+	cub->map = (t_map) {
+		.lines = NULL,
+		.map = NULL,
+		.left_padding = -1,
+		.rows = 0,
+		.cols = 0
+	};
 	cub->wall = NULL;
 	cub->window = NULL;
 	cub->mini.canvas = NULL;

@@ -2,7 +2,7 @@
 
 void	print_player_position(t_cub3d *cub)
 {
-	printf("Player -> x: %f, y: %f\n", cub->player.x_pix, cub->player.y_pix);
+	printf("Player -> x: %f, y: %f\n", cub->player.pos.x, cub->player.pos.y);
 }
 
 /**
@@ -35,16 +35,16 @@ void	ft_refresh_player(t_player *player, int girar)
 	double	old_planex;
 	double	rot_speed;
 
-	old_dirx = player->dir_x;
-	old_diry = player->dir_y;
-	old_planex = player->plane_x;
+	old_dirx = player->dir.x;
+	old_diry = player->dir.y;
+	old_planex = player->plane.x;
 	rot_speed = girar * ROT_SPEED;
-	player->dir_x = old_dirx * cos(rot_speed) - old_diry * sin(rot_speed);
-	player->dir_y = old_dirx * sin(rot_speed) + old_diry * cos(rot_speed);
-	player->plane_x = player->plane_x * \
-	cos(rot_speed) - player->plane_y * sin(rot_speed);
-	player->plane_y = old_planex * \
-	sin(rot_speed) + player->plane_y * cos(rot_speed);
+	player->dir.x = old_dirx * cos(rot_speed) - old_diry * sin(rot_speed);
+	player->dir.y = old_dirx * sin(rot_speed) + old_diry * cos(rot_speed);
+	player->plane.x = player->plane.x * \
+	cos(rot_speed) - player->plane.y * sin(rot_speed);
+	player->plane.y = old_planex * \
+	sin(rot_speed) + player->plane.y * cos(rot_speed);
 }
 
 /**
@@ -54,29 +54,29 @@ void	ft_refresh_player(t_player *player, int girar)
  */
 void	ft_player_orientation(t_player *player)
 {
-	player->dir_x = 0;
-	player->dir_y = 0;
-	player->plane_x = 0;
-	player->plane_y = 0;
+	player->dir.x = 0;
+	player->dir.y = 0;
+	player->plane.x = 0;
+	player->plane.y = 0;
 	if (player->angle == M_PI / 2)
 	{
-		player->dir_y = -1;
-		player->plane_x = 0.66;
+		player->dir.y = -1;
+		player->plane.x = 0.66;
 	}
 	else if (player->angle == M_PI * 3 / 2)
 	{
-		player->dir_y = 1;
-		player->plane_x = -0.66;
+		player->dir.y = 1;
+		player->plane.x = -0.66;
 	}
 	else if (player->angle == M_PI)
 	{
-		player->dir_x = -1;
-		player->plane_y = -0.66;
+		player->dir.x = -1;
+		player->plane.y = -0.66;
 	}
 	else if (player->angle == 0)
 	{
-		player->dir_x = 1;
-		player->plane_y = 0.66;
+		player->dir.x = 1;
+		player->plane.y = 0.66;
 	}
 }
 

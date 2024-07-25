@@ -9,8 +9,8 @@ void	ft_raycaster(t_cub3d *cub)
 	while (x < WIDTH)
 	{
 		ft_prepare_ray(cub, x);
-		cub->ray.map_x = (int)cub->player.x_pix;
-		cub->ray.map_y = (int)cub->player.y_pix;
+		cub->ray.map.x = (int)cub->player.pos.x;
+		cub->ray.map.y = (int)cub->player.pos.y;
 		ft_calc_hipotenusa(&cub->ray);
 		ft_calc_player_hipotenusa(cub);
 		ft_dda(cub);
@@ -33,51 +33,51 @@ void	ft_raycaster(t_cub3d *cub)
 void	ft_prepare_ray(t_cub3d *cub, int x)
 {
 	cub->ray.camera_x = 2 * x / (double)WIDTH - 1;
-	cub->ray.dir_x = cub->player.dir_x
-		+ cub->player.plane_x * cub->ray.camera_x;
-	cub->ray.dir_y = cub->player.dir_y
-		+ cub->player.plane_y * cub->ray.camera_x;
-	cub->ray.map_x = (int)cub->player.x_pix;
-	cub->ray.map_y = (int)cub->player.y_pix;
+	cub->ray.dir.x = cub->player.dir.x
+		+ cub->player.plane.x * cub->ray.camera_x;
+	cub->ray.dir.y = cub->player.dir.y
+		+ cub->player.plane.y * cub->ray.camera_x;
+	cub->ray.map.x = (int)cub->player.pos.x;
+	cub->ray.map.y = (int)cub->player.pos.y;
 }
 
 void	ft_calc_hipotenusa(t_ray *ray)
 {
-	if (ray->dir_x == 0)
-		ray->delta_dist_x = INFINITE;
+	if (ray->dir.x == 0)
+		ray->delta_dist.x = INFINITE;
 	else
-		ray->delta_dist_x = fabs(1 / ray->dir_x);
-	if (ray->dir_y == 0)
-		ray->delta_dist_y = INFINITE;
+		ray->delta_dist.x = fabs(1 / ray->dir.x);
+	if (ray->dir.y == 0)
+		ray->delta_dist.y = INFINITE;
 	else
-		ray->delta_dist_y = fabs(1 / ray->dir_y);
+		ray->delta_dist.y = fabs(1 / ray->dir.y);
 }
 
 void	ft_calc_player_hipotenusa(t_cub3d *cub)
 {
-	if (cub->ray.dir_x < 0)
+	if (cub->ray.dir.x < 0)
 	{
-		cub->ray.step_x = -1;
-		cub->ray.side_dist_x = (cub->player.x_pix
-				- cub->ray.map_x) * cub->ray.delta_dist_x;
+		cub->ray.step.x = -1;
+		cub->ray.side_dist.x = (cub->player.pos.x
+				- cub->ray.map.x) * cub->ray.delta_dist.x;
 	}
 	else
 	{
-		cub->ray.step_x = 1;
-		cub->ray.side_dist_x = (cub->ray.map_x + 1.0
-				- cub->player.x_pix) * cub->ray.delta_dist_x;
+		cub->ray.step.x = 1;
+		cub->ray.side_dist.x = (cub->ray.map.x + 1.0
+				- cub->player.pos.x) * cub->ray.delta_dist.x;
 	}
-	if (cub->ray.dir_y < 0)
+	if (cub->ray.dir.y < 0)
 	{
-		cub->ray.step_y = -1;
-		cub->ray.side_dist_y = (cub->player.y_pix
-				- cub->ray.map_y) * cub->ray.delta_dist_y;
+		cub->ray.step.y = -1;
+		cub->ray.side_dist.y = (cub->player.pos.y
+				- cub->ray.map.y) * cub->ray.delta_dist.y;
 	}
 	else
 	{
-		cub->ray.step_y = 1;
-		cub->ray.side_dist_y = (cub->ray.map_y + 1.0
-				- cub->player.y_pix) * cub->ray.delta_dist_y;
+		cub->ray.step.y = 1;
+		cub->ray.side_dist.y = (cub->ray.map.y + 1.0
+				- cub->player.pos.y) * cub->ray.delta_dist.y;
 	}
 }
 
@@ -86,19 +86,19 @@ void	ft_dda(t_cub3d *cub)
 	cub->ray.hit = 0;
 	while (cub->ray.hit == 0)
 	{
-		if (cub->ray.side_dist_x < cub->ray.side_dist_y)
+		if (cub->ray.side_dist.x < cub->ray.side_dist.y)
 		{
-			cub->ray.side_dist_x += cub->ray.delta_dist_x;
-			cub->ray.map_x += cub->ray.step_x;
+			cub->ray.side_dist.x += cub->ray.delta_dist.x;
+			cub->ray.map.x += cub->ray.step.x;
 			cub->ray.side = 0;
 		}
 		else
 		{
-			cub->ray.side_dist_y += cub->ray.delta_dist_y;
-			cub->ray.map_y += cub->ray.step_y;
+			cub->ray.side_dist.y += cub->ray.delta_dist.y;
+			cub->ray.map.y += cub->ray.step.y;
 			cub->ray.side = 1;
 		}
-		if (cub->map.map[cub->ray.map_y][cub->ray.map_x] == '1')
+		if (cub->map.map[cub->ray.map.y][cub->ray.map.x] == '1')
 			cub->ray.hit = 1;
 	}
 }
