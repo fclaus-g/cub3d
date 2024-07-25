@@ -5,13 +5,13 @@ void	ft_wall_distance(t_cub3d *cub)
 	if (cub->ray.side == 0)
 	{
 		cub->ray.perp_wall_dist = (cub->ray.map_x
-				- cub->player.x_pix / GRID_SIZE + (1 - cub->ray.step_x) / 2)
+				- cub->player.x_pix + (1 - cub->ray.step_x) / 2)
 			/ cub->ray.dir_x;
 	}
 	else
 	{
 		cub->ray.perp_wall_dist = (cub->ray.map_y
-				- cub->player.y_pix / GRID_SIZE + (1 - cub->ray.step_y) / 2)
+				- cub->player.y_pix + (1 - cub->ray.step_y) / 2)
 			/ cub->ray.dir_y;
 	}
 	cub->ray.line_height = (int)HEIGHT / cub->ray.perp_wall_dist;
@@ -82,12 +82,12 @@ void	ft_wall_x(t_cub3d *cub)
 {
 	if (cub->ray.side == 0)
 	{
-		cub->ray.wall_x = cub->player.y_pix / GRID_SIZE
+		cub->ray.wall_x = cub->player.y_pix
 			+ cub->ray.perp_wall_dist * cub->ray.dir_y;
 	}
 	else
 	{
-		cub->ray.wall_x = cub->player.x_pix / GRID_SIZE
+		cub->ray.wall_x = cub->player.x_pix
 			+ cub->ray.perp_wall_dist * cub->ray.dir_x;
 	}
 	cub->ray.wall_x -= floor(cub->ray.wall_x);

@@ -47,6 +47,11 @@ int	check_if_map_is_closed(t_cub3d *cub)
 	return (1);
 }
 
+/**
+ * @brief Locate the player in the map
+ * It stablishes the player position in the map in the middle of the cell
+ * that is because its added 0.5 to the x and y position
+ */
 void	locate_player(t_cub3d *cub)
 {
 	int		i;
@@ -60,10 +65,8 @@ void	locate_player(t_cub3d *cub)
 		{
 			if (is_map_player(cub->map.map[i][j]))
 			{
-				cub->player.x_pix = (j * GRID_SIZE) + (GRID_SIZE / 2);
-				cub->player.y_pix = (i * GRID_SIZE) + (GRID_SIZE / 2);
-				printf("Player located at (%f, %f) with angle %f\n",
-					cub->player.x_pix, cub->player.y_pix, cub->player.angle);
+				cub->player.x_pix = j + 0.5;
+				cub->player.y_pix = i + 0.5;
 				return ;
 			}
 			j++;

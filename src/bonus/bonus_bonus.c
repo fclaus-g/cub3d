@@ -35,6 +35,7 @@ void	ft_paint_hand(t_cub3d *cub)
 		y++;
 	}
 }
+
 static void ft_prepare_ray_dir(t_cub3d *cub, int y)
 {
 	cub->ray.ray_dir_x0 = cub->ray.dir_x - cub->plane.x;
@@ -44,9 +45,9 @@ static void ft_prepare_ray_dir(t_cub3d *cub, int y)
 	cub->ray.row_dist = 0.5 * cub->window_canvas->height / (y - cub->window_canvas->height / 2);
 	cub->ray.floor_step_x = cub->ray.row_dist * (cub->ray.ray_dir_x1 - cub->ray.ray_dir_x0) / cub->window_canvas->width;
 	cub->ray.floor_step_y = cub->ray.row_dist * (cub->ray.ray_dir_y1 - cub->ray.ray_dir_y0) / cub->window_canvas->width;
-	cub->ray.floor_x = (cub->player.x_pix / 64) + cub->ray.row_dist * cub->ray.ray_dir_x0;
+	cub->ray.floor_x = (int)cub->player.x_pix + cub->ray.row_dist * cub->ray.ray_dir_x0;
 	printf("floor_x: %f\n", cub->ray.floor_x);
-	cub->ray.floor_y = (cub->player.x_pix / 64) + cub->ray.row_dist * cub->ray.ray_dir_y0;
+	cub->ray.floor_y = (int)cub->player.x_pix + cub->ray.row_dist * cub->ray.ray_dir_y0;
 	printf("floor_y: %f\n", cub->ray.floor_y);
 }
 

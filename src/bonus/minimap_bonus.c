@@ -86,9 +86,10 @@ void	ft_draw_ray(t_cub3d *cub)
 	{
 		x = cub->player.x_pix;
 		y = cub->player.y_pix;
-		while (cub->map.map[y / GRID_SIZE][x / GRID_SIZE] != '1')
+		while (cub->map.map[(int)y][(int)x] != '1')
 		{
-			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4), 0xffff0000);
+			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4),
+				0xffff0000);
 			x += cos(angle) * 20;
 			y -= sin(angle) * 20;
 		}
