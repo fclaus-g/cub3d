@@ -67,6 +67,7 @@ void	locate_player(t_cub3d *cub)
 			{
 				cub->player.x_pix = j + 0.5;
 				cub->player.y_pix = i + 0.5;
+				cub->player.init_orient = cub->map.map[i][j];
 				return ;
 			}
 			j++;

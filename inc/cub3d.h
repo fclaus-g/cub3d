@@ -13,7 +13,6 @@
 # define HEIGHT 1080
 # define WIDTH 1920
 # define GRID_SIZE 64 //tamaño de cada cuadro de la cuadricula
-# define VISION_ANGLE M_PI / 3
 # define MOV 0.03125 // 2 / 64	(velocidad de movimiento del player)
 # define ROT_SPEED 0.06 //velocidad de rotacion del player
 # define OFFSET 0.25
@@ -64,9 +63,15 @@ typedef struct s_coord
 	int	y;
 }	t_coord;
 
+typedef struct s_pos
+{
+	float	x;
+	float	y;
+}	t_pos;
+
 typedef struct splayer
 {
-	char		orient;
+	char		init_orient;
 	double		x_pix;
 	double		y_pix;
 	float		x;
@@ -76,6 +81,7 @@ typedef struct splayer
 	float		dir_y;
 	double		plane_x;
 	double		plane_y;
+	float		fov; // field of view
 }				t_player;
 
 // typedef struct s_window

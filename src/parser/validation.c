@@ -52,18 +52,13 @@ static int	validate_map_line(char *line, t_cub3d *cub)
 	while (line[i] != '\0')
 	{
 		if (!is_map_character(line[i]))
-		{
-			show_error("Invalid character in map.");
-			return (0);
-		}
+			return (show_error("Invalid character in map."), 0);
 		if (is_map_player(line[i]))
 		{
 			if (cub->player.angle != -1)
-			{
-				show_error("Multiple player characters in map.");
-				return (0);
-			}
+				return (show_error("Multiple player characters in map."), 0);
 			cub->player.angle = ft_player_lookat_angle(line[i]);
+			cub->player.init_orient = line[i];
 			ft_player_orientation(&cub->player);
 		}
 		i++;

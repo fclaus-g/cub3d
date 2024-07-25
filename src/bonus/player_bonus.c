@@ -5,9 +5,13 @@ void	print_player_position(t_cub3d *cub)
 	printf("Player -> x: %f, y: %f\n", cub->player.x_pix, cub->player.y_pix);
 }
 
+/**
+ * @brief Get the angle of the player depending on the orientation
+ * @param c orientation of the player
+ * @return double
+ */
 double	ft_player_lookat_angle(char c)
 {
-	printf("Looking at angle %c\n", c);
 	if (c == 'N')
 		return (M_PI / 2);
 	else if (c == 'S')
