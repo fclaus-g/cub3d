@@ -28,6 +28,7 @@ SRCS	= src/main.c \
 			src/textures.c \
 			src/init.c \
 			src/parser/scene.c \
+			src/parser/stuff.c \
 			src/parser/validation.c \
 			src/parser/color_textures.c \
 			src/parser/utils.c \
@@ -46,6 +47,7 @@ BONUSSRC =	src/bonus/main_bonus.c \
 			src/bonus/walls_bonus.c \
 			src/bonus/view_bonus.c \
 			src/bonus/parser/scene_bonus.c \
+			src/bonus/parser/stuff_bonus.c \
 			src/bonus/parser/validation_bonus.c \
 			src/bonus/parser/color_textures_bonus.c \
 			src/bonus/parser/utils_bonus.c \
