@@ -11,9 +11,7 @@ void	ft_init_view(t_cub3d *cub)
 	mlx_image_to_window(cub->window, cub->window_canvas, 0, 0);
 	cub->map.map[(int)cub->player.y_pix][(int)cub->player.x_pix] = '0';
 	ft_load_textures(cub);
-	printf("Textures loaded\n");
-	ft_render_floor_and_ceiling(cub);
-	printf("Floor and ceiling rendered\n");
+	ft_paint_floor_and_ceiling(cub);
 	ft_raycaster(cub);
 }
 
@@ -27,7 +25,7 @@ void	ft_hook(void *param)
 	//ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix,
 	//	0xffffffff);
 	//ft_draw_ray(cub);
-	ft_render_floor_and_ceiling(cub);
+	ft_paint_floor_and_ceiling(cub);
 	ft_raycaster(cub);
 	ft_paint_hand(cub);
 	if (cub->timer >= 0 && cub->timer <= 50)

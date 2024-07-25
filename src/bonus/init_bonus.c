@@ -60,8 +60,6 @@ static void	init_textures(t_cub3d *cub)
 	cub->sprite1 = NULL;
 	cub->sprite2 = NULL;
 	cub->sprite3 = NULL;
-	cub->ceil = NULL;
-	cub->floor = NULL;
 }
 
 static void	init_player(t_cub3d *cub)

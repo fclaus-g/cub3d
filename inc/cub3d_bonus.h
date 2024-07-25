@@ -125,18 +125,6 @@ typedef struct s_ray
 	int			real_end_wall;
 	uint32_t	wall_color;
 	float		wall_x;
-	float		ray_dir_x0;
-	float		ray_dir_y0;
-	float		ray_dir_x1;
-	float		ray_dir_y1;
-	float		pos_z;
-	float		row_dist;
-	float		floor_step_x;
-	float		floor_step_y;
-	float		floor_x;
-	float		floor_y;
-	int			tx_x;
-	int			tx_y;
 }	t_ray;
 
 typedef struct s_dir
@@ -160,8 +148,6 @@ typedef struct cub3d
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
-	mlx_texture_t	*floor;
-	mlx_texture_t	*ceil;
 	mlx_texture_t	*hand;
 	mlx_texture_t	*sprite1;
 	mlx_texture_t	*sprite2;
@@ -172,7 +158,6 @@ typedef struct cub3d
 
 /*-----------[bonus]----------------*/
 void			ft_paint_hand(t_cub3d *cub);
-void			ft_render_floor_and_ceiling(t_cub3d *cub);
 void			ft_paint_stats(t_cub3d *cub, mlx_texture_t *sprite);
 
 /*----------[minimap]----------------*/
