@@ -1,22 +1,27 @@
 #include "../../inc/cub3d_bonus.h"
 
+/**
+ * @brief Check if a coordinate is colliding with a wall
+ * Considerations:
+ * * the map is a grid of 1x1 squares
+ * * the coordinates are inside the map, otherwise it will return 1
+ */
 int	ft_check_collision(t_cub3d *cub, double x, double y)
 {
-	int	grid_x_min;
-	int	grid_x_max;
-	int	grid_y_min;
-	int	grid_y_max;
+	t_coord	min_coord;
+	t_coord	max_coord;
 
-	grid_x_min = (int)(x - OFFSET) / GRID_SIZE;
-	grid_x_max = (int)(x + OFFSET) / GRID_SIZE;
-	grid_y_min = (int)(y - OFFSET) / GRID_SIZE;
-	grid_y_max = (int)(y + OFFSET) / GRID_SIZE;
-	if (cub->map.map[grid_y_min][grid_x_min] == '1' || \
-		cub->map.map[grid_y_min][grid_x_max] == '1' || \
-		cub->map.map[grid_y_max][grid_x_min] == '1' || \
-		cub->map.map[grid_y_max][grid_x_max] == '1')
-	{
+	min_coord.x = (int)(x - OFFSET);
+	min_coord.y = (int)(y - OFFSET);
+	max_coord.x = (int)(x + OFFSET);
+	max_coord.y = (int)(y + OFFSET);
+	if (min_coord.x < 0 || min_coord.y < 0 || \
+		min_coord.y >= cub->map.rows || min_coord.x >= cub->map.cols)
 		return (1);
-	}
+	if (cub->map.map[min_coord.y][min_coord.x] == '1' || \
+		cub->map.map[min_coord.y][max_coord.x] == '1' || \
+		cub->map.map[max_coord.y][min_coord.x] == '1' || \
+		cub->map.map[max_coord.y][max_coord.x] == '1')
+		return (1);
 	return (0);
 }
