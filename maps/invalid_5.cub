@@ -1,7 +1,7 @@
-NO ./textures/Brick_02-256x256.png
-SO ./textures/Metal_15-256x256.png
-WE ./textures/Tile_08-256x256.png
-EA ./textures/Wood_07-256x256.png
+NO ./textures/Lwall.png
+SO ./textures/S.png
+WE ./textures/W.png
+EA ./textures/E.png
 
 F ,0,0
 C 225,30,0

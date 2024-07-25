@@ -1,0 +1,12 @@
+NO ./textures/Lwall.png
+SO ./textures/S.png
+WE ./textures/W.png
+EA ./textures/E.png
+
+F 220,100,0
+C 225,30,0
+
+
+            11111
+            10W01
+            11111
