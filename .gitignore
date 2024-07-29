@@ -1,0 +1,18 @@
+# OS and editor stuff
+.DS_Store
+Thumbs.db
+.vscode
+
+# Executables
+*.exe
+*.out
+cub3d
+cub3d_bonus
+
+# Objetos
+*.o
+*.a
+
+# Logs
+*.log
+log*.txt

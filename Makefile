@@ -1,16 +1,5 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fclaus-g <fclaus-g@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/14 11:13:04 by fclaus-g          #+#    #+#              #
-#    Updated: 2024/05/30 12:59:37 by fclaus-g         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-NAME	= so_long
+NAME		= cub3d
+NAME_BONUS	= cub3d_bonus
 
 DEF_COLOR	= \033[0;39m
 VERDE		= \033[1;92m
@@ -21,101 +10,109 @@ AZUL		= \033[0;34m
 #DIRECTORIOS
 LIBMLX	= ./MLX42/build
 LIBFT	= ./lib/libft
-LIBPF	= ./lib/ft_printf
 LIBGNL	= ./lib/get_next_line
 
 #COMPILADOR
-CFLAGS	= -Wextra -Wall -Werror -Wunreachable-code -Ofast -fPIE
-HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) -I $(LIBPF)#esto es para que busque los .h en la carpeta include
-LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
+CFLAGS	= -g -Wextra -Wall -Werror
+HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) #esto es para que busque los .h en la carpeta include
+LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CC		= gcc
-SRCS	= $(shell find ./src -iname "*.c")
+SRCS	= src/main.c \
+			src/moves.c \
+			src/collision.c \
+			src/utils.c \
+			src/raycaster.c \
+			src/player.c \
+			src/walls.c \
+			src/view.c \
+			src/textures.c \
+			src/init.c \
+			src/parser/scene.c \
+			src/parser/stuff.c \
+			src/parser/validation.c \
+			src/parser/color_textures.c \
+			src/parser/utils.c \
+			src/parser/errors.c \
+			src/parser/is.c \
+			src/parser/is_map.c \
+			src/parser/strings.c \
+			src/parser/fill_map.c \
+
 OBJS	= ${SRCS:.c=.o}
-BONUSSRC = ${shell find ./bonus -iname "*.c"}
+BONUSSRC =	src/bonus/main_bonus.c \
+			src/bonus/moves_bonus.c \
+			src/bonus/collision_bonus.c \
+			src/bonus/raycaster_bonus.c \
+			src/bonus/player_bonus.c \
+			src/bonus/walls_bonus.c \
+			src/bonus/view_bonus.c \
+			src/bonus/parser/scene_bonus.c \
+			src/bonus/parser/stuff_bonus.c \
+			src/bonus/parser/validation_bonus.c \
+			src/bonus/parser/color_textures_bonus.c \
+			src/bonus/parser/utils_bonus.c \
+			src/bonus/parser/errors_bonus.c \
+			src/bonus/parser/is_bonus.c \
+			src/bonus/parser/is_map_bonus.c \
+			src/bonus/parser/strings_bonus.c \
+			src/bonus/parser/fill_map_bonus.c \
+			src/bonus/hooks_bonus.c \
+			src/bonus/minimap_bonus.c \
+			src/bonus/bonus_bonus.c \
+			src/bonus/textures_bonus.c \
+			src/bonus/init_bonus.c \
+			src/bonus/utils_bonus.c \
+
 BONUSOBJ = ${BONUSSRC:.c=.o}
 
-all: libmlx libft libgnl libpf $(NAME)
+all: libmlx libft.a get_next_line.a $(NAME)
 
-#COMPILACION EN MAC
-# libmlx:
-# 	@echo "\n$(AMARILLO) **** Compilando MLX42 **** $(DEF_COLOR)\n"
-# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 
-# 	@echo "\n$(VERDE) **** MLX42 compilada **** $(DEF_COLOR)\n"
-
-#COMPILACION EN LINUX
-# libmlx :
-# 	@make -C ${LIBMLX}
-
-libft  :
+libft.a:
 	@echo "\n$(AMARILLO) **** Compilando LIBFT **** $(DEF_COLOR)\n"
 	@make -C ${LIBFT}
 	@echo "\n$(VERDE) **** LIBFT compilada **** $(DEF_COLOR)\n"
-libgnl :
+get_next_line.a:
 	@echo "\n$(AMARILLO) **** Compilando GNL **** $(DEF_COLOR)\n"
 	@make -C ${LIBGNL}
 	@echo "\n$(VERDE) **** GNL compilada **** $(DEF_COLOR)\n"
-libpf :
-	@echo "\n$(AMARILLO) **** Compilando LIBPF **** $(DEF_COLOR)\n"
-	@make -C ${LIBPF}
-	@echo "\n$(VERDE) **** LIBPF compilada **** $(DEF_COLOR)\n"
+
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<\n)"
 
+#COMPILACION
+$(NAME): $(OBJS) inc/cub3d.h
+	@echo "\n$(AMARILLO) **** Compilando CUB3D **** $(DEF_COLOR)\n"
+	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
+	@echo "\n$(VERDE) **** CUB3D compilado **** $(DEF_COLOR)\n"
 
-#COMPILACION EN CASA
-$(NAME): $(OBJS)
-	@echo "\n$(AMARILLO) **** Compilando SO_LONG **** $(DEF_COLOR)\n"
-	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
-	@echo "\n$(VERDE) **** SO_LONG compilado **** $(DEF_COLOR)\n"
+$(NAME_BONUS): libmlx libft.a get_next_line.a $(BONUSOBJ) inc/cub3d_bonus.h
+	@echo "\n$(AMARILLO) **** Compilando CUB3D BONUS **** $(DEF_COLOR)\n"
+	@$(CC) $(BONUSOBJ) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME_BONUS)
+	@echo "\n$(VERDE) **** CUB3D BONUS compilado **** $(DEF_COLOR)\n"
 
-#COMPILACION EN 42
-#$(NAME) : $(OBJS)
-#	@echo "\n$(AMARILLO) **** Compilando SO_LONG **** $(DEF_COLOR)\n"
-#	${CC} $(CFLAGS) $(OBJS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(LIBS42) -o $(NAME)
-#	@echo "\n$(VERDE) **** SO_LONG compilado **** $(DEF_COLOR)\n"
-
-#$(OBJ) : $(SRC)
-#	$(CC) $(CFLAGS) $(SRC)
-
-#COMPILACION BONUS EN CASA
-bonus : libmlx libft libgnl libpf $(BONUSOBJ)
-	@echo "\n$(AMARILLO) **** Compilando SO_LONG_BONUS **** $(DEF_COLOR)\n"
-	@$(CC) $(CFLAGS) $(BONUSOBJ) $(LIBS) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(HEADERS) -o so_long_bonus
-	@echo "\n$(VERDE) **** SO_LONG_BONUS compilado **** $(DEF_COLOR)\n"
-
-#COMPILACION BONUS EN 42
-#bonus : $(BONUSOBJ)
-#	${CC} $(CFLAGS) $(BONUSOBJ) $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a $(LIBS42) -o so_long_bonus
-
-%.o: bonus/%.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<\n)"
-	
-#$(BONUSOBJ):$(BONUSSRC)	
-#	$(CC) $(CFLAGS) $(BONUSSRC)
+bonus: $(NAME_BONUS)
 
 debug:
-		@gcc -Wall -Wextra -Werror -g ./bonus/*.c $(LIBFT)/libft.a $(LIBPF)/libftprintf.a $(LIBGNL)/get_next_line.a \
+		@gcc -Wall -Wextra -Werror -g ./bonus/*.c $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a \
 		$(LIBS42)
 		@echo "\033[0;32mArchivo debug generado"
 clean:
 	@echo "\n$(AZUL) **** Borrando archivos objeto **** $(DEF_COLOR)\n"
-	@rm -f $(OBJS)
+	@rm -f src/*.o src/**/*.o
 	@rm -f $(BONUSOBJ)
 	@make clean -C ${LIBFT}
-	@make clean -C ${LIBPF}
 	@make clean -C ${LIBGNL}
 #	@make clean -C ${LIBMLX}
 	@echo "\n$(VERDE) **** Archivos objeto borrados **** $(DEF_COLOR)\n"
+
 fclean: clean
-	@echo "\n$(AZUL) **** Borrando ejecutable **** $(DEF_COLOR)\n"
+	@echo "\n$(AZUL) **** Borrando ejecutables **** $(DEF_COLOR)\n"
 	@rm -f $(NAME)
-	@rm -f so_long_bonus
+	@rm -f $(NAME_BONUS)
 	@make fclean -C ${LIBFT}
-	@make fclean -C ${LIBPF}
 	@make fclean -C ${LIBGNL}
-	@make clean -C ${LIBMLX}
-	@echo "\n$(VERDE) **** Ejecutable borrado **** $(DEF_COLOR)\n"
+	@echo "\n$(VERDE) **** Ejecutables borrado **** $(DEF_COLOR)\n"
 
 re: clean all
 
