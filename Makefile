@@ -12,7 +12,7 @@ LIBFT	= ./lib/libft
 LIBGNL	= ./lib/get_next_line
 
 #COMPILADOR
-CFLAGS	= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast -fPIE
+CFLAGS	= -g -Wextra -Wall -Werror
 HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL) #esto es para que busque los .h en la carpeta include
 LIBS	= $(LIBMLX)/libmlx42.a -Iinclude -lglfw -ldl -pthread -lm
 LIBS42	= -framework Cocoa -framework OpenGL -framework IOKit $(LIBMLX)/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 15:43:31 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 18:10:35 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d_bonus.h"
 
 void	ft_init_minimap(t_cub3d *cub)
 {
-	cub->mini.w = cub->map.w_px / 4;
-	cub->mini.h = cub->map.h_px / 4;
+	cub->mini.w = cub->map.cols * GRID_SIZE / 4;
+	cub->mini.h = cub->map.rows * GRID_SIZE / 4;
 	cub->mini.canvas = mlx_new_image(cub->window, cub->mini.w, cub->mini.h);
 	if (!cub->mini.canvas)
 	{
@@ -30,21 +42,26 @@ void	ft_draw_map(t_cub3d *cub)
 		{
 			grid_x = x / (GRID_SIZE / 4);
 			if (cub->map.map[grid_y][grid_x] == '1')
-				mlx_put_pixel(cub->mini.canvas, x, y, 0xff0000ff);
+				mlx_put_pixel(cub->mini.canvas, x, y, 0x000000ff);
+			else if (cub->map.map[grid_y][grid_x] == '0')
+				mlx_put_pixel(cub->mini.canvas, x, y, 0xffffffff);
 			else
-				mlx_put_pixel(cub->mini.canvas, x, y, 0xff00ffff);
+				mlx_put_pixel(cub->mini.canvas, x, y, 0xffffff77);
 		}
 	}
+	ft_draw_ray(cub);
+	ft_draw_player(cub->mini.canvas, cub->player.y_pix, cub->player.x_pix,
+		0x999999ff);
 }
 
-void	ft_draw_player(mlx_image_t *canvas, int y, int x, int color)
+void	ft_draw_player(mlx_image_t *canvas, double y, double x, int color)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	x = x / 4 - GRID_SIZE / 16;
-	y = y / 4 - GRID_SIZE / 16;
+	x = (x - 0.25) * GRID_SIZE / 4;
+	y = (y - 0.25) * GRID_SIZE / 4;
 	while (++i < GRID_SIZE / 8)
 	{
 		j = -1;
@@ -74,23 +91,24 @@ void	ft_draw_square(mlx_image_t *canvas, int y, int x, int color)
 
 void	ft_draw_ray(t_cub3d *cub)
 {
-	int		x;
-	int		y;
-	double	angle;
-	int		rays;
+	double		x;
+	double		y;
+	double		angle;
+	int			rays;
 
 	angle = cub->player.angle - cub->player.fov / 2;
 	rays = 0;
 	while (rays++ < NUM_RAYS)
 	{
-		x = cub->player.x_pix;
-		y = cub->player.y_pix;
-		while (cub->map.map[(int)y][(int)x] != '1')
+		x = cub->player.x_pix * GRID_SIZE / 4;
+		y = cub->player.y_pix * GRID_SIZE / 4;
+		while (cub->map.map[(int)(y / GRID_SIZE * 4)][
+				(int)(x / GRID_SIZE * 4)] != '1')
 		{
-			mlx_put_pixel(cub->mini.canvas, (int)(x / 4), (int)(y / 4),
-				0xffff0000);
-			x += cos(angle) * 20;
-			y -= sin(angle) * 20;
+			mlx_put_pixel(cub->mini.canvas, (int)x, (int)y,
+				0xccccccff);
+			x += cos(angle);
+			y -= sin(angle);
 		}
 		angle += cub->player.fov / (NUM_RAYS - 1);
 	}

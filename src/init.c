@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 15:32:20 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 19:00:42 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 
-static void init_cub_values(t_cub3d *cub)
+static void	init_cub_values(t_cub3d *cub)
 {
-	cub->wall = NULL;
-	cub->mini.canvas = NULL;
+	cub->window = NULL;
+	cub->window_canvas = NULL;
 	cub->plane.x = 0;
 	cub->plane.y = 0;
 	cub->ray.dir_x = 0;
@@ -24,7 +36,6 @@ static void init_cub_values(t_cub3d *cub)
 	cub->ray.start_wall = 0;
 	cub->ray.end_wall = 0;
 	cub->cursor_x = 0;
-
 }
 
 static void	init_scene(t_cub3d *cub)
@@ -72,9 +83,6 @@ static void	init_player(t_cub3d *cub)
 
 void	init_cub(t_cub3d *cub)
 {
-	cub->wall = NULL;
-	cub->window = NULL;
-	cub->mini.canvas = NULL;
 	init_cub_values(cub);
 	init_textures(cub);
 	init_player(cub);

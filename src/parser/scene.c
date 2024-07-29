@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scene.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 15:54:35 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 16:37:12 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d.h"
 
 static int	is_scene_completed(t_cub3d *cub)
@@ -26,8 +38,6 @@ static int	fill_cub_with_scene(t_cub3d *cub)
 		show_error("Map is not closed.");
 		return (0);
 	}
-	cub->map.w_px = cub->map.cols;
-	cub->map.h_px = cub->map.rows;
 	locate_player(cub);
 	return (1);
 }

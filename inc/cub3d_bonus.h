@@ -1,5 +1,17 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 18:14:46 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 18:46:01 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <math.h>
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -19,7 +31,7 @@
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
 # define MAP_FILL_SPACE ' '
-# define NUM_RAYS 120
+# define NUM_RAYS 360
 # define INFINITE 1e30
 
 typedef struct s_rgb
@@ -54,8 +66,6 @@ typedef struct s_map
 	int				left_padding;
 	int				rows;
 	int				cols;
-	int				w_px;
-	int				h_px;
 }	t_map;
 
 typedef struct scene
@@ -84,6 +94,7 @@ typedef struct splayer
 	double		plane_x;
 	double		plane_y;
 	float		fov; // field of view
+	int			shoot;
 }				t_player;
 
 typedef struct s_minimap
@@ -140,7 +151,6 @@ typedef struct cub3d
 	t_scene			scene;
 	void			*window;
 	mlx_image_t		*window_canvas;
-	mlx_image_t		*wall;
 	t_minimap		mini;
 	t_plane			plane;
 	t_ray			ray;
@@ -164,7 +174,8 @@ void			ft_paint_stats(t_cub3d *cub, mlx_texture_t *sprite);
 void			ft_init_minimap(t_cub3d *cub);
 void			ft_draw_map(t_cub3d *cub);
 void			ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
-void			ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
+void			ft_draw_player(mlx_image_t *canvas, double y, double x,
+					int color);
 void			ft_draw_ray(t_cub3d *cub);
 
 /*-----------[moves]-----------------------*/
@@ -190,13 +201,6 @@ int				validate_scene(char *path, t_cub3d *cub);
 void			print_scene(t_cub3d *cub);
 int				starts_with_and_space(char *line, char *start);
 
-/*-----------[minimap]-----------------------*/
-void			ft_init_minimap(t_cub3d *cub);
-void			ft_draw_map(t_cub3d *cub);
-void			ft_draw_square(mlx_image_t *canvas, int y, int x, int color);
-void			ft_draw_player(mlx_image_t *canvas, int y, int x, int color);
-void			ft_draw_ray(t_cub3d *cub);
-
 /*-----------[raycaster]----------------*/
 void			ft_raycaster(t_cub3d *cub);
 void			ft_prepare_ray(t_cub3d *cub, int x);
@@ -207,7 +211,8 @@ void			ft_dda(t_cub3d *cub);
 /*-----------[textures]----------------*/
 mlx_texture_t	*ft_choice_texture(t_cub3d *cub);
 uint32_t		transform_color(uint32_t color);
-uint32_t		get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y);
+uint32_t		get_pixel_color_from_texture(mlx_texture_t *texture,
+					int x, int y);
 void			ft_load_textures(t_cub3d *cub);
 
 /*-----------[walls]----------------*/

@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 15:42:45 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 18:45:28 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d_bonus.h"
 
 static void	init_cub_values(t_cub3d *cub)
 {
-	cub->wall = NULL;
+	cub->window = NULL;
+	cub->window_canvas = NULL;
 	cub->mini.canvas = NULL;
 	cub->plane.x = 0;
 	cub->plane.y = 0;
@@ -75,13 +88,11 @@ static void	init_player(t_cub3d *cub)
 	cub->player.plane_x = 0;
 	cub->player.plane_y = 0;
 	cub->player.fov = M_PI / 3;
+	cub->player.shoot = 0;
 }
 
 void	init_cub(t_cub3d *cub)
 {
-	cub->wall = NULL;
-	cub->window = NULL;
-	cub->mini.canvas = NULL;
 	init_cub_values(cub);
 	init_textures(cub);
 	init_player(cub);

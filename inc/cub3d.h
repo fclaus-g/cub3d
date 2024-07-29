@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 18:15:14 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 18:45:44 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -46,8 +58,6 @@ typedef struct s_map
 	int				left_padding;
 	int				rows;
 	int				cols;
-	int				w_px;
-	int				h_px;
 }	t_map;
 
 typedef struct scene
@@ -83,20 +93,6 @@ typedef struct splayer
 	double		plane_y;
 	float		fov; // field of view
 }				t_player;
-
-// typedef struct s_window
-// {
-// 	void		*mlx;
-// 	mlx_image_t	*canvas;
-// 	t_minimap	mini;
-// }	t_windows;
-
-// typedef struct s_map3d
-// {
-// 	int		rows;
-// 	int		cols;
-// 	char	**map;
-// }	t_map3d;
 
 typedef struct s_minimap
 {
@@ -151,7 +147,6 @@ typedef struct cub3d
 	t_scene			scene;
 	void			*window;
 	mlx_image_t		*window_canvas;
-	mlx_image_t		*wall;
 	t_minimap		mini;
 	t_plane			plane;
 	t_ray			ray;
@@ -161,40 +156,6 @@ typedef struct cub3d
 	mlx_texture_t	*ea;
 	double			cursor_x;
 }				t_cub3d;
-
-// typedef struct s_game
-// {
-// 	void *mlx;
-// 	t_map map;
-// 	t_player player;
-
-// 	double dir_x;
-// 	double dir_y;
-// 	double plane_x;
-// 	double plane_y;
-// 	double fov;
-// 	double foto;
-// 	double old_foto;
-// 	double camera_x;
-// typedef struct s_game
-// {
-// 	void *mlx;
-// 	t_map map;
-// 	t_player player;
-
-// 	int x_p;
-// 	int y_p;
-// 	int ins_floor;
-// 	int ins_wall;
-// 	int mini_w;
-// 	int mini_h;
-
-// 	mlx_image_t *mini;
-// 	mlx_image_t *wall;
-// 	mlx_image_t *floor;
-// 	mlx_image_t *plyr;
-// 	mlx_image_t *pantalla;
-// }				t_game;
 
 /*----------[minimap]----------------*/
 void			ft_init_minimap(t_cub3d *cub);
@@ -243,7 +204,8 @@ void			ft_dda(t_cub3d *cub);
 /*-----------[textures]----------------*/
 mlx_texture_t	*ft_choice_texture(t_cub3d *cub);
 uint32_t		transform_color(uint32_t color);
-uint32_t		get_pixel_color_from_texture(mlx_texture_t *texture, int x, int y);
+uint32_t		get_pixel_color_from_texture(mlx_texture_t *texture,
+					int x, int y);
 void			ft_load_textures(t_cub3d *cub);
 
 /*-----------[walls]----------------*/

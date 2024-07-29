@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 15:39:13 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 15:40:18 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d_bonus.h"
 
 void	print_player_position(t_cub3d *cub)
@@ -22,6 +34,7 @@ double	ft_player_lookat_angle(char c)
 		return (M_PI);
 	return (M_PI / 2);
 }
+
 /**
  * @brief Refresh the player orientation when we rotate  
  * 

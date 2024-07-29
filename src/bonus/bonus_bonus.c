@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bonus_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 15:43:38 by frgarcia          #+#    #+#             */
+/*   Updated: 2024/07/29 18:03:07 by frgarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d_bonus.h"
 
 static int	check_center(t_cub3d *c, mlx_texture_t *txt, t_coord ps, double sc)
@@ -21,27 +33,26 @@ void	ft_paint_hand(t_cub3d *cub)
 	uint32_t	color;
 	double		scale;
 
-	if (!cub->hand)
-		return ;
-	pos.y = 0;
+	pos.y = -1;
+	scale = 1;
 	if (cub->window_canvas->width < cub->hand->width)
 		scale = cub->hand->width / cub->window_canvas->width;
-	else
-		scale = 1;
-	while (pos.y < (int)cub->window_canvas->height)
+	while (++pos.y < (int)cub->window_canvas->height)
 	{
-		pos.x = 0;
-		while (pos.x < (int)cub->window_canvas->width)
+		pos.x = -1;
+		while (++pos.x < (int)cub->window_canvas->width)
 		{
 			if (check_center(cub, cub->hand, pos, scale))
 			{
-				color = get_pixel_color_from_texture(cub->hand, (int)(pos.x - (cub->window_canvas->width - cub->hand->width * scale) / 2), (int)(pos.y + (cub->hand->height * scale - cub->window_canvas->height)));
+				color = get_pixel_color_from_texture(cub->hand,
+						(int)(pos.x - (cub->window_canvas->width
+								- cub->hand->width * scale) / 2),
+						(int)(pos.y + (cub->hand->height * scale
+								- cub->window_canvas->height)));
 				if (color != 0)
 					mlx_put_pixel(cub->window_canvas, pos.x, pos.y, color);
 			}
-			pos.x++;
 		}
-		pos.y++;
 	}
 }
 
