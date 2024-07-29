@@ -12,6 +12,7 @@ cub3d_bonus
 # Objetos
 *.o
 *.a
+!libmlx42.a
 
 # Logs
 *.log
