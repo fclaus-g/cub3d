@@ -6,7 +6,7 @@
 /*   By: frgarcia <frgarcia@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:14:46 by frgarcia          #+#    #+#             */
-/*   Updated: 2024/07/29 18:46:01 by frgarcia         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:16:09 by frgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 # define HEIGHT 1080
 # define WIDTH 1920
 # define GRID_SIZE 64
-# define MOV 0.03125 // 2 / 64	(velocidad de movimiento del player)
+# define MOV 0.0625 // 2 / 64	(velocidad de movimiento del player)
 # define ROT_SPEED 0.06
 # define OFFSET 0.25
 # define CUB3D_EXTENSION ".cub"
 # define SCENE_SPACES " \t"
 # define MAP_FILL_SPACE ' '
-# define NUM_RAYS 360
+# define NUM_RAYS 120
 # define INFINITE 1e30
 
 typedef struct s_rgb
