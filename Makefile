@@ -1,4 +1,5 @@
-NAME	= cub3d
+NAME		= cub3d
+NAME_BONUS	= cub3d_bonus
 
 DEF_COLOR	= \033[0;39m
 VERDE		= \033[1;92m
@@ -85,10 +86,12 @@ $(NAME): $(OBJS) inc/cub3d.h
 	@$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
 	@echo "\n$(VERDE) **** CUB3D compilado **** $(DEF_COLOR)\n"
 
-bonus: libmlx libft.a get_next_line.a $(BONUSOBJ) inc/cub3d_bonus.h
+$(NAME_BONUS): libmlx libft.a get_next_line.a $(BONUSOBJ) inc/cub3d_bonus.h
 	@echo "\n$(AMARILLO) **** Compilando CUB3D BONUS **** $(DEF_COLOR)\n"
-	@$(CC) $(BONUSOBJ) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME)
+	@$(CC) $(BONUSOBJ) $(LIBS) $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a $(HEADERS) -o $(NAME_BONUS)
 	@echo "\n$(VERDE) **** CUB3D BONUS compilado **** $(DEF_COLOR)\n"
+
+bonus: $(NAME_BONUS)
 
 debug:
 		@gcc -Wall -Wextra -Werror -g ./bonus/*.c $(LIBFT)/libft.a $(LIBGNL)/get_next_line.a \
@@ -96,7 +99,7 @@ debug:
 		@echo "\033[0;32mArchivo debug generado"
 clean:
 	@echo "\n$(AZUL) **** Borrando archivos objeto **** $(DEF_COLOR)\n"
-	@rm -f src/*.o
+	@rm -f src/*.o src/**/*.o
 	@rm -f $(BONUSOBJ)
 	@make clean -C ${LIBFT}
 	@make clean -C ${LIBGNL}
@@ -104,12 +107,12 @@ clean:
 	@echo "\n$(VERDE) **** Archivos objeto borrados **** $(DEF_COLOR)\n"
 
 fclean: clean
-	@echo "\n$(AZUL) **** Borrando ejecutable **** $(DEF_COLOR)\n"
+	@echo "\n$(AZUL) **** Borrando ejecutables **** $(DEF_COLOR)\n"
 	@rm -f $(NAME)
-	@rm -f so_long_bonus
+	@rm -f $(NAME_BONUS)
 	@make fclean -C ${LIBFT}
 	@make fclean -C ${LIBGNL}
-	@echo "\n$(VERDE) **** Ejecutable borrado **** $(DEF_COLOR)\n"
+	@echo "\n$(VERDE) **** Ejecutables borrado **** $(DEF_COLOR)\n"
 
 re: clean all
 
