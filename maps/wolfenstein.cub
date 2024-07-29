@@ -1,9 +1,9 @@
-EA ./textures/E4.png
-SO ./textures/S4.png
-WE ./textures/W4.png
-NO ./textures/N4.png
+EA ./textures/wolfenstein/tile080.png
+SO ./textures/wolfenstein/tile016.png
+WE ./textures/wolfenstein/tile066.png
+NO ./textures/wolfenstein/tile012.png
 
-F 40,120,60
+F 84,84,84
 C 80,120,237
 
 
