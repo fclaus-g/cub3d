@@ -10,6 +10,17 @@ static int	check_center(t_cub3d *c, mlx_texture_t *txt, t_coord ps, double sc)
 	return (0);
 }
 
+static double	ft_calculate_scale(mlx_texture_t *txt, mlx_image_t *canvas)
+{
+	double	scale;
+
+	if (canvas->width < txt->width)
+		scale = txt->width / canvas->width;
+	else
+		scale = 1;
+	return (scale);
+}
+
 /**
  * @brief Paint the stats of the player
  * @todo scale the stats to the size of the window (width and height)
@@ -24,24 +35,22 @@ void	ft_paint_hand(t_cub3d *cub)
 	if (!cub->hand)
 		return ;
 	pos.y = 0;
-	if (cub->window_canvas->width < cub->hand->width)
-		scale = cub->hand->width / cub->window_canvas->width;
-	else
-		scale = 1;
-	while (pos.y < (int)cub->window_canvas->height)
+	scale = ft_calculate_scale(cub->hand, cub->window_canvas);
+	while (pos.y++ < (int)cub->window_canvas->height)
 	{
 		pos.x = 0;
-		while (pos.x < (int)cub->window_canvas->width)
+		while (pos.x++ < (int)cub->window_canvas->width)
 		{
 			if (check_center(cub, cub->hand, pos, scale))
 			{
-				color = get_pixel_color_from_texture(cub->hand, (int)(pos.x - (cub->window_canvas->width - cub->hand->width * scale) / 2), (int)(pos.y + (cub->hand->height * scale - cub->window_canvas->height)));
+				color = get_pixel_color_from_texture(cub->hand, (int)(pos.x
+							- (cub->window_canvas->width - cub->hand->width
+								* scale) / 2), (int)(pos.y + (cub->hand->height
+								* scale - cub->window_canvas->height)));
 				if (color != 0)
 					mlx_put_pixel(cub->window_canvas, pos.x, pos.y, color);
 			}
-			pos.x++;
 		}
-		pos.y++;
 	}
 }
 

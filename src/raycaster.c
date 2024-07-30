@@ -1,5 +1,10 @@
 #include "../inc/cub3d.h"
 
+/**
+ * @brief prepare the data for raycasting and execute step to step
+ * calcules for it
+ * @param cub main struct
+ */
 void	ft_raycaster(t_cub3d *cub)
 {
 	int	x;
@@ -23,8 +28,10 @@ void	ft_raycaster(t_cub3d *cub)
 }
 
 /**
- * @brief 
- * 
+ * @brief prepare the ray data for the raycasting whit the x position 
+ * ray.camera_x -> the posicion of the ray in the view
+ * ray.dir.x/y -> the direction of the ray values between -1 and 1
+ * ray.map_x/y -> the position of the ray in the map grid
  * @param cub 
  * @param x - x position of the ray
  *
@@ -41,6 +48,14 @@ void	ft_prepare_ray(t_cub3d *cub, int x)
 	cub->ray.map_y = (int)cub->player.y_pix;
 }
 
+/**
+ * @brief calcule distance that the ray need to travel to hit a wall 
+ * on the axis x and y
+ * ray.dir_x/y-> the direction of the ray values between -1 and 1
+ * ray.delta_dist_x/y -> the distance between the ray and the next wall
+ * on the axis x or y whith values between 0 and 1
+ *  * @param ray the ray to calculate
+ */
 void	ft_calc_hipotenusa(t_ray *ray)
 {
 	if (ray->dir_x == 0)
@@ -53,6 +68,13 @@ void	ft_calc_hipotenusa(t_ray *ray)
 		ray->delta_dist_y = fabs(1 / ray->dir_y);
 }
 
+/**
+ * @brief determine the direction of the ray and the distance to the next wall
+ * if the ray is looking to the left the step is -1 and the distance is the
+ * distance between the ray and the next wall on the x axis
+ * cub->ray.side_dist_x = (player_position - map_grid_x) * distance_wall_x
+ * @param cub 
+ */
 void	ft_calc_player_hipotenusa(t_cub3d *cub)
 {
 	if (cub->ray.dir_x < 0)
@@ -81,6 +103,14 @@ void	ft_calc_player_hipotenusa(t_cub3d *cub)
 	}
 }
 
+/**
+ * * @brief perform the DDA algorithm to find the next wall that the ray will 
+ * hit, if the distance to the next wall on the x axis is less than the 
+ * distance to the next wall on the y axis the ray will move to the next wall
+ * on the x axis and the side of the wall will be 0 if not the ray will move
+ * to the next wall on the y axis and the side of the wall will be 1
+ * @param cub 
+ */
 void	ft_dda(t_cub3d *cub)
 {
 	cub->ray.hit = 0;

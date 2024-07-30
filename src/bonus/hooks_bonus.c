@@ -20,10 +20,7 @@ void	ft_cursor_hook(double x, double y, void *param)
 	t_cub3d	*cub;
 
 	cub = (t_cub3d *)param;
-	(void)x;
 	(void)y;
-	// if (cub->player.cursor_x < 0)
-	// 	cub->player.cursor_x = 0;
 	if (cub->cursor_x < x)
 		ft_rotate_player(cub, 1);
 	else if (cub->cursor_x > x)

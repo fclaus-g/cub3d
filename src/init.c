@@ -24,7 +24,6 @@ static void init_cub_values(t_cub3d *cub)
 	cub->ray.start_wall = 0;
 	cub->ray.end_wall = 0;
 	cub->cursor_x = 0;
-
 }
 
 static void	init_scene(t_cub3d *cub)
