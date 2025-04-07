@@ -1,4 +1,5 @@
 # cub3D
+![cub3d img](./img/cub3d.gif)
 
 cub3D is a project inspired by the classic 90's game Wolfenstein 3D, aiming to create a dynamic 3D maze experience using ray-casting techniques. Developed in C, this project utilizes the [MLX42](https://github.com/codam-coding-college/MLX42) library for graphics rendering.
 
